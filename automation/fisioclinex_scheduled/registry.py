@@ -12,6 +12,22 @@ from .fingerprint import build_publication_key
 from .result import ResultCode, ScheduledResult
 
 _FIELDS = frozenset({"publication_key", "slug", "media_id", "published_at"})
+_WORKFLOW_FIELDS = frozenset(
+    {
+        "schema_version",
+        "publication_key",
+        "slug",
+        "short_slug",
+        "media_id",
+        "published_at",
+        "asset_commit",
+        "package_sha256",
+        "slides_count",
+        "publication_run_id",
+        "workflow_run_id",
+        "mode",
+    }
+)
 
 
 class RegistryError(ValueError):
@@ -67,8 +83,15 @@ def read_registry(path: str | Path) -> tuple[PublicationRecord, ...]:
                 data = json.loads(line)
             except json.JSONDecodeError as exc:
                 raise RegistryError(f"registry line {line_number} is invalid JSON") from exc
-            if not isinstance(data, dict) or data.keys() != _FIELDS:
+            if not isinstance(data, dict) or data.keys() not in (_FIELDS, _WORKFLOW_FIELDS):
                 raise RegistryError(f"registry line {line_number} has invalid fields")
+            if data.keys() == _WORKFLOW_FIELDS:
+                data = {
+                    "publication_key": data["publication_key"],
+                    "slug": data["slug"],
+                    "media_id": data["media_id"],
+                    "published_at": data["published_at"],
+                }
             try:
                 record = PublicationRecord(**data)
             except TypeError as exc:

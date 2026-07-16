@@ -34,6 +34,16 @@ _TOP_LEVEL_FIELDS = frozenset(
         "failure",
     }
 )
+_OPTIONAL_PHASE6_FIELDS = frozenset(
+    {
+        "publication_run_id",
+        "started_at",
+        "pushed",
+        "verified",
+        "child_container_ids",
+        "carousel_container_id",
+    }
+)
 _PUBLICATION_FIELDS = frozenset(
     {"media_id", "published_at", "workflow_run_id", "asset_commit"}
 )
@@ -118,7 +128,26 @@ def _parse_timestamp(value: Any, field: str, *, optional: bool = False) -> datet
 
 
 def _parse_mapping(data: Mapping[str, Any]) -> Manifest:
-    _require_exact_fields(data, _TOP_LEVEL_FIELDS, "manifest")
+    missing = _TOP_LEVEL_FIELDS - data.keys()
+    unknown = data.keys() - (_TOP_LEVEL_FIELDS | _OPTIONAL_PHASE6_FIELDS)
+    if missing:
+        raise ManifestValidationError(
+            f"manifest missing required fields: {', '.join(sorted(missing))}"
+        )
+    if unknown:
+        raise ManifestValidationError(
+            f"manifest contains unknown fields: {', '.join(sorted(unknown))}"
+        )
+    for field in ("publication_run_id", "started_at", "carousel_container_id"):
+        if field in data:
+            _optional_string(data[field], field)
+    for field in ("pushed", "verified"):
+        if field in data:
+            _require_type(data[field], bool, field)
+    if "child_container_ids" in data:
+        _require_type(data["child_container_ids"], list, "child_container_ids")
+        if any(not isinstance(value, str) or not value for value in data["child_container_ids"]):
+            raise ManifestValidationError("child_container_ids is invalid")
 
     _require_type(data["schema_version"], int, "schema_version")
     if data["schema_version"] != 1:

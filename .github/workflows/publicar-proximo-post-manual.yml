@@ -1,0 +1,69 @@
+name: FisioClinEx — Publicação manual da fila
+
+on:
+  workflow_dispatch:
+    inputs:
+      short_slug:
+        description: Slug curta do próximo item
+        required: true
+        type: string
+      confirmation:
+        description: Confirmação exata PUBLICAR <slug-curta>
+        required: true
+        type: string
+
+concurrency:
+  group: fisioclinex-instagram-production
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: "3.13"
+      - name: Prepare and verify
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+          INPUT_SHORT_SLUG: ${{ inputs.short_slug }}
+          INPUT_CONFIRMATION: ${{ inputs.confirmation }}
+        run: |
+          set -euo pipefail
+          python automation/run_manual_publication.py --prepare \
+            --short-slug "$INPUT_SHORT_SLUG" \
+            --confirmation "$INPUT_CONFIRMATION"
+
+  publish:
+    needs: prepare
+    environment: instagram-production
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: "3.13"
+      - name: Publish selected queue item
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+          INPUT_SHORT_SLUG: ${{ inputs.short_slug }}
+          INPUT_CONFIRMATION: ${{ inputs.confirmation }}
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+          INSTAGRAM_BUSINESS_ID: ${{ secrets.INSTAGRAM_BUSINESS_ID }}
+          META_API_VERSION: ${{ vars.META_API_VERSION }}
+        run: |
+          set -euo pipefail
+          python automation/run_manual_publication.py \
+            --short-slug "$INPUT_SHORT_SLUG" \
+            --confirmation "$INPUT_CONFIRMATION"
