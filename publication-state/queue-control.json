@@ -1,0 +1,5 @@
+{
+  "schema_version": 1,
+  "queue_enabled": true,
+  "max_posts_per_run": 1
+}
