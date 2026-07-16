@@ -1,0 +1,25 @@
+{
+  "attempts": 0,
+  "caption_file": "legenda.txt",
+  "failure": {
+    "occurred_at": null,
+    "phase": null,
+    "requires_human_review": false
+  },
+  "not_before": null,
+  "package_sha256": "1ae69f6413f3317aaa3c5405b0df2a63d6635390bb72c30d63cf98be43839a24",
+  "priority": 100,
+  "publication": {
+    "asset_commit": null,
+    "media_id": null,
+    "published_at": null,
+    "workflow_run_id": null
+  },
+  "publication_key": "fisioclinex-aptidao-envelhece-diferente:1ae69f6413f3317aaa3c5405b0df2a63d6635390bb72c30d63cf98be43839a24",
+  "queued_at": "2026-07-16T17:25:46.701241+00:00",
+  "schema_version": 1,
+  "short_slug": "aptidao-envelhece-diferente",
+  "slides_count": 8,
+  "slug": "fisioclinex-aptidao-envelhece-diferente",
+  "status": "queued"
+}
