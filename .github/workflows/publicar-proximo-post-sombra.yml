@@ -1,4 +1,4 @@
-name: FisioClinEx — Fila sombra
+name: FisioClinEx — Fila sombra verificada
 
 on:
   workflow_dispatch:
@@ -25,7 +25,7 @@ jobs:
         with:
           python-version: "3.13"
 
-      - name: Inspect queue in shadow mode
+      - name: Select and verify queue in shadow mode
         env:
           PYTHONDONTWRITEBYTECODE: "1"
         shell: bash

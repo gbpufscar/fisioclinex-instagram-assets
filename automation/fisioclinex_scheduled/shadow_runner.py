@@ -9,6 +9,7 @@ from pathlib import Path
 
 from fisioclinex_scheduled.fingerprint import fingerprint_mapped_files
 from fisioclinex_scheduled.manifest import Manifest, parse_manifest
+from fisioclinex_scheduled.queue_pages import QueuePagesError, verify_slide_paths
 from fisioclinex_scheduled.registry import read_registry
 from fisioclinex_scheduled.result import ResultCode
 from fisioclinex_scheduled.selector import select_next
@@ -18,6 +19,12 @@ from .queue_control import load_queue_control
 
 class ShadowRunnerError(RuntimeError):
     pass
+
+
+class ShadowVerificationError(ShadowRunnerError):
+    def __init__(self, report: "VerifiedShadowReport"):
+        super().__init__("GitHub Pages verification failed")
+        self.report = report
 
 
 @dataclass(frozen=True, slots=True)
@@ -37,6 +44,35 @@ class ShadowReport:
     slides_count: int | None = None
     package_sha256: str | None = None
     publication_key: str | None = None
+
+    def sanitized(self) -> dict[str, object]:
+        data = asdict(self)
+        if self.package_sha256:
+            data["package_sha256"] = f"{self.package_sha256[:12]}…"
+        if self.publication_key:
+            slug, digest = self.publication_key.rsplit(":", 1)
+            data["publication_key"] = f"{slug}:{digest[:12]}…"
+        return data
+
+
+@dataclass(frozen=True, slots=True)
+class VerifiedShadowReport:
+    mode: str
+    queue_enabled: bool
+    scanned_count: int
+    eligible_count: int
+    selected: bool
+    slug: str | None
+    short_slug: str | None
+    status_preserved: str | None
+    slides_count: int
+    verified_slides: int
+    package_sha256: str | None
+    publication_key: str | None
+    pushed: bool
+    verified: bool
+    publication_performed: bool
+    phase: str | None = None
 
     def sanitized(self) -> dict[str, object]:
         data = asdict(self)
@@ -192,4 +228,107 @@ def _write_summary(path: Path, report: ShadowReport) -> None:
 
 
 def report_json(report: ShadowReport) -> str:
+    return json.dumps(report.sanitized(), ensure_ascii=False, sort_keys=True)
+
+
+def run_shadow_verified(
+    repository_root: str | Path,
+    *,
+    now: datetime,
+    fetcher,
+    step_summary_path: str | Path | None = None,
+    max_wait_seconds: float = 120.0,
+    retry_interval_seconds: float = 5.0,
+    sleeper=None,
+    monotonic=None,
+) -> VerifiedShadowReport:
+    selection = run_shadow(repository_root, now=now)
+    base = {
+        "mode": "shadow_verified",
+        "queue_enabled": selection.queue_enabled,
+        "scanned_count": selection.scanned_count,
+        "eligible_count": selection.eligible_count,
+        "selected": selection.selected,
+        "slug": selection.slug,
+        "short_slug": selection.short_slug,
+        "status_preserved": selection.status,
+        "slides_count": selection.slides_count or 0,
+        "package_sha256": selection.package_sha256,
+        "publication_key": selection.publication_key,
+        "pushed": selection.selected,
+        "publication_performed": False,
+    }
+    if not selection.selected:
+        report = VerifiedShadowReport(
+            **base,
+            verified_slides=0,
+            verified=False,
+        )
+        if step_summary_path is not None:
+            _write_verified_summary(Path(step_summary_path), Path(repository_root), report)
+        return report
+
+    root = Path(repository_root).resolve(strict=True)
+    slides = tuple(
+        root / "posts" / selection.slug / f"{selection.slug}-slide-{number:02d}.png"
+        for number in range(1, selection.slides_count + 1)
+    )
+    kwargs = {
+        "fetcher": fetcher,
+        "max_wait_seconds": max_wait_seconds,
+        "retry_interval_seconds": retry_interval_seconds,
+    }
+    if sleeper is not None:
+        kwargs["sleeper"] = sleeper
+    if monotonic is not None:
+        kwargs["monotonic"] = monotonic
+    try:
+        verified_slides = verify_slide_paths(selection.slug, slides, **kwargs)
+    except QueuePagesError:
+        report = VerifiedShadowReport(
+            **base,
+            verified_slides=0,
+            verified=False,
+            phase="pages_verification",
+        )
+        if step_summary_path is not None:
+            _write_verified_summary(Path(step_summary_path), root, report)
+        raise ShadowVerificationError(report) from None
+    report = VerifiedShadowReport(
+        **base,
+        verified_slides=verified_slides,
+        verified=True,
+    )
+    if step_summary_path is not None:
+        _write_verified_summary(Path(step_summary_path), root, report)
+    return report
+
+
+def _write_verified_summary(path: Path, root: Path, report: VerifiedShadowReport) -> None:
+    resolved = path.expanduser().resolve(strict=False)
+    if resolved.is_relative_to(root) or path.is_symlink():
+        raise ShadowRunnerError("step summary path is unsafe")
+    lines = [
+        "# FisioClinEx — Fila sombra verificada",
+        "",
+        "**MODO SOMBRA — NENHUMA PUBLICAÇÃO FOI REALIZADA**",
+        "",
+        f"- Itens examinados: {report.scanned_count}",
+        f"- Itens elegíveis: {report.eligible_count}",
+        f"- Slug selecionada: `{report.slug or 'nenhuma'}`",
+        f"- Status preservado: `{report.status_preserved or 'n/a'}`",
+        f"- Slides esperados: {report.slides_count}",
+        f"- Slides verificados: {report.verified_slides}",
+        f"- GitHub Pages verificado: {'sim' if report.verified else 'não'}",
+        f"- pushed: `{str(report.pushed).lower()}`",
+        f"- verified: `{str(report.verified).lower()}`",
+        f"- Fingerprint: `{report.package_sha256[:12]}…`"
+        if report.package_sha256
+        else "- Fingerprint: `n/a`",
+        "- Publicação realizada: não",
+    ]
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def verified_report_json(report: VerifiedShadowReport) -> str:
     return json.dumps(report.sanitized(), ensure_ascii=False, sort_keys=True)
