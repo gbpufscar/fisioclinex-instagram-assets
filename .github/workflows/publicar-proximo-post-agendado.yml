@@ -1,0 +1,54 @@
+name: FisioClinEx — Publicação agendada da fila
+
+on:
+  schedule:
+    - cron: "17 11 * * 1,3,5"
+      timezone: "America/Sao_Paulo"
+
+concurrency:
+  group: fisioclinex-instagram-production
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      selected: ${{ steps.prepare.outputs.selected }}
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: "3.13"
+      - id: prepare
+        name: Prepare scheduled queue item
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+        run: python automation/run_scheduled_publication.py --prepare
+
+  publish:
+    needs: prepare
+    if: needs.prepare.outputs.selected == 'true'
+    environment: instagram-scheduled-production
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: "3.13"
+      - name: Publish scheduled queue item
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+          INSTAGRAM_BUSINESS_ID: ${{ secrets.INSTAGRAM_BUSINESS_ID }}
+          META_API_VERSION: ${{ vars.META_API_VERSION }}
+        run: python automation/run_scheduled_publication.py

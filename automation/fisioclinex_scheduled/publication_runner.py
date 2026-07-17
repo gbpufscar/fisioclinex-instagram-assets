@@ -59,11 +59,12 @@ class PublicationResult:
         return data
 
 
-def run_manual_publication(
+def _run_publication(
     repository_root: str | Path,
     *,
-    short_slug: str,
-    confirmation: str,
+    mode: str,
+    short_slug: str | None,
+    confirmation: str | None,
     asset_commit: str,
     workflow_run_id: str,
     fetcher,
@@ -84,12 +85,15 @@ def run_manual_publication(
     verified = verifier(root, now=now_fn(), fetcher=fetcher)
     if not verified.selected or not verified.verified:
         raise PublicationRunnerError("prepare", publication_performed=False)
-    try:
-        authorize(short_slug, confirmation, verified.short_slug)
-    except Exception:
-        raise PublicationRunnerError(
-            "authorization", publication_performed=False
-        ) from None
+    if mode == "workflow_manual":
+        try:
+            authorize(short_slug, confirmation, verified.short_slug)
+        except Exception:
+            raise PublicationRunnerError(
+                "authorization", publication_performed=False
+            ) from None
+    elif mode != "workflow_scheduled":
+        raise PublicationRunnerError("authorization", publication_performed=False)
     manifest_path = (
         root / "publication-state" / "queue" / verified.slug / "manifest.json"
     )
@@ -185,7 +189,7 @@ def run_manual_publication(
         "slides_count": verified.slides_count,
         "publication_run_id": run_id,
         "workflow_run_id": workflow_run_id,
-        "mode": "workflow_manual",
+        "mode": mode,
     }
     append_registry(registry_path, record)
     try:
@@ -200,7 +204,7 @@ def run_manual_publication(
             "writeback_after_publish", run_id=run_id, publication_performed=True
         ) from None
     return PublicationResult(
-        mode="workflow_manual",
+        mode=mode,
         slug=verified.slug,
         short_slug=verified.short_slug,
         status="published",
@@ -220,3 +224,21 @@ def run_manual_publication(
 
 def result_json(result: PublicationResult) -> str:
     return json.dumps(result.sanitized(), ensure_ascii=False, sort_keys=True)
+
+
+def run_manual_publication(repository_root: str | Path, **kwargs) -> PublicationResult:
+    return _run_publication(
+        repository_root,
+        mode="workflow_manual",
+        **kwargs,
+    )
+
+
+def run_scheduled_publication(repository_root: str | Path, **kwargs) -> PublicationResult:
+    return _run_publication(
+        repository_root,
+        mode="workflow_scheduled",
+        short_slug=None,
+        confirmation=None,
+        **kwargs,
+    )
