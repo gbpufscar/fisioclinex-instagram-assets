@@ -20,7 +20,16 @@ def authorize(short_slug: str, confirmation: str, selected_short_slug: str) -> N
         raise PublicationStateError("manual publication authorization is invalid")
 
 
-def begin_publishing(data: dict, *, run_id: str, started_at: datetime, asset_commit: str) -> dict:
+def begin_publishing(
+    data: dict,
+    *,
+    run_id: str,
+    workflow_run_id: str,
+    started_at: datetime,
+    asset_commit: str,
+) -> dict:
+    if not isinstance(workflow_run_id, str) or not workflow_run_id.isdigit():
+        raise PublicationStateError("workflow run ID is invalid")
     if data.get("status") != "queued" or data["publication"].get("media_id") is not None:
         raise PublicationStateError("queue item is not publishable")
     result = copy.deepcopy(data)
@@ -30,7 +39,7 @@ def begin_publishing(data: dict, *, run_id: str, started_at: datetime, asset_com
     result["started_at"] = started_at.isoformat()
     result["pushed"] = True
     result["verified"] = True
-    result["publication"]["workflow_run_id"] = run_id
+    result["publication"]["workflow_run_id"] = workflow_run_id
     result["publication"]["asset_commit"] = asset_commit
     result["failure"] = {
         "phase": None,

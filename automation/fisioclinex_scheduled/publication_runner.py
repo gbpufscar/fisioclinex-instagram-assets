@@ -74,6 +74,8 @@ def run_manual_publication(
     verifier=None,
 ) -> PublicationResult:
     root = Path(repository_root).resolve(strict=True)
+    if not isinstance(workflow_run_id, str) or not workflow_run_id.isdigit():
+        raise PublicationRunnerError("prepare", publication_performed=False)
     if verifier is None:
         try:
             from .shadow_runner import run_shadow_verified as verifier
@@ -98,7 +100,11 @@ def run_manual_publication(
 
     run_id = run_id_factory()
     locked = begin_publishing(
-        manifest, run_id=run_id, started_at=now_fn(), asset_commit=asset_commit
+        manifest,
+        run_id=run_id,
+        workflow_run_id=workflow_run_id,
+        started_at=now_fn(),
+        asset_commit=asset_commit,
     )
     write_manifest(manifest_path, locked)
     try:
