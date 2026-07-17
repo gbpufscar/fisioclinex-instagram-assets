@@ -10,6 +10,48 @@ class WritebackError(RuntimeError):
     pass
 
 
+class GitWritebackError(WritebackError):
+    def __init__(self, operation: str, category: str):
+        super().__init__(f"git_writeback_failed operation={operation} category={category}")
+        self.operation = operation
+        self.category = category
+
+
+def classify_git_failure(operation: str, stderr: str) -> str:
+    value = stderr.casefold()
+    if any(
+        marker in value
+        for marker in (
+            "author identity unknown",
+            "please tell me who you are",
+            "unable to auto-detect email address",
+        )
+    ):
+        return "identity_missing"
+    if "nothing to commit" in value:
+        return "nothing_to_commit"
+    if operation == "push" and any(
+        marker in value for marker in ("non-fast-forward", "fetch first")
+    ):
+        return "non_fast_forward"
+    if any(
+        marker in value
+        for marker in (
+            "authentication failed",
+            "could not read username",
+            "permission denied",
+            "http 401",
+            "http 403",
+        )
+    ):
+        return "authentication_failed"
+    if operation == "push" and any(
+        marker in value for marker in ("remote rejected", "failed to push some refs")
+    ):
+        return "push_rejected"
+    return "git_operation_failed"
+
+
 def write_manifest(path: Path, data: dict) -> None:
     if path.name != "manifest.json" or path.is_symlink():
         raise WritebackError("manifest path is invalid")

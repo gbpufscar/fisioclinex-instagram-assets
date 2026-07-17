@@ -15,11 +15,21 @@ from .registry import read_registry
 
 
 class PublicationRunnerError(RuntimeError):
-    def __init__(self, phase: str, *, run_id: str | None = None, publication_performed=False):
+    def __init__(
+        self,
+        phase: str,
+        *,
+        run_id: str | None = None,
+        publication_performed=None,
+        git_operation: str | None = None,
+        git_category: str | None = None,
+    ):
         super().__init__(f"manual publication interrupted in phase {phase}")
         self.phase = phase
         self.run_id = run_id
         self.publication_performed = publication_performed
+        self.git_operation = git_operation
+        self.git_category = git_category
 
 
 @dataclass(frozen=True, slots=True)
@@ -71,15 +81,20 @@ def run_manual_publication(
             from github_actions.shadow_runner import run_shadow_verified as verifier
     verified = verifier(root, now=now_fn(), fetcher=fetcher)
     if not verified.selected or not verified.verified:
-        raise PublicationRunnerError("prepare")
-    authorize(short_slug, confirmation, verified.short_slug)
+        raise PublicationRunnerError("prepare", publication_performed=False)
+    try:
+        authorize(short_slug, confirmation, verified.short_slug)
+    except Exception:
+        raise PublicationRunnerError(
+            "authorization", publication_performed=False
+        ) from None
     manifest_path = (
         root / "publication-state" / "queue" / verified.slug / "manifest.json"
     )
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     registry_path = root / "publication-state" / "publications.jsonl"
     if any(r.publication_key == verified.publication_key for r in read_registry(registry_path)):
-        raise PublicationRunnerError("idempotency")
+        raise PublicationRunnerError("idempotency", publication_performed=False)
 
     run_id = run_id_factory()
     locked = begin_publishing(
@@ -93,9 +108,15 @@ def run_manual_publication(
             message=f"queue: iniciar publicação {verified.slug}",
             git_runner=git_runner,
         )
-    except Exception:
+    except Exception as exc:
         write_manifest(manifest_path, manifest)
-        raise PublicationRunnerError("lock_push", run_id=run_id) from None
+        raise PublicationRunnerError(
+            "lock_push",
+            run_id=run_id,
+            publication_performed=False,
+            git_operation=getattr(exc, "operation", None),
+            git_category=getattr(exc, "category", None),
+        ) from None
 
     children: list[str] = []
     carousel_id = None

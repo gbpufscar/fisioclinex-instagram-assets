@@ -19,6 +19,10 @@ from fisioclinex_scheduled.publication_runner import (
     run_manual_publication,
 )
 from fisioclinex_scheduled.publication_state import authorize
+from fisioclinex_scheduled.publication_writeback import (
+    GitWritebackError,
+    classify_git_failure,
+)
 from fisioclinex_scheduled.queue_pages import PageResponse
 from fisioclinex_scheduled.shadow_runner import run_shadow_verified, verified_report_json
 
@@ -78,10 +82,16 @@ def _git_runner(root: Path):
                 "PATH": os.environ.get("PATH", ""),
                 "HOME": os.environ.get("HOME", ""),
                 "GIT_TERMINAL_PROMPT": "0",
+                "GIT_AUTHOR_NAME": "github-actions[bot]",
+                "GIT_AUTHOR_EMAIL": "41898282+github-actions[bot]@users.noreply.github.com",
+                "GIT_COMMITTER_NAME": "github-actions[bot]",
+                "GIT_COMMITTER_EMAIL": "41898282+github-actions[bot]@users.noreply.github.com",
             },
         )
         if completed.returncode != 0:
-            raise RuntimeError("Git writeback failed")
+            raise GitWritebackError(
+                args[0], classify_git_failure(args[0], completed.stderr)
+            )
         return completed.stdout.strip()
 
     return run
@@ -146,6 +156,21 @@ def main(argv=None) -> int:
             git_runner=_git_runner(root),
         )
     except PublicationRunnerError as exc:
+        performed = exc.publication_performed
+        performed_text = (
+            "sim" if performed is True else "não" if performed is False else "desconhecida"
+        )
+        meta_started = exc.phase not in {
+            "prepare",
+            "authorization",
+            "idempotency",
+            "lock_push",
+        }
+        if exc.git_operation and exc.git_category:
+            print(
+                "git_writeback_failed "
+                f"operation={exc.git_operation} category={exc.git_category}"
+            )
         _summary(
             [
                 "# FisioClinEx — Publicação manual da fila",
@@ -155,10 +180,20 @@ def main(argv=None) -> int:
                 f"- Fase: `{exc.phase}`",
                 f"- Run ID: `{exc.run_id or 'indisponível'}`",
                 "- Revisão humana: necessária",
-                "- Publicação realizada: desconhecida",
+                f"- Meta iniciada: {'sim' if meta_started else 'não'}",
+                f"- Publicação realizada: {performed_text}",
             ]
         )
-        print(json.dumps({"phase": exc.phase, "run_id": exc.run_id, "status": "interrupted"}))
+        payload = {
+            "phase": exc.phase,
+            "run_id": exc.run_id,
+            "status": "interrupted",
+            "publication_performed": performed,
+        }
+        if exc.git_operation and exc.git_category:
+            payload["git_operation"] = exc.git_operation
+            payload["git_category"] = exc.git_category
+        print(json.dumps(payload, sort_keys=True))
         return 1
     _summary(
         [
