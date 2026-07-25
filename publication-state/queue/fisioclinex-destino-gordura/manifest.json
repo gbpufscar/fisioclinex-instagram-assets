@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "slug": "fisioclinex-destino-gordura",
+  "short_slug": "destino-gordura",
+  "status": "queued",
+  "queued_at": "2026-07-25T23:04:43Z",
+  "not_before": null,
+  "priority": 100,
+  "slides_count": 5,
+  "caption_file": "legenda.txt",
+  "package_sha256": "8cb0d716c0c37d8224a6749d7d3422676d4a06f8bd85e3e9d82088a73db3922a",
+  "publication_key": "fisioclinex-destino-gordura:8cb0d716c0c37d8224a6749d7d3422676d4a06f8bd85e3e9d82088a73db3922a",
+  "attempts": 0,
+  "publication": {
+    "media_id": null,
+    "published_at": null,
+    "workflow_run_id": null,
+    "asset_commit": null
+  },
+  "failure": {
+    "phase": null,
+    "occurred_at": null,
+    "requires_human_review": false
+  }
+}
