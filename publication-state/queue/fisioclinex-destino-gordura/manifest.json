@@ -13,8 +13,8 @@
   "priority": 100,
   "publication": {
     "asset_commit": "86a644a10149e161f2d216b28901627268214bd5",
-    "media_id": null,
-    "published_at": null,
+    "media_id": "18106528079009122",
+    "published_at": "2026-07-27T16:36:19.632773+00:00",
     "workflow_run_id": "30285343591"
   },
   "publication_key": "fisioclinex-destino-gordura:8cb0d716c0c37d8224a6749d7d3422676d4a06f8bd85e3e9d82088a73db3922a",
@@ -26,6 +26,6 @@
   "slides_count": 5,
   "slug": "fisioclinex-destino-gordura",
   "started_at": "2026-07-27T16:35:11.509733+00:00",
-  "status": "publishing",
+  "status": "published",
   "verified": true
 }
