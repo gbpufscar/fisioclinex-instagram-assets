@@ -1,25 +1,31 @@
 {
-  "schema_version": 1,
-  "slug": "fisioclinex-destino-gordura",
-  "short_slug": "destino-gordura",
-  "status": "queued",
-  "queued_at": "2026-07-25T23:04:43Z",
-  "not_before": null,
-  "priority": 100,
-  "slides_count": 5,
+  "attempts": 1,
   "caption_file": "legenda.txt",
+  "carousel_container_id": null,
+  "child_container_ids": [],
+  "failure": {
+    "occurred_at": null,
+    "phase": null,
+    "requires_human_review": false
+  },
+  "not_before": null,
   "package_sha256": "8cb0d716c0c37d8224a6749d7d3422676d4a06f8bd85e3e9d82088a73db3922a",
-  "publication_key": "fisioclinex-destino-gordura:8cb0d716c0c37d8224a6749d7d3422676d4a06f8bd85e3e9d82088a73db3922a",
-  "attempts": 0,
+  "priority": 100,
   "publication": {
+    "asset_commit": "86a644a10149e161f2d216b28901627268214bd5",
     "media_id": null,
     "published_at": null,
-    "workflow_run_id": null,
-    "asset_commit": null
+    "workflow_run_id": "30285343591"
   },
-  "failure": {
-    "phase": null,
-    "occurred_at": null,
-    "requires_human_review": false
-  }
+  "publication_key": "fisioclinex-destino-gordura:8cb0d716c0c37d8224a6749d7d3422676d4a06f8bd85e3e9d82088a73db3922a",
+  "publication_run_id": "a9e823f9-5272-4b98-8dbb-834bf1a3fe3d",
+  "pushed": true,
+  "queued_at": "2026-07-25T23:04:43Z",
+  "schema_version": 1,
+  "short_slug": "destino-gordura",
+  "slides_count": 5,
+  "slug": "fisioclinex-destino-gordura",
+  "started_at": "2026-07-27T16:35:11.509733+00:00",
+  "status": "publishing",
+  "verified": true
 }
