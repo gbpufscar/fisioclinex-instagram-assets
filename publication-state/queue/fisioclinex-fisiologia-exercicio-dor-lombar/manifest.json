@@ -15,8 +15,8 @@
   "priority": 100,
   "publication": {
     "asset_commit": "92e0e2ea55f546c0c611f1acbb94e74afee341f3",
-    "media_id": null,
-    "published_at": null,
+    "media_id": "18003355946956356",
+    "published_at": "2026-07-29T17:49:50.698246+00:00",
     "workflow_run_id": "30476905670"
   },
   "publication_key": "fisioclinex-fisiologia-exercicio-dor-lombar:0194534d4f71537100c9b62da7f6604d1a3d17908a1da9d033bb35d0b0863c78",
@@ -28,6 +28,6 @@
   "slides_count": 5,
   "slug": "fisioclinex-fisiologia-exercicio-dor-lombar",
   "started_at": "2026-07-29T17:48:52.877463+00:00",
-  "status": "publishing",
+  "status": "published",
   "verified": true
 }
