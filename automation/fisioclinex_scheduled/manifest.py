@@ -11,6 +11,14 @@ from typing import Any, Mapping
 
 from .fingerprint import build_publication_key
 from .states import HUMAN_REVIEW_STATES, QueueState
+from content_policy import (
+    ACTIVE_ARTIFACT_STATUS,
+    CONTENT_POLICY_VERSION,
+    LEGACY_POLICY_VERSION,
+    LEGACY_READ_ONLY_STATUS,
+    ContentPolicyError,
+    validate_slide_count,
+)
 
 _SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 _SLUG_RE = re.compile(r"^fisioclinex-[a-z0-9]+(?:-[a-z0-9]+)*$")
@@ -19,6 +27,8 @@ _SHORT_SLUG_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 _TOP_LEVEL_FIELDS = frozenset(
     {
         "schema_version",
+        "content_policy_version",
+        "artifact_status",
         "slug",
         "short_slug",
         "status",
@@ -42,12 +52,16 @@ _OPTIONAL_PHASE6_FIELDS = frozenset(
         "verified",
         "child_container_ids",
         "carousel_container_id",
+        "story_container_id",
+        "story_media_id",
+        "story_published_at",
     }
 )
 _PUBLICATION_FIELDS = frozenset(
     {"media_id", "published_at", "workflow_run_id", "asset_commit"}
 )
 _FAILURE_FIELDS = frozenset({"phase", "occurred_at", "requires_human_review"})
+_CONTENT_POLICY_FIELDS = frozenset({"content_policy_version", "artifact_status"})
 
 
 class ManifestValidationError(ValueError):
@@ -72,6 +86,8 @@ class Failure:
 @dataclass(frozen=True, slots=True)
 class Manifest:
     schema_version: int
+    content_policy_version: str
+    artifact_status: str
     slug: str
     short_slug: str
     status: QueueState
@@ -128,7 +144,7 @@ def _parse_timestamp(value: Any, field: str, *, optional: bool = False) -> datet
 
 
 def _parse_mapping(data: Mapping[str, Any]) -> Manifest:
-    missing = _TOP_LEVEL_FIELDS - data.keys()
+    missing = (_TOP_LEVEL_FIELDS - _CONTENT_POLICY_FIELDS) - data.keys()
     unknown = data.keys() - (_TOP_LEVEL_FIELDS | _OPTIONAL_PHASE6_FIELDS)
     if missing:
         raise ManifestValidationError(
@@ -138,9 +154,14 @@ def _parse_mapping(data: Mapping[str, Any]) -> Manifest:
         raise ManifestValidationError(
             f"manifest contains unknown fields: {', '.join(sorted(unknown))}"
         )
-    for field in ("publication_run_id", "started_at", "carousel_container_id"):
+    for field in (
+        "publication_run_id", "started_at", "carousel_container_id",
+        "story_container_id", "story_media_id",
+    ):
         if field in data:
             _optional_string(data[field], field)
+    if "story_published_at" in data:
+        _parse_timestamp(data["story_published_at"], "story_published_at", optional=True)
     for field in ("pushed", "verified"):
         if field in data:
             _require_type(data[field], bool, field)
@@ -170,13 +191,40 @@ def _parse_mapping(data: Mapping[str, Any]) -> Manifest:
     except (TypeError, ValueError) as exc:
         raise ManifestValidationError("status is unknown") from exc
 
+    present_policy_fields = _CONTENT_POLICY_FIELDS & data.keys()
+    if present_policy_fields and present_policy_fields != _CONTENT_POLICY_FIELDS:
+        missing_policy_fields = _CONTENT_POLICY_FIELDS - present_policy_fields
+        raise ManifestValidationError(
+            "manifest missing required fields: "
+            + ", ".join(sorted(missing_policy_fields))
+        )
+    if not present_policy_fields:
+        if status is not QueueState.PUBLISHED:
+            raise ManifestValidationError(
+                "manifest missing required fields: artifact_status, content_policy_version"
+            )
+        content_policy_version = LEGACY_POLICY_VERSION
+        artifact_status = LEGACY_READ_ONLY_STATUS
+    else:
+        content_policy_version = data["content_policy_version"]
+        artifact_status = data["artifact_status"]
+
     queued_at = _parse_timestamp(data["queued_at"], "queued_at")
     not_before = _parse_timestamp(data["not_before"], "not_before", optional=True)
 
     _require_type(data["priority"], int, "priority")
     _require_type(data["slides_count"], int, "slides_count")
-    if not 1 <= data["slides_count"] <= 10:
-        raise ManifestValidationError("slides_count must be between 1 and 10")
+    if present_policy_fields:
+        try:
+            validate_slide_count(
+                data["slides_count"],
+                policy_version=content_policy_version,
+                artifact_status=artifact_status,
+            )
+        except ContentPolicyError as exc:
+            raise ManifestValidationError(str(exc)) from exc
+    elif not 1 <= data["slides_count"] <= 10:
+        raise ManifestValidationError("legacy slides_count must be between 1 and 10")
 
     _require_type(data["caption_file"], str, "caption_file")
     caption_path = PurePosixPath(data["caption_file"])
@@ -250,6 +298,8 @@ def _parse_mapping(data: Mapping[str, Any]) -> Manifest:
 
     return Manifest(
         schema_version=data["schema_version"],
+        content_policy_version=content_policy_version,
+        artifact_status=artifact_status,
         slug=data["slug"],
         short_slug=data["short_slug"],
         status=status,
