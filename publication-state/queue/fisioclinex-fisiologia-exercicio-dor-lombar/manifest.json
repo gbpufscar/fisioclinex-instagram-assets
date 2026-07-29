@@ -1,7 +1,9 @@
 {
   "artifact_status": "active",
-  "attempts": 0,
+  "attempts": 1,
   "caption_file": "legenda.txt",
+  "carousel_container_id": null,
+  "child_container_ids": [],
   "content_policy_version": "editorial-v3-1-to-10",
   "failure": {
     "occurred_at": null,
@@ -12,16 +14,20 @@
   "package_sha256": "0194534d4f71537100c9b62da7f6604d1a3d17908a1da9d033bb35d0b0863c78",
   "priority": 100,
   "publication": {
-    "asset_commit": null,
+    "asset_commit": "92e0e2ea55f546c0c611f1acbb94e74afee341f3",
     "media_id": null,
     "published_at": null,
-    "workflow_run_id": null
+    "workflow_run_id": "30476905670"
   },
   "publication_key": "fisioclinex-fisiologia-exercicio-dor-lombar:0194534d4f71537100c9b62da7f6604d1a3d17908a1da9d033bb35d0b0863c78",
+  "publication_run_id": "0153debb-9823-42e1-87bf-4333e5c6fbf0",
+  "pushed": true,
   "queued_at": "2026-07-28T22:17:25.454794+00:00",
   "schema_version": 1,
   "short_slug": "fisiologia-exercicio-dor-lombar",
   "slides_count": 5,
   "slug": "fisioclinex-fisiologia-exercicio-dor-lombar",
-  "status": "queued"
+  "started_at": "2026-07-29T17:48:52.877463+00:00",
+  "status": "publishing",
+  "verified": true
 }
