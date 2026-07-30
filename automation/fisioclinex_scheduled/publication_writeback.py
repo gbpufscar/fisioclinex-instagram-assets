@@ -91,8 +91,11 @@ def persist(
         relatives.append(relative)
     if not (
         message.startswith("queue: iniciar publicação fisioclinex-")
+        or message.startswith("queue: registrar feed fisioclinex-")
         or message.startswith("queue: registrar falha Meta fisioclinex-")
         or message.startswith("queue: registrar publicação fisioclinex-")
+        or message.startswith("queue: registrar Story fisioclinex-")
+        or message.startswith("queue: registrar falha Story fisioclinex-")
     ):
         raise WritebackError("commit message is invalid")
     for args in (

@@ -48,6 +48,9 @@ def begin_publishing(
     }
     result["child_container_ids"] = []
     result["carousel_container_id"] = None
+    result["story_container_id"] = None
+    result["story_media_id"] = None
+    result["story_published_at"] = None
     return result
 
 
@@ -59,12 +62,16 @@ def mark_failed(
     children: tuple[str, ...],
     carousel_id: str | None,
     media_id: str | None,
+    story_container_id: str | None = None,
+    story_media_id: str | None = None,
 ) -> dict:
     result = copy.deepcopy(data)
     result["status"] = "failed_after_meta"
     result["child_container_ids"] = list(children)
     result["carousel_container_id"] = carousel_id
     result["publication"]["media_id"] = media_id
+    result["story_container_id"] = story_container_id
+    result["story_media_id"] = story_media_id
     result["failure"] = {
         "phase": phase,
         "occurred_at": failed_at.isoformat(),
@@ -73,11 +80,24 @@ def mark_failed(
     return result
 
 
-def mark_published(data: dict, *, media_id: str, published_at: datetime) -> dict:
+def mark_feed_published(data: dict, *, media_id: str, published_at: datetime) -> dict:
+    result = copy.deepcopy(data)
+    result["publication"]["media_id"] = media_id
+    result["publication"]["published_at"] = published_at.isoformat()
+    return result
+
+
+def mark_published(
+    data: dict, *, media_id: str, published_at: datetime,
+    story_container_id: str, story_media_id: str, story_published_at: datetime,
+) -> dict:
     result = copy.deepcopy(data)
     result["status"] = "published"
     result["publication"]["media_id"] = media_id
     result["publication"]["published_at"] = published_at.isoformat()
+    result["story_container_id"] = story_container_id
+    result["story_media_id"] = story_media_id
+    result["story_published_at"] = story_published_at.isoformat()
     result["failure"] = {
         "phase": None,
         "occurred_at": None,

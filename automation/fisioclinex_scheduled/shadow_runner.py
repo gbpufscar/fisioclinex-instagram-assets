@@ -98,6 +98,11 @@ def _manifest_paths(root: Path) -> tuple[Path, ...]:
 
 
 def _validate_package(root: Path, manifest_path: Path, manifest: Manifest) -> None:
+    try:
+        from content_policy import reject_local_validation_package
+        reject_local_validation_package(manifest_path.parent)
+    except Exception as exc:
+        raise ShadowRunnerError("local validation package is not executable") from exc
     if manifest_path.parent.name != manifest.slug:
         raise ShadowRunnerError("manifest directory does not match slug")
     caption = manifest_path.parent / manifest.caption_file

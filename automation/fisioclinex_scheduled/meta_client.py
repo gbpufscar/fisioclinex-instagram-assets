@@ -107,6 +107,13 @@ class MetaClient:
             "carousel_container",
         )
 
+    def create_story(self, image_url: str) -> str:
+        return self._post_id(
+            f"{self.business_id}/media",
+            {"image_url": image_url, "media_type": "STORIES"},
+            "story_container",
+        )
+
     def publish(self, carousel_id: str) -> str:
         return self._post_id(
             f"{self.business_id}/media_publish",

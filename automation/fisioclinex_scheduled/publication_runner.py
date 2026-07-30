@@ -8,7 +8,9 @@ from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 
-from .publication_state import authorize, begin_publishing, mark_failed, mark_published
+from .publication_state import (
+    authorize, begin_publishing, mark_failed, mark_feed_published, mark_published,
+)
 from .publication_writeback import append_registry, persist, write_manifest
 from .queue_pages import official_slide_url
 from .registry import read_registry
@@ -46,6 +48,7 @@ class PublicationResult:
     verified: bool
     publication_performed: bool
     media_id: str
+    story_media_id: str
     published_at: str
     state_writeback: bool
     registry_writeback: bool
@@ -98,6 +101,8 @@ def _run_publication(
         root / "publication-state" / "queue" / verified.slug / "manifest.json"
     )
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    from content_policy import validate_slide_count
+    validate_slide_count(manifest.get("slides_count",0),policy_version=manifest.get("content_policy_version"),artifact_status=manifest.get("artifact_status"))
     registry_path = root / "publication-state" / "publications.jsonl"
     if any(r.publication_key == verified.publication_key for r in read_registry(registry_path)):
         raise PublicationRunnerError("idempotency", publication_performed=False)
@@ -131,6 +136,8 @@ def _run_publication(
     children: list[str] = []
     carousel_id = None
     media_id = None
+    story_container_id = None
+    story_media_id = None
     urls = tuple(
         official_slide_url(
             verified.slug, f"{verified.slug}-slide-{number:02d}.png"
@@ -144,6 +151,8 @@ def _run_publication(
         / verified.slug
         / "legenda.txt"
     ).read_text(encoding="utf-8")
+    feed_state = locked
+    feed_published_at = None
     try:
         for url in urls:
             child = meta_client.create_child(url)
@@ -152,15 +161,36 @@ def _run_publication(
         carousel_id = meta_client.create_carousel(tuple(children), caption)
         meta_client.wait_finished(carousel_id)
         media_id = meta_client.publish(carousel_id)
+        feed_published_at = now_fn()
+        feed_state = mark_feed_published(
+            locked, media_id=media_id, published_at=feed_published_at
+        )
+        write_manifest(manifest_path, feed_state)
+        try:
+            persist(
+                root,
+                paths=(manifest_path,),
+                message=f"queue: registrar feed {verified.slug}",
+                git_runner=git_runner,
+            )
+        except Exception:
+            raise PublicationRunnerError(
+                "writeback_after_feed", run_id=run_id, publication_performed=True
+            ) from None
+        story_container_id = meta_client.create_story(urls[0])
+        meta_client.wait_finished(story_container_id)
+        story_media_id = meta_client.publish(story_container_id)
     except Exception as exc:
         phase = getattr(exc, "phase", "meta")
         failed = mark_failed(
-            locked,
+            feed_state,
             phase=phase,
             failed_at=now_fn(),
             children=tuple(children),
             carousel_id=carousel_id,
             media_id=media_id,
+            story_container_id=story_container_id,
+            story_media_id=story_media_id,
         )
         write_manifest(manifest_path, failed)
         try:
@@ -172,10 +202,20 @@ def _run_publication(
             )
         except Exception:
             pass
-        raise PublicationRunnerError(phase, run_id=run_id) from None
+        raise PublicationRunnerError(
+            phase, run_id=run_id, publication_performed=True if media_id else None
+        ) from None
 
-    published_at = now_fn()
-    completed = mark_published(locked, media_id=media_id, published_at=published_at)
+    story_published_at = now_fn()
+    published_at = feed_published_at
+    completed = mark_published(
+        feed_state,
+        media_id=media_id,
+        published_at=published_at,
+        story_container_id=story_container_id,
+        story_media_id=story_media_id,
+        story_published_at=story_published_at,
+    )
     write_manifest(manifest_path, completed)
     record = {
         "schema_version": 1,
@@ -183,6 +223,8 @@ def _run_publication(
         "slug": verified.slug,
         "short_slug": verified.short_slug,
         "media_id": media_id,
+        "story_media_id": story_media_id,
+        "story_published_at": story_published_at.isoformat(),
         "published_at": published_at.isoformat(),
         "asset_commit": asset_commit,
         "package_sha256": verified.package_sha256,
@@ -216,6 +258,7 @@ def _run_publication(
         verified=True,
         publication_performed=True,
         media_id=media_id,
+        story_media_id=story_media_id,
         published_at=published_at.isoformat(),
         state_writeback=True,
         registry_writeback=True,
