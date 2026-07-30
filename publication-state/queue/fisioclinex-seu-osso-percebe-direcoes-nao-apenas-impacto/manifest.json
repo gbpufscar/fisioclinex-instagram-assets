@@ -1,0 +1,27 @@
+{
+  "artifact_status": "active",
+  "attempts": 0,
+  "caption_file": "legenda.txt",
+  "content_policy_version": "editorial-v3-1-to-10",
+  "failure": {
+    "occurred_at": null,
+    "phase": null,
+    "requires_human_review": false
+  },
+  "not_before": null,
+  "package_sha256": "ca95968db65cb402502498accc02f2e7f615bfd69305854db8a5bfd43cb02045",
+  "priority": 100,
+  "publication": {
+    "asset_commit": null,
+    "media_id": null,
+    "published_at": null,
+    "workflow_run_id": null
+  },
+  "publication_key": "fisioclinex-seu-osso-percebe-direcoes-nao-apenas-impacto:ca95968db65cb402502498accc02f2e7f615bfd69305854db8a5bfd43cb02045",
+  "queued_at": "2026-07-30T22:27:02.137532+00:00",
+  "schema_version": 1,
+  "short_slug": "seu-osso-percebe-direcoes-nao-apenas-impacto",
+  "slides_count": 5,
+  "slug": "fisioclinex-seu-osso-percebe-direcoes-nao-apenas-impacto",
+  "status": "queued"
+}
