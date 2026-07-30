@@ -144,6 +144,9 @@ def _run_publication(
         )
         for number in range(1, verified.slides_count + 1)
     )
+    story_url = official_slide_url(
+        verified.slug, f"{verified.slug}-story.png"
+    )
     caption = (
         root
         / "publication-state"
@@ -177,7 +180,7 @@ def _run_publication(
             raise PublicationRunnerError(
                 "writeback_after_feed", run_id=run_id, publication_performed=True
             ) from None
-        story_container_id = meta_client.create_story(urls[0])
+        story_container_id = meta_client.create_story(story_url)
         meta_client.wait_finished(story_container_id)
         story_media_id = meta_client.publish(story_container_id)
     except Exception as exc:

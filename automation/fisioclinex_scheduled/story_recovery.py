@@ -44,12 +44,15 @@ def recover_story(
         raise StoryRecoveryError("feed_not_published")
     if original.get("story_media_id"):
         raise StoryRecoveryError("story_already_published")
+    story_path = root / "posts" / slug / f"{slug}-story.png"
+    if story_path.is_symlink() or not story_path.is_file():
+        raise StoryRecoveryError("story_asset_missing")
 
     state = copy.deepcopy(original)
     container_id = None
     try:
-        cover_url = official_slide_url(slug, f"{slug}-slide-01.png")
-        container_id = meta_client.create_story(cover_url)
+        story_url = official_slide_url(slug, f"{slug}-story.png")
+        container_id = meta_client.create_story(story_url)
         meta_client.wait_finished(container_id)
         story_media_id = meta_client.publish(container_id)
     except Exception as exc:

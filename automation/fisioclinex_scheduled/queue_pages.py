@@ -91,7 +91,13 @@ def _validate_expected_url(url: str, response: PageResponse) -> None:
         raise QueuePagesError("public slide URL is invalid")
 
 
-def _verify_response(url: str, response: PageResponse, local: bytes) -> None:
+def _verify_response(
+    url: str,
+    response: PageResponse,
+    local: bytes,
+    *,
+    expected_dimensions: tuple[int, int] = (1080, 1350),
+) -> None:
     _validate_expected_url(url, response)
     if response.status in _TRANSIENT_STATUS_CODES:
         raise _TransientPagesError("public slide is not propagated yet")
@@ -101,7 +107,7 @@ def _verify_response(url: str, response: PageResponse, local: bytes) -> None:
         raise QueuePagesError("public slide content type is invalid")
     if response.body[:8] != b"\x89PNG\r\n\x1a\n" or len(response.body) < 24:
         raise QueuePagesError("public slide is not a valid PNG")
-    if struct.unpack(">II", response.body[16:24]) != (1080, 1350):
+    if struct.unpack(">II", response.body[16:24]) != expected_dimensions:
         raise QueuePagesError("public slide dimensions are invalid")
     if len(local) != len(response.body) or not hmac.compare_digest(
         hashlib.sha256(local).digest(),
@@ -111,7 +117,10 @@ def _verify_response(url: str, response: PageResponse, local: bytes) -> None:
 
 
 def _verify_once(config: QueueConfig, package: QueuePackage, *, fetcher) -> None:
-    for slide in package.slides:
+    assets = tuple((slide, (1080, 1350)) for slide in package.slides) + (
+        (package.story_path, (1080, 1920)),
+    )
+    for slide, dimensions in assets:
         url = expected_slide_url(config, package.slug, slide.name)
         try:
             response = fetcher(url)
@@ -119,7 +128,9 @@ def _verify_once(config: QueueConfig, package: QueuePackage, *, fetcher) -> None
             raise _TransientPagesError("temporary connection failure") from exc
         if not isinstance(response, PageResponse):
             raise QueuePagesError("public slide response is invalid")
-        _verify_response(url, response, slide.read_bytes())
+        _verify_response(
+            url, response, slide.read_bytes(), expected_dimensions=dimensions
+        )
 
 
 def _verify_slide_paths_once(slug: str, slides: tuple[Path, ...], *, fetcher) -> None:
