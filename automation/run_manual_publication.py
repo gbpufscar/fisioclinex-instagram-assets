@@ -18,6 +18,10 @@ from fisioclinex_scheduled.publication_runner import (
     result_json,
     run_manual_publication,
 )
+from fisioclinex_scheduled.schedule_overview import (
+    build_schedule_overview,
+    format_schedule_overview,
+)
 from fisioclinex_scheduled.publication_state import authorize
 from fisioclinex_scheduled.publication_writeback import (
     GitWritebackError,
@@ -195,6 +199,9 @@ def main(argv=None) -> int:
             payload["git_category"] = exc.git_category
         print(json.dumps(payload, sort_keys=True))
         return 1
+    overview = format_schedule_overview(
+        build_schedule_overview(root, now=datetime.now(timezone.utc))
+    ).splitlines()
     _summary(
         [
             "# FisioClinEx — Publicação manual da fila",
@@ -210,6 +217,7 @@ def main(argv=None) -> int:
             "- Status: `published`",
             "- Histórico registrado: sim",
             "- Publicação realizada: sim",
+            *overview,
         ]
     )
     print(result_json(result))

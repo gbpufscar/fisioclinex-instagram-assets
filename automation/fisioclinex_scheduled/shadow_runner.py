@@ -115,15 +115,21 @@ def _validate_package(root: Path, manifest_path: Path, manifest: Manifest) -> No
         f"{manifest.slug}-slide-{number:02d}.png"
         for number in range(1, manifest.slides_count + 1)
     )
+    story_name = f"{manifest.slug}-story.png"
     entries = tuple(posts.iterdir())
     if any(entry.is_symlink() for entry in entries):
         raise ShadowRunnerError("post slide symlink is forbidden")
-    if {entry.name for entry in entries if entry.is_file()} != set(expected_names):
-        raise ShadowRunnerError("post slide set is invalid")
     if any(not entry.is_file() for entry in entries):
         raise ShadowRunnerError("post slide directory contains invalid entries")
+    actual_names = {entry.name for entry in entries}
+    modern_names = set(expected_names) | {story_name}
+    legacy_names = set(expected_names)
+    if actual_names not in (modern_names, legacy_names):
+        raise ShadowRunnerError("public asset set is invalid")
     mapped = {"legenda.txt": caption}
     mapped.update({name: posts / name for name in expected_names})
+    if story_name in actual_names:
+        mapped[story_name] = posts / story_name
     if fingerprint_mapped_files(mapped) != manifest.package_sha256:
         raise ShadowRunnerError("package fingerprint differs")
 
@@ -164,7 +170,9 @@ def run_shadow(
             manifest = parse_manifest(path.read_bytes())
             _validate_package(root, path, manifest)
         except (OSError, UnicodeError, ValueError, ShadowRunnerError) as exc:
-            raise ShadowRunnerError("queue item validation failed") from exc
+            raise ShadowRunnerError(
+                f"queue item validation failed: {path.parent.name}"
+            ) from exc
         manifests.append(manifest)
     try:
         registry = read_registry(root / "publication-state" / "publications.jsonl")
