@@ -202,3 +202,20 @@ def format_schedule_overview(posts: tuple[ScheduledPost, ...]) -> str:
         "prioridade, not_before ou novas inclusões."
     )
     return "\n".join(lines)
+
+
+def safe_format_schedule_overview(
+    workspace: str | Path,
+    *,
+    now: datetime,
+) -> str:
+    """Render a non-fatal operational summary after an irreversible success."""
+    try:
+        posts = build_schedule_overview(workspace, now=now)
+    except (OSError, ScheduleOverviewError):
+        return (
+            "\nPRÓXIMAS PUBLICAÇÕES AGENDADAS\n"
+            "Resumo indisponível: a operação principal foi concluída, mas a fila "
+            "não pôde ser projetada com segurança."
+        )
+    return format_schedule_overview(posts)

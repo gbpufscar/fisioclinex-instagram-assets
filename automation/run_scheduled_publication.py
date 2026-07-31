@@ -25,8 +25,7 @@ from fisioclinex_scheduled.publication_writeback import (
 from fisioclinex_scheduled.queue_pages import PageResponse
 from fisioclinex_scheduled.schedule_control import load_schedule_control
 from fisioclinex_scheduled.schedule_overview import (
-    build_schedule_overview,
-    format_schedule_overview,
+    safe_format_schedule_overview,
 )
 from fisioclinex_scheduled.shadow_runner import run_shadow_verified
 
@@ -181,8 +180,8 @@ def main(argv=None) -> int:
         ])
         print(json.dumps({"phase": exc.phase, "publication_performed": performed, "status": "interrupted"}))
         return 1
-    overview = format_schedule_overview(
-        build_schedule_overview(root, now=datetime.now(timezone.utc))
+    overview = safe_format_schedule_overview(
+        root, now=datetime.now(timezone.utc)
     ).splitlines()
     _write("GITHUB_STEP_SUMMARY", [
         "# FisioClinEx — Publicação agendada da fila", "",
