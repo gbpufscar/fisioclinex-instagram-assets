@@ -1,0 +1,27 @@
+{
+  "artifact_status": "active",
+  "attempts": 0,
+  "caption_file": "legenda.txt",
+  "content_policy_version": "editorial-v3-1-to-10",
+  "failure": {
+    "occurred_at": null,
+    "phase": null,
+    "requires_human_review": false
+  },
+  "not_before": null,
+  "package_sha256": "55fb157bd40e90016158b4b243d1af721b4e5d458bd5842afc4d52f17490c741",
+  "priority": 100,
+  "publication": {
+    "asset_commit": null,
+    "media_id": null,
+    "published_at": null,
+    "workflow_run_id": null
+  },
+  "publication_key": "fisioclinex-cada-tecido-tem-o-seu-proprio-tempo-de-reparo:55fb157bd40e90016158b4b243d1af721b4e5d458bd5842afc4d52f17490c741",
+  "queued_at": "2026-08-02T22:45:14.249860+00:00",
+  "schema_version": 1,
+  "short_slug": "cada-tecido-tem-o-seu-proprio-tempo-de-reparo",
+  "slides_count": 1,
+  "slug": "fisioclinex-cada-tecido-tem-o-seu-proprio-tempo-de-reparo",
+  "status": "queued"
+}
