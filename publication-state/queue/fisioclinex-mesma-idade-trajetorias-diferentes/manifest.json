@@ -2,37 +2,26 @@
   "artifact_status": "active",
   "attempts": 1,
   "caption_file": "legenda.txt",
-  "carousel_container_id": null,
-  "child_container_ids": [
-    "18130303543653586"
-  ],
   "content_policy_version": "editorial-v3-1-to-10",
   "failure": {
-    "occurred_at": "2026-08-03T16:42:43.214899+00:00",
-    "phase": "carousel_container",
-    "requires_human_review": true
+    "occurred_at": null,
+    "phase": null,
+    "requires_human_review": false
   },
   "not_before": null,
   "package_sha256": "e752fb0c83cd5ab96bd01e5b0f447149f543caf41ddc5ea82b9b3b73ecf5fa5e",
   "priority": 100,
   "publication": {
-    "asset_commit": "77aada5b52966d0f72eeb58e8033242dff891ac7",
+    "asset_commit": null,
     "media_id": null,
     "published_at": null,
-    "workflow_run_id": "30833343545"
+    "workflow_run_id": null
   },
   "publication_key": "fisioclinex-mesma-idade-trajetorias-diferentes:e752fb0c83cd5ab96bd01e5b0f447149f543caf41ddc5ea82b9b3b73ecf5fa5e",
-  "publication_run_id": "32daa4aa-1c92-4d73-876d-e1e480adc123",
-  "pushed": true,
   "queued_at": "2026-07-28T23:35:51.246375+00:00",
   "schema_version": 1,
   "short_slug": "mesma-idade-trajetorias-diferentes",
   "slides_count": 1,
   "slug": "fisioclinex-mesma-idade-trajetorias-diferentes",
-  "started_at": "2026-08-03T16:42:29.892096+00:00",
-  "status": "failed_after_meta",
-  "story_container_id": null,
-  "story_media_id": null,
-  "story_published_at": null,
-  "verified": true
+  "status": "queued"
 }
