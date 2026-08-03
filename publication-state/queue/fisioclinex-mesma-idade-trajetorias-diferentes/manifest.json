@@ -3,12 +3,14 @@
   "attempts": 1,
   "caption_file": "legenda.txt",
   "carousel_container_id": null,
-  "child_container_ids": [],
+  "child_container_ids": [
+    "18130303543653586"
+  ],
   "content_policy_version": "editorial-v3-1-to-10",
   "failure": {
-    "occurred_at": null,
-    "phase": null,
-    "requires_human_review": false
+    "occurred_at": "2026-08-03T16:42:43.214899+00:00",
+    "phase": "carousel_container",
+    "requires_human_review": true
   },
   "not_before": null,
   "package_sha256": "e752fb0c83cd5ab96bd01e5b0f447149f543caf41ddc5ea82b9b3b73ecf5fa5e",
@@ -28,7 +30,7 @@
   "slides_count": 1,
   "slug": "fisioclinex-mesma-idade-trajetorias-diferentes",
   "started_at": "2026-08-03T16:42:29.892096+00:00",
-  "status": "publishing",
+  "status": "failed_after_meta",
   "story_container_id": null,
   "story_media_id": null,
   "story_published_at": null,
