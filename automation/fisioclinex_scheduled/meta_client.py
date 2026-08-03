@@ -100,6 +100,13 @@ class MetaClient:
             "child_container",
         )
 
+    def create_single(self, image_url: str, caption: str) -> str:
+        return self._post_id(
+            f"{self.business_id}/media",
+            {"image_url": image_url, "caption": caption},
+            "single_image_container",
+        )
+
     def create_carousel(self, children: tuple[str, ...], caption: str) -> str:
         return self._post_id(
             f"{self.business_id}/media",
@@ -114,10 +121,10 @@ class MetaClient:
             "story_container",
         )
 
-    def publish(self, carousel_id: str) -> str:
+    def publish(self, container_id: str) -> str:
         return self._post_id(
             f"{self.business_id}/media_publish",
-            {"creation_id": carousel_id},
+            {"creation_id": container_id},
             "media_publish",
         )
 

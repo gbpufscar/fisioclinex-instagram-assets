@@ -52,6 +52,7 @@ _OPTIONAL_PHASE6_FIELDS = frozenset(
         "verified",
         "child_container_ids",
         "carousel_container_id",
+        "single_image_container_id",
         "story_container_id",
         "story_media_id",
         "story_published_at",
@@ -156,6 +157,7 @@ def _parse_mapping(data: Mapping[str, Any]) -> Manifest:
         )
     for field in (
         "publication_run_id", "started_at", "carousel_container_id",
+        "single_image_container_id",
         "story_container_id", "story_media_id",
     ):
         if field in data:

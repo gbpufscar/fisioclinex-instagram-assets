@@ -48,6 +48,7 @@ def begin_publishing(
     }
     result["child_container_ids"] = []
     result["carousel_container_id"] = None
+    result["single_image_container_id"] = None
     result["story_container_id"] = None
     result["story_media_id"] = None
     result["story_published_at"] = None
@@ -61,6 +62,7 @@ def mark_failed(
     failed_at: datetime,
     children: tuple[str, ...],
     carousel_id: str | None,
+    single_image_id: str | None,
     media_id: str | None,
     story_container_id: str | None = None,
     story_media_id: str | None = None,
@@ -69,6 +71,7 @@ def mark_failed(
     result["status"] = "failed_after_meta"
     result["child_container_ids"] = list(children)
     result["carousel_container_id"] = carousel_id
+    result["single_image_container_id"] = single_image_id
     result["publication"]["media_id"] = media_id
     result["story_container_id"] = story_container_id
     result["story_media_id"] = story_media_id

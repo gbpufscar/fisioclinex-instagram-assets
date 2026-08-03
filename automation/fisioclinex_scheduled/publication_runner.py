@@ -135,6 +135,7 @@ def _run_publication(
 
     children: list[str] = []
     carousel_id = None
+    single_image_id = None
     media_id = None
     story_container_id = None
     story_media_id = None
@@ -157,13 +158,18 @@ def _run_publication(
     feed_state = locked
     feed_published_at = None
     try:
-        for url in urls:
-            child = meta_client.create_child(url)
-            children.append(child)
-            meta_client.wait_finished(child)
-        carousel_id = meta_client.create_carousel(tuple(children), caption)
-        meta_client.wait_finished(carousel_id)
-        media_id = meta_client.publish(carousel_id)
+        if verified.slides_count == 1:
+            single_image_id = meta_client.create_single(urls[0], caption)
+            meta_client.wait_finished(single_image_id)
+            media_id = meta_client.publish(single_image_id)
+        else:
+            for url in urls:
+                child = meta_client.create_child(url)
+                children.append(child)
+                meta_client.wait_finished(child)
+            carousel_id = meta_client.create_carousel(tuple(children), caption)
+            meta_client.wait_finished(carousel_id)
+            media_id = meta_client.publish(carousel_id)
         feed_published_at = now_fn()
         feed_state = mark_feed_published(
             locked, media_id=media_id, published_at=feed_published_at
@@ -191,6 +197,7 @@ def _run_publication(
             failed_at=now_fn(),
             children=tuple(children),
             carousel_id=carousel_id,
+            single_image_id=single_image_id,
             media_id=media_id,
             story_container_id=story_container_id,
             story_media_id=story_media_id,
