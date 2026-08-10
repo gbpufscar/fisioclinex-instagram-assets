@@ -1,7 +1,9 @@
 {
   "artifact_status": "active",
-  "attempts": 0,
+  "attempts": 1,
   "caption_file": "legenda.txt",
+  "carousel_container_id": null,
+  "child_container_ids": [],
   "content_policy_version": "editorial-v3-1-to-10",
   "failure": {
     "occurred_at": null,
@@ -12,16 +14,24 @@
   "package_sha256": "ca95968db65cb402502498accc02f2e7f615bfd69305854db8a5bfd43cb02045",
   "priority": 100,
   "publication": {
-    "asset_commit": null,
+    "asset_commit": "3c4a5fd8417b8a766b418013b7b10c06e1e97161",
     "media_id": null,
     "published_at": null,
-    "workflow_run_id": null
+    "workflow_run_id": "31385264671"
   },
   "publication_key": "fisioclinex-seu-osso-percebe-direcoes-nao-apenas-impacto:ca95968db65cb402502498accc02f2e7f615bfd69305854db8a5bfd43cb02045",
+  "publication_run_id": "15eaa4bb-cfe1-4f14-8d0d-5aae20def668",
+  "pushed": true,
   "queued_at": "2026-07-30T22:27:02.137532+00:00",
   "schema_version": 1,
   "short_slug": "seu-osso-percebe-direcoes-nao-apenas-impacto",
+  "single_image_container_id": null,
   "slides_count": 5,
   "slug": "fisioclinex-seu-osso-percebe-direcoes-nao-apenas-impacto",
-  "status": "queued"
+  "started_at": "2026-08-10T11:51:17.633241+00:00",
+  "status": "publishing",
+  "story_container_id": null,
+  "story_media_id": null,
+  "story_published_at": null,
+  "verified": true
 }
