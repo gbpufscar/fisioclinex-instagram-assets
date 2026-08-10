@@ -69,7 +69,7 @@ def read_registry(path: str | Path) -> tuple[PublicationRecord, ...]:
     registry_path = Path(path)
     if not registry_path.exists():
         return ()
-            if registry_path.is_symlink() or not registry_path.is_file():
+    if registry_path.is_symlink() or not registry_path.is_file():
         raise RegistryError("registry path is invalid")
 
     records: list[PublicationRecord] = []
