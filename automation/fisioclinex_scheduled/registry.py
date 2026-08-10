@@ -69,7 +69,7 @@ def read_registry(path: str | Path) -> tuple[PublicationRecord, ...]:
     registry_path = Path(path)
     if not registry_path.exists():
         return ()
-    if registry_path.is_symlink() or not registry_path.is_file():
+            if registry_path.is_symlink() or not registry_path.is_file():
         raise RegistryError("registry path is invalid")
 
     records: list[PublicationRecord] = []
@@ -83,7 +83,7 @@ def read_registry(path: str | Path) -> tuple[PublicationRecord, ...]:
                 data = json.loads(line)
             except json.JSONDecodeError as exc:
                 raise RegistryError(f"registry line {line_number} is invalid JSON") from exc
-                        if not isinstance(data, dict) or data.keys() not in (_FIELDS, _WORKFLOW_FIELDS, _WORKFLOW_FIELDS | {"story_media_id", "story_published_at"}):
+            if not isinstance(data, dict) or data.keys() not in (_FIELDS, _WORKFLOW_FIELDS, _WORKFLOW_FIELDS | {"story_media_id", "story_published_at"}):
                 raise RegistryError(f"registry line {line_number} has invalid fields")
                         if data.keys() != _FIELDS:
                 data = {
