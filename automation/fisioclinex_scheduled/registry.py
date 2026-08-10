@@ -85,7 +85,7 @@ def read_registry(path: str | Path) -> tuple[PublicationRecord, ...]:
                 raise RegistryError(f"registry line {line_number} is invalid JSON") from exc
             if not isinstance(data, dict) or data.keys() not in (_FIELDS, _WORKFLOW_FIELDS, _WORKFLOW_FIELDS | {"story_media_id", "story_published_at"}):
                 raise RegistryError(f"registry line {line_number} has invalid fields")
-                        if data.keys() != _FIELDS:
+            if data.keys() != _FIELDS:
                 data = {
                     "publication_key": data["publication_key"],
                     "slug": data["slug"],
