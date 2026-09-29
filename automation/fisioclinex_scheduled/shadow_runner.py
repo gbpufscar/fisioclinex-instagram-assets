@@ -21,6 +21,8 @@ class ShadowRunnerError(RuntimeError):
     pass
 
 
+
+
 class ShadowVerificationError(ShadowRunnerError):
     def __init__(self, report: "VerifiedShadowReport"):
         super().__init__("GitHub Pages verification failed")
@@ -53,6 +55,8 @@ class ShadowReport:
             slug, digest = self.publication_key.rsplit(":", 1)
             data["publication_key"] = f"{slug}:{digest[:12]}…"
         return data
+
+
 
 
 @dataclass(frozen=True, slots=True)
@@ -122,14 +126,12 @@ def _validate_package(root: Path, manifest_path: Path, manifest: Manifest) -> No
     if any(not entry.is_file() for entry in entries):
         raise ShadowRunnerError("post slide directory contains invalid entries")
     actual_names = {entry.name for entry in entries}
-    modern_names = set(expected_names) | {story_name}
-    legacy_names = set(expected_names)
-    if actual_names not in (modern_names, legacy_names):
+    expected_asset_names = set(expected_names) | {story_name}
+    if actual_names != expected_asset_names:
         raise ShadowRunnerError("public asset set is invalid")
     mapped = {"legenda.txt": caption}
     mapped.update({name: posts / name for name in expected_names})
-    if story_name in actual_names:
-        mapped[story_name] = posts / story_name
+    mapped[story_name] = posts / story_name
     if fingerprint_mapped_files(mapped) != manifest.package_sha256:
         raise ShadowRunnerError("package fingerprint differs")
 
@@ -242,6 +244,12 @@ def _write_summary(path: Path, report: ShadowReport) -> None:
 
 def report_json(report: ShadowReport) -> str:
     return json.dumps(report.sanitized(), ensure_ascii=False, sort_keys=True)
+
+
+
+
+
+
 
 
 def run_shadow_verified(

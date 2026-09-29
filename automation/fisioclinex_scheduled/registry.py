@@ -28,6 +28,12 @@ _WORKFLOW_FIELDS = frozenset(
         "mode",
     }
 )
+_STORY_WORKFLOW_FIELDS = _WORKFLOW_FIELDS | frozenset(
+    {"story_media_id", "story_published_at"}
+)
+_SLOT_HISTORY_FIELDS = _STORY_WORKFLOW_FIELDS | frozenset(
+    {"slot_id", "planned_at", "slot_type", "assigned_slug", "queued_at", "slot_status"}
+)
 
 
 class RegistryError(ValueError):
@@ -83,9 +89,14 @@ def read_registry(path: str | Path) -> tuple[PublicationRecord, ...]:
                 data = json.loads(line)
             except json.JSONDecodeError as exc:
                 raise RegistryError(f"registry line {line_number} is invalid JSON") from exc
-            if not isinstance(data, dict) or data.keys() not in (_FIELDS, _WORKFLOW_FIELDS, _WORKFLOW_FIELDS | {"story_media_id", "story_published_at"}):
+            if not isinstance(data, dict) or data.keys() not in (
+                _FIELDS,
+                _WORKFLOW_FIELDS,
+                _STORY_WORKFLOW_FIELDS,
+                _SLOT_HISTORY_FIELDS,
+            ):
                 raise RegistryError(f"registry line {line_number} has invalid fields")
-            if data.keys() != _FIELDS:
+            if data.keys() in (_WORKFLOW_FIELDS, _STORY_WORKFLOW_FIELDS, _SLOT_HISTORY_FIELDS):
                 data = {
                     "publication_key": data["publication_key"],
                     "slug": data["slug"],

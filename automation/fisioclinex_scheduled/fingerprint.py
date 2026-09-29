@@ -33,6 +33,8 @@ def _normalize_relative_path(value: str | Path) -> PurePosixPath:
     return path
 
 
+
+
 def fingerprint_mapped_files(files: Mapping[str | Path, str | Path]) -> str:
     """Hash canonical relative names mapped to explicit regular files."""
     if not isinstance(files, Mapping) or not files:

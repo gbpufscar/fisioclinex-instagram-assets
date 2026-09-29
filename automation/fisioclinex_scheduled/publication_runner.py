@@ -8,12 +8,16 @@ from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 
+from publication_package import validate_caption_text
+
 from .publication_state import (
     authorize, begin_publishing, mark_failed, mark_feed_published, mark_published,
 )
 from .publication_writeback import append_registry, persist, write_manifest
 from .queue_pages import official_slide_url
 from .registry import read_registry
+from .manifest import parse_manifest
+from .feed_eligibility import evaluate_feed_eligibility, manifest_slot
 
 
 class PublicationRunnerError(RuntimeError):
@@ -101,18 +105,40 @@ def _run_publication(
         root / "publication-state" / "queue" / verified.slug / "manifest.json"
     )
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    parsed_manifest = parse_manifest(manifest)
     from content_policy import validate_slide_count
     validate_slide_count(manifest.get("slides_count",0),policy_version=manifest.get("content_policy_version"),artifact_status=manifest.get("artifact_status"))
     registry_path = root / "publication-state" / "publications.jsonl"
-    if any(r.publication_key == verified.publication_key for r in read_registry(registry_path)):
+    registry = read_registry(registry_path)
+    if any(
+        r.publication_key == verified.publication_key
+        or r.publication_key.rsplit(":", 1)[-1] == verified.package_sha256
+        for r in registry
+    ):
         raise PublicationRunnerError("idempotency", publication_performed=False)
+
+    publication_now = now_fn()
+    eligibility = evaluate_feed_eligibility(
+        now=publication_now,
+        not_before=parsed_manifest.not_before,
+        slot=manifest_slot(parsed_manifest),
+        published_at=tuple(
+            datetime.fromisoformat(record.published_at.replace("Z", "+00:00"))
+            for record in registry
+        ),
+        legacy=parsed_manifest.slot_id is None,
+        explicit_override=parsed_manifest.explicit_override,
+        override_reason=parsed_manifest.override_reason,
+    )
+    if not eligibility.eligible:
+        raise PublicationRunnerError("eligibility", publication_performed=False)
 
     run_id = run_id_factory()
     locked = begin_publishing(
         manifest,
         run_id=run_id,
         workflow_run_id=workflow_run_id,
-        started_at=now_fn(),
+        started_at=publication_now,
         asset_commit=asset_commit,
     )
     write_manifest(manifest_path, locked)
@@ -148,13 +174,13 @@ def _run_publication(
     story_url = official_slide_url(
         verified.slug, f"{verified.slug}-story.png"
     )
-    caption = (
+    caption = validate_caption_text((
         root
         / "publication-state"
         / "queue"
         / verified.slug
         / "legenda.txt"
-    ).read_text(encoding="utf-8")
+    ).read_text(encoding="utf-8"))
     feed_state = locked
     feed_published_at = None
     try:
@@ -243,6 +269,17 @@ def _run_publication(
         "workflow_run_id": workflow_run_id,
         "mode": mode,
     }
+    if parsed_manifest.slot_id is not None:
+        record.update(
+            {
+                "slot_id": parsed_manifest.slot_id,
+                "planned_at": parsed_manifest.planned_at.isoformat(),
+                "slot_type": parsed_manifest.slot_type,
+                "assigned_slug": parsed_manifest.slug,
+                "queued_at": parsed_manifest.queued_at.isoformat(),
+                "slot_status": "published",
+            }
+        )
     append_registry(registry_path, record)
     try:
         persist(

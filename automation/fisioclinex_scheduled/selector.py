@@ -9,6 +9,7 @@ from typing import Any
 from .manifest import Manifest, ManifestValidationError, parse_manifest
 from .result import ResultCode, ScheduledResult
 from .states import QueueState
+from .feed_eligibility import evaluate_feed_eligibility, manifest_slot
 
 
 def select_next(
@@ -19,6 +20,7 @@ def select_next(
     registered_publication_keys: Iterable[str] = (),
     consumed_slot_ids: Iterable[str] = (),
     slot_id: str | None = None,
+    published_at: Iterable[datetime] = (),
 ) -> ScheduledResult:
     """Select at most one item without reading time, files, network, or state."""
     if now.tzinfo is None or now.utcoffset() is None:
@@ -55,14 +57,26 @@ def select_next(
             )
 
     registered = frozenset(registered_publication_keys)
-    eligible = [
-        manifest
-        for manifest in parsed
-        if manifest.status is QueueState.QUEUED
-        and (manifest.not_before is None or manifest.not_before <= now)
-        and manifest.publication.media_id is None
-        and manifest.publication_key not in registered
-    ]
+    history = tuple(published_at)
+    eligible = []
+    for manifest in parsed:
+        if (
+            manifest.status is not QueueState.QUEUED
+            or manifest.publication.media_id is not None
+            or manifest.publication_key in registered
+        ):
+            continue
+        decision = evaluate_feed_eligibility(
+            now=now,
+            not_before=manifest.not_before,
+            slot=manifest_slot(manifest),
+            published_at=history,
+            legacy=manifest.slot_id is None,
+            explicit_override=manifest.explicit_override,
+            override_reason=manifest.override_reason,
+        )
+        if decision.eligible:
+            eligible.append(manifest)
     eligible.sort(key=lambda item: (item.priority, item.queued_at, item.slug))
 
     if not eligible:

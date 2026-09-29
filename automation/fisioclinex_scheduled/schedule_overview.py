@@ -7,11 +7,17 @@ from dataclasses import asdict, dataclass
 from datetime import datetime, time, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
+from .editorial_calendar import EditorialSlot
+from .feed_eligibility import evaluate_feed_eligibility
+from .registry import read_registry
 
 CANONICAL_TIMEZONE = ZoneInfo("America/Sao_Paulo")
-CANONICAL_HOUR = 11
-CANONICAL_MINUTE = 17
-CANONICAL_WEEKDAYS = frozenset({0, 2, 4})  # segunda, quarta e sexta
+CANONICAL_HOUR = 12
+CANONICAL_MINUTE = 0
+CANONICAL_WEEKDAYS = frozenset({0, 1, 2, 3, 4})
+LEGACY_HOUR = 11
+LEGACY_MINUTE = 17
+LEGACY_WEEKDAYS = frozenset({0, 2, 4})
 PORTUGUESE_WEEKDAYS = (
     "segunda-feira",
     "terça-feira",
@@ -34,6 +40,10 @@ class QueueEntry:
     priority: int
     queued_at: datetime
     not_before: datetime | None
+    planned_at: datetime | None = None
+    slot_type: str | None = None
+    explicit_override: bool = False
+    override_reason: str | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -91,7 +101,13 @@ def _load_entry(path: Path) -> QueueEntry | None:
     queued_at = _timestamp(data.get("queued_at"), "queued_at")
     not_before = _timestamp(data.get("not_before"), "not_before", optional=True)
     assert queued_at is not None
-    return QueueEntry(slug, short_slug, priority, queued_at, not_before)
+    planned_at = _timestamp(data.get("planned_at"), "planned_at", optional=True)
+    slot_type = data.get("slot_type")
+    if planned_at is not None and slot_type not in {"scientific", "other"}:
+        raise ScheduleOverviewError(f"slot inválido: {path.parent.name}")
+    explicit_override = data.get("explicit_override", False)
+    override_reason = data.get("override_reason")
+    return QueueEntry(slug, short_slug, priority, queued_at, not_before, planned_at, slot_type, explicit_override, override_reason)
 
 
 def load_queued_entries(workspace: str | Path) -> tuple[QueueEntry, ...]:
@@ -128,35 +144,79 @@ def next_canonical_slot(after: datetime) -> datetime:
     raise ScheduleOverviewError("não foi possível localizar o próximo slot canônico")
 
 
+def next_legacy_slot(after: datetime) -> datetime:
+    local = after.astimezone(CANONICAL_TIMEZONE)
+    day = local.date()
+    for offset in range(0, 8):
+        candidate_day = day + timedelta(days=offset)
+        if candidate_day.weekday() not in LEGACY_WEEKDAYS:
+            continue
+        candidate = datetime.combine(candidate_day, time(LEGACY_HOUR, LEGACY_MINUTE), tzinfo=CANONICAL_TIMEZONE)
+        if candidate > local:
+            return candidate
+    raise ScheduleOverviewError("não foi possível localizar o próximo slot legado")
+
+
 def project_schedule(
     entries: tuple[QueueEntry, ...] | list[QueueEntry],
     *,
     now: datetime,
+    published_at: tuple[datetime, ...] = (),
 ) -> tuple[ScheduledPost, ...]:
     """Project the current queue using the selector's priority/queued_at/slug order."""
     if now.tzinfo is None or now.utcoffset() is None:
         raise ScheduleOverviewError("instante atual sem fuso horário")
     remaining = list(entries)
     projected: list[ScheduledPost] = []
-    slot = next_canonical_slot(now)
+    simulated_history = list(published_at)
+    legacy_slot = next_legacy_slot(now)
     safety_limit = max(3660, len(remaining) * 14)
     attempts = 0
     while remaining:
         attempts += 1
         if attempts > safety_limit:
             raise ScheduleOverviewError("projeção excedeu o limite seguro")
-        eligible = [
-            entry
-            for entry in remaining
-            if entry.not_before is None or entry.not_before <= slot
-        ]
+        eligible = []
+        for entry in remaining:
+            candidate = entry.planned_at or legacy_slot
+            if candidate <= now:
+                continue
+            slot = None
+            if entry.planned_at is not None:
+                slot = EditorialSlot(
+                    slot_id=f"{entry.planned_at.astimezone(CANONICAL_TIMEZONE):%Y-%m-%dT%H:%M}-{entry.slot_type}",
+                    planned_at=entry.planned_at.isoformat(),
+                    timezone=str(CANONICAL_TIMEZONE),
+                    slot_type=entry.slot_type,
+                    status="queued",
+                    assigned_slug=entry.slug,
+                    explicit_override=entry.explicit_override,
+                    override_reason=entry.override_reason,
+                )
+            decision = evaluate_feed_eligibility(
+                now=candidate,
+                not_before=entry.not_before,
+                slot=slot,
+                published_at=tuple(simulated_history),
+                legacy=entry.planned_at is None,
+                explicit_override=entry.explicit_override,
+                override_reason=entry.override_reason,
+            )
+            if decision.eligible:
+                eligible.append(entry)
         if not eligible:
-            slot = next_canonical_slot(slot)
+            legacy_slot = next_legacy_slot(legacy_slot)
             continue
         selected = min(
             eligible,
-            key=lambda entry: (entry.priority, entry.queued_at, entry.slug),
+            key=lambda entry: (
+                entry.planned_at or legacy_slot,
+                entry.priority,
+                entry.queued_at,
+                entry.slug,
+            ),
         )
+        slot = selected.planned_at or legacy_slot
         projected.append(
             ScheduledPost(
                 position=len(projected) + 1,
@@ -171,7 +231,9 @@ def project_schedule(
             )
         )
         remaining.remove(selected)
-        slot = next_canonical_slot(slot)
+        simulated_history.append(slot)
+        if selected.planned_at is None:
+            legacy_slot = next_legacy_slot(legacy_slot)
     return tuple(projected)
 
 
@@ -180,14 +242,19 @@ def build_schedule_overview(
     *,
     now: datetime,
 ) -> tuple[ScheduledPost, ...]:
-    return project_schedule(load_queued_entries(workspace), now=now)
+    root = Path(workspace).expanduser().resolve(strict=True)
+    history = tuple(
+        datetime.fromisoformat(record.published_at.replace("Z", "+00:00"))
+        for record in read_registry(root / "publication-state" / "publications.jsonl")
+    )
+    return project_schedule(load_queued_entries(root), now=now, published_at=history)
 
 
 def format_schedule_overview(posts: tuple[ScheduledPost, ...]) -> str:
     lines = [
         "",
         "PRÓXIMAS PUBLICAÇÕES AGENDADAS — PROJEÇÃO ATUAL",
-        "Calendário: segunda, quarta e sexta-feira às 11h17 (America/Sao_Paulo)",
+        "Calendário novo: segunda a sexta-feira às 12h00 (America/Sao_Paulo)",
     ]
     if not posts:
         lines.append("Nenhum post permanece na fila.")
@@ -198,8 +265,8 @@ def format_schedule_overview(posts: tuple[ScheduledPost, ...]) -> str:
                 f"{post.short_slug}"
             )
     lines.append(
-        "Observação: as datas são projetadas pela fila atual e podem mudar com "
-        "prioridade, not_before ou novas inclusões."
+        "Observação: itens com slot usam o horário planejado persistido; itens legados "
+        "mantêm a projeção anterior de segunda, quarta e sexta às 11h17."
     )
     return "\n".join(lines)
 

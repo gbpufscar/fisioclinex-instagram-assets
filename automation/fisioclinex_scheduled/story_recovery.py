@@ -40,7 +40,12 @@ def recover_story(
         raise StoryRecoveryError("prepare")
     original = json.loads(manifest_path.read_text(encoding="utf-8"))
     publication = original.get("publication", {})
-    if original.get("status") != "published" or not publication.get("media_id"):
+    feed_published = (
+        original.get("status") in {"published", "failed_after_meta"}
+        and isinstance(publication.get("media_id"), str)
+        and bool(publication["media_id"])
+    )
+    if not feed_published:
         raise StoryRecoveryError("feed_not_published")
     if original.get("story_media_id"):
         raise StoryRecoveryError("story_already_published")
@@ -78,6 +83,7 @@ def recover_story(
     state["story_container_id"] = container_id
     state["story_media_id"] = story_media_id
     state["story_published_at"] = published_at
+    state["status"] = "published"
     state["failure"] = {
         "phase": None,
         "occurred_at": None,

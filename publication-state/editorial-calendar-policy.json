@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "timezone": "America/Sao_Paulo",
+  "hour": 12,
+  "minute": 0,
+  "generation_weeks": 8,
+  "weekdays": {
+    "0": "scientific",
+    "1": "other",
+    "2": "scientific",
+    "3": "other",
+    "4": "scientific"
+  }
+}

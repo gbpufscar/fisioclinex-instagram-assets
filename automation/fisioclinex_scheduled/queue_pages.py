@@ -8,6 +8,10 @@ import struct
 import time
 from dataclasses import dataclass
 from pathlib import Path
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from .queue_config import QueueConfig
+    from .queue_package import QueuePackage
 from urllib.parse import quote, urlsplit
 
 DEFAULT_MAX_WAIT_SECONDS = 120.0

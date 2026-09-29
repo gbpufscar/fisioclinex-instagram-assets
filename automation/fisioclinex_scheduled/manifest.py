@@ -14,8 +14,6 @@ from .states import HUMAN_REVIEW_STATES, QueueState
 from content_policy import (
     ACTIVE_ARTIFACT_STATUS,
     CONTENT_POLICY_VERSION,
-    LEGACY_POLICY_VERSION,
-    LEGACY_READ_ONLY_STATUS,
     ContentPolicyError,
     validate_slide_count,
 )
@@ -23,6 +21,8 @@ from content_policy import (
 _SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 _SLUG_RE = re.compile(r"^fisioclinex-[a-z0-9]+(?:-[a-z0-9]+)*$")
 _SHORT_SLUG_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
+_LEGACY_POLICY_VERSION = "legacy-pre-max-5"
+_LEGACY_READ_ONLY_STATUS = "legacy_read_only"
 
 _TOP_LEVEL_FIELDS = frozenset(
     {
@@ -57,6 +57,9 @@ _OPTIONAL_PHASE6_FIELDS = frozenset(
         "story_media_id",
         "story_published_at",
     }
+)
+_SLOT_FIELDS = frozenset(
+    {"slot_id", "planned_at", "slot_type", "explicit_override", "override_reason"}
 )
 _PUBLICATION_FIELDS = frozenset(
     {"media_id", "published_at", "workflow_run_id", "asset_commit"}
@@ -102,6 +105,11 @@ class Manifest:
     attempts: int
     publication: Publication
     failure: Failure
+    slot_id: str | None = None
+    planned_at: datetime | None = None
+    slot_type: str | None = None
+    explicit_override: bool = False
+    override_reason: str | None = None
 
 
 def _require_exact_fields(data: Mapping[str, Any], expected: frozenset[str], label: str) -> None:
@@ -146,7 +154,7 @@ def _parse_timestamp(value: Any, field: str, *, optional: bool = False) -> datet
 
 def _parse_mapping(data: Mapping[str, Any]) -> Manifest:
     missing = (_TOP_LEVEL_FIELDS - _CONTENT_POLICY_FIELDS) - data.keys()
-    unknown = data.keys() - (_TOP_LEVEL_FIELDS | _OPTIONAL_PHASE6_FIELDS)
+    unknown = data.keys() - (_TOP_LEVEL_FIELDS | _OPTIONAL_PHASE6_FIELDS | _SLOT_FIELDS)
     if missing:
         raise ManifestValidationError(
             f"manifest missing required fields: {', '.join(sorted(missing))}"
@@ -155,6 +163,9 @@ def _parse_mapping(data: Mapping[str, Any]) -> Manifest:
         raise ManifestValidationError(
             f"manifest contains unknown fields: {', '.join(sorted(unknown))}"
         )
+    present_slot_fields = _SLOT_FIELDS & data.keys()
+    if present_slot_fields and present_slot_fields != _SLOT_FIELDS:
+        raise ManifestValidationError("slot metadata must be complete")
     for field in (
         "publication_run_id", "started_at", "carousel_container_id",
         "single_image_container_id",
@@ -205,8 +216,8 @@ def _parse_mapping(data: Mapping[str, Any]) -> Manifest:
             raise ManifestValidationError(
                 "manifest missing required fields: artifact_status, content_policy_version"
             )
-        content_policy_version = LEGACY_POLICY_VERSION
-        artifact_status = LEGACY_READ_ONLY_STATUS
+        content_policy_version = _LEGACY_POLICY_VERSION
+        artifact_status = _LEGACY_READ_ONLY_STATUS
     else:
         content_policy_version = data["content_policy_version"]
         artifact_status = data["artifact_status"]
@@ -279,6 +290,20 @@ def _parse_mapping(data: Mapping[str, Any]) -> Manifest:
         requires_human_review=data["failure"]["requires_human_review"],
     )
 
+    slot_id = planned_at = slot_type = override_reason = None
+    explicit_override = False
+    if present_slot_fields:
+        slot_id = _optional_string(data["slot_id"], "slot_id")
+        planned_at = _parse_timestamp(data["planned_at"], "planned_at")
+        slot_type = _optional_string(data["slot_type"], "slot_type")
+        if slot_type not in {"scientific", "other"}:
+            raise ManifestValidationError("slot_type is invalid")
+        _require_type(data["explicit_override"], bool, "explicit_override")
+        explicit_override = data["explicit_override"]
+        override_reason = _optional_string(data["override_reason"], "override_reason")
+        if explicit_override != (override_reason is not None):
+            raise ManifestValidationError("override metadata is inconsistent")
+
     if status is QueueState.PUBLISHED:
         if publication.media_id is None or publication.published_at is None:
             raise ManifestValidationError("published status requires media_id and published_at")
@@ -315,7 +340,14 @@ def _parse_mapping(data: Mapping[str, Any]) -> Manifest:
         attempts=data["attempts"],
         publication=publication,
         failure=failure,
+        slot_id=slot_id,
+        planned_at=planned_at,
+        slot_type=slot_type,
+        explicit_override=explicit_override,
+        override_reason=override_reason,
     )
+
+
 
 
 def _strict_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
