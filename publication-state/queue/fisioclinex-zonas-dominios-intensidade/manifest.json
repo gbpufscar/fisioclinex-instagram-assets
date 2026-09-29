@@ -1,0 +1,27 @@
+{
+  "artifact_status": "active",
+  "attempts": 0,
+  "caption_file": "legenda.txt",
+  "content_policy_version": "editorial-v3-1-to-10",
+  "failure": {
+    "occurred_at": null,
+    "phase": null,
+    "requires_human_review": false
+  },
+  "not_before": null,
+  "package_sha256": "83c9b91d21808075b6573737fc12c307165efeadbeb9c129ce27b6e2026ca07a",
+  "priority": 100,
+  "publication": {
+    "asset_commit": null,
+    "media_id": null,
+    "published_at": null,
+    "workflow_run_id": null
+  },
+  "publication_key": "fisioclinex-zonas-dominios-intensidade:83c9b91d21808075b6573737fc12c307165efeadbeb9c129ce27b6e2026ca07a",
+  "queued_at": "2026-09-29T18:01:41.280133+00:00",
+  "schema_version": 1,
+  "short_slug": "zonas-dominios-intensidade",
+  "slides_count": 6,
+  "slug": "fisioclinex-zonas-dominios-intensidade",
+  "status": "queued"
+}

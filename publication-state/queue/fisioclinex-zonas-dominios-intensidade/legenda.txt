@@ -1,0 +1,21 @@
+Z1, Z2, Z3… Os nomes parecem simples, mas podem representar classificações diferentes.
+
+Neste post, adotamos o modelo de três domínios aeróbios: moderado, pesado e severo. Eles são delimitados por transições que modificam o comportamento do consumo de oxigênio, do lactato e de outras respostas fisiológicas.
+
+“Leve” pode nomear uma zona, uma categoria de intensidade ou a percepção do esforço. Já os domínios são definidos pelo comportamento das respostas fisiológicas. Isso significa que não existe correspondência automática entre esses termos sem conhecer o sistema utilizado.
+
+As zonas de treinamento subdividem o contínuo de intensidade para facilitar a prescrição. Um sistema pode usar três zonas; outro, cinco ou mais. Por isso, a “Zona 2” de um modelo não corresponde automaticamente à “Zona 2” de outro.
+
+O mesmo cuidado vale para tabelas que alinham frequência cardíaca, lactato, percepção de esforço, velocidade, potência e tempo até a fadiga. Essas variáveis são muito utilizadas, mas não formam equivalências fixas entre indivíduos, modalidades e protocolos.
+
+Os limiares derivados de lactato, trocas gasosas, potência crítica ou velocidade crítica podem ter proximidade conceitual, pois são muito utilizados. Ainda assim, não devem ser considerados perfeitamente equivalentes ou intercambiáveis no indivíduo.
+
+Na prática, a prescrição começa pelo objetivo da sessão, pelo método adotado e pelos limites individuais. Só então esses limites são traduzidos para zonas e variáveis de monitoramento.
+
+Compartilhe com quem prescreve treinamento de resistência.
+
+Referências:
+PMCID: PMC6533178
+PMCID: PMC11927562
+DOI: 10.1249/MSS.0000000000003795
+DOI: 10.1007/s40279-020-01322-8
