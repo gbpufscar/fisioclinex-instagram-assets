@@ -9,10 +9,10 @@
     "phase": null,
     "requires_human_review": false
   },
-  "not_before": "2026-09-30T12:00:00-03:00",
+  "not_before": "2026-10-02T12:00:00-03:00",
   "override_reason": null,
   "package_sha256": "83c9b91d21808075b6573737fc12c307165efeadbeb9c129ce27b6e2026ca07a",
-  "planned_at": "2026-09-30T12:00:00-03:00",
+  "planned_at": "2026-10-02T12:00:00-03:00",
   "priority": 100,
   "publication": {
     "asset_commit": null,
@@ -25,7 +25,7 @@
   "schema_version": 1,
   "short_slug": "zonas-dominios-intensidade",
   "slides_count": 6,
-  "slot_id": "2026-09-30T12:00-scientific",
+  "slot_id": "2026-10-02T12:00-scientific",
   "slot_type": "scientific",
   "slug": "fisioclinex-zonas-dominios-intensidade",
   "status": "queued"
