@@ -13,6 +13,7 @@ from fisioclinex_scheduled.queue_pages import QueuePagesError, verify_slide_path
 from fisioclinex_scheduled.registry import read_registry
 from fisioclinex_scheduled.result import ResultCode
 from fisioclinex_scheduled.selector import select_next
+from fisioclinex_scheduled.states import is_active_queue_state
 
 from .queue_control import load_queue_control
 
@@ -170,7 +171,8 @@ def run_shadow(
     for path in paths:
         try:
             manifest = parse_manifest(path.read_bytes())
-            _validate_package(root, path, manifest)
+            if is_active_queue_state(manifest.status):
+                _validate_package(root, path, manifest)
         except (OSError, UnicodeError, ValueError, ShadowRunnerError) as exc:
             raise ShadowRunnerError(
                 f"queue item validation failed: {path.parent.name}"

@@ -8,7 +8,7 @@ from typing import Any
 
 from .manifest import Manifest, ManifestValidationError, parse_manifest
 from .result import ResultCode, ScheduledResult
-from .states import QueueState
+from .states import is_selectable_queue_state
 from .feed_eligibility import evaluate_feed_eligibility, manifest_slot
 
 
@@ -61,7 +61,7 @@ def select_next(
     eligible = []
     for manifest in parsed:
         if (
-            manifest.status is not QueueState.QUEUED
+            not is_selectable_queue_state(manifest.status)
             or manifest.publication.media_id is not None
             or manifest.publication_key in registered
         ):

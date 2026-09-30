@@ -49,6 +49,28 @@ ALLOWED_TRANSITIONS: frozenset[tuple[QueueState | None, QueueState]] = frozenset
 
 HUMAN_REVIEW_STATES = frozenset({QueueState.FAILED_AFTER_META, QueueState.NEEDS_REVIEW})
 
+# Physical persistence below publication-state/queue is historical storage, not
+# evidence that an item still participates in queue execution.  Keep this
+# classification centralized so selection, validation and projection cannot
+# silently diverge.
+TERMINAL_OR_HISTORICAL_STATES = frozenset(
+    {QueueState.PUBLISHED, QueueState.CANCELLED}
+)
+ACTIVE_QUEUE_STATES = frozenset(set(QueueState) - TERMINAL_OR_HISTORICAL_STATES)
+SELECTABLE_QUEUE_STATES = frozenset({QueueState.QUEUED})
+
+
+def is_active_queue_state(state: QueueState) -> bool:
+    return state in ACTIVE_QUEUE_STATES
+
+
+def is_terminal_state(state: QueueState) -> bool:
+    return state in TERMINAL_OR_HISTORICAL_STATES
+
+
+def is_selectable_queue_state(state: QueueState) -> bool:
+    return state in SELECTABLE_QUEUE_STATES
+
 
 class TransitionError(ValueError):
     """Raised when a queue transition is not part of the frozen state machine."""
