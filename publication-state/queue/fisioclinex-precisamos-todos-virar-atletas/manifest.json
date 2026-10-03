@@ -1,0 +1,32 @@
+{
+  "artifact_status": "active",
+  "attempts": 0,
+  "caption_file": "legenda.txt",
+  "content_policy_version": "editorial-v3-1-to-10",
+  "explicit_override": false,
+  "failure": {
+    "occurred_at": null,
+    "phase": null,
+    "requires_human_review": false
+  },
+  "not_before": "2026-10-08T12:00:00-03:00",
+  "override_reason": null,
+  "package_sha256": "cea096343826094cc6caae76f135a03bce4c03de08b69bf1807076a51a980cbd",
+  "planned_at": "2026-10-08T12:00:00-03:00",
+  "priority": 100,
+  "publication": {
+    "asset_commit": null,
+    "media_id": null,
+    "published_at": null,
+    "workflow_run_id": null
+  },
+  "publication_key": "fisioclinex-precisamos-todos-virar-atletas:cea096343826094cc6caae76f135a03bce4c03de08b69bf1807076a51a980cbd",
+  "queued_at": "2026-10-03T19:21:41.312498+00:00",
+  "schema_version": 1,
+  "short_slug": "precisamos-todos-virar-atletas",
+  "slides_count": 5,
+  "slot_id": "2026-10-08T12:00-other",
+  "slot_type": "other",
+  "slug": "fisioclinex-precisamos-todos-virar-atletas",
+  "status": "queued"
+}
