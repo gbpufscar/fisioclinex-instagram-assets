@@ -1,0 +1,32 @@
+{
+  "artifact_status": "active",
+  "attempts": 0,
+  "caption_file": "legenda.txt",
+  "content_policy_version": "editorial-v3-1-to-10",
+  "explicit_override": false,
+  "failure": {
+    "occurred_at": null,
+    "phase": null,
+    "requires_human_review": false
+  },
+  "not_before": "2026-10-06T12:00:00-03:00",
+  "override_reason": null,
+  "package_sha256": "eb6cb0472b651b3b370b198a7a16d0668ef712be1a7768f26471ae669ecedfe5",
+  "planned_at": "2026-10-06T12:00:00-03:00",
+  "priority": 100,
+  "publication": {
+    "asset_commit": null,
+    "media_id": null,
+    "published_at": null,
+    "workflow_run_id": null
+  },
+  "publication_key": "fisioclinex-ufscar-the-2027:eb6cb0472b651b3b370b198a7a16d0668ef712be1a7768f26471ae669ecedfe5",
+  "queued_at": "2026-10-03T18:20:13.308193+00:00",
+  "schema_version": 1,
+  "short_slug": "ufscar-the-2027",
+  "slides_count": 1,
+  "slot_id": "2026-10-06T12:00-other",
+  "slot_type": "other",
+  "slug": "fisioclinex-ufscar-the-2027",
+  "status": "queued"
+}
