@@ -57,6 +57,8 @@ class ScheduledPost:
     time: str
     timezone: str
     priority: int
+    status: str = "projected"
+    reason: str | None = None
 
     def to_dict(self) -> dict[str, object]:
         return asdict(self)
@@ -170,68 +172,57 @@ def project_schedule(
     projected: list[ScheduledPost] = []
     simulated_history = list(published_at)
     legacy_slot = next_legacy_slot(now)
-    safety_limit = max(3660, len(remaining) * 14)
-    attempts = 0
+    def append(entry: QueueEntry, candidate: datetime, reason: str | None = None) -> None:
+        local = candidate.astimezone(CANONICAL_TIMEZONE)
+        projected.append(ScheduledPost(
+            position=len(projected) + 1,
+            slug=entry.slug,
+            short_slug=entry.short_slug,
+            scheduled_at=local.isoformat(),
+            date=local.strftime("%d/%m/%Y"),
+            weekday=PORTUGUESE_WEEKDAYS[local.weekday()],
+            time=local.strftime("%Hh%M"),
+            timezone=str(CANONICAL_TIMEZONE),
+            priority=entry.priority,
+            status="blocked" if reason else "projected",
+            reason=reason,
+        ))
+
     while remaining:
-        attempts += 1
-        if attempts > safety_limit:
-            raise ScheduleOverviewError("projeção excedeu o limite seguro")
-        eligible = []
-        for entry in remaining:
-            candidate = entry.planned_at or legacy_slot
-            if candidate <= now:
-                continue
-            slot = None
-            if entry.planned_at is not None:
-                slot = EditorialSlot(
-                    slot_id=f"{entry.planned_at.astimezone(CANONICAL_TIMEZONE):%Y-%m-%dT%H:%M}-{entry.slot_type}",
-                    planned_at=entry.planned_at.isoformat(),
-                    timezone=str(CANONICAL_TIMEZONE),
-                    slot_type=entry.slot_type,
-                    status="queued",
-                    assigned_slug=entry.slug,
-                    explicit_override=entry.explicit_override,
-                    override_reason=entry.override_reason,
-                )
-            decision = evaluate_feed_eligibility(
-                now=candidate,
-                not_before=entry.not_before,
-                slot=slot,
-                published_at=tuple(simulated_history),
-                legacy=entry.planned_at is None,
-                explicit_override=entry.explicit_override,
-                override_reason=entry.override_reason,
-            )
-            if decision.eligible:
-                eligible.append(entry)
-        if not eligible:
-            legacy_slot = next_legacy_slot(legacy_slot)
-            continue
-        selected = min(
-            eligible,
-            key=lambda entry: (
-                entry.planned_at or legacy_slot,
-                entry.priority,
-                entry.queued_at,
-                entry.slug,
-            ),
-        )
-        slot = selected.planned_at or legacy_slot
-        projected.append(
-            ScheduledPost(
-                position=len(projected) + 1,
-                slug=selected.slug,
-                short_slug=selected.short_slug,
-                scheduled_at=slot.isoformat(),
-                date=slot.strftime("%d/%m/%Y"),
-                weekday=PORTUGUESE_WEEKDAYS[slot.weekday()],
-                time=slot.strftime("%Hh%M"),
+        selected = min(remaining, key=lambda entry: (
+            entry.planned_at or legacy_slot,
+            entry.priority, entry.queued_at, entry.slug,
+        ))
+        candidate = selected.planned_at or legacy_slot
+        slot = None
+        if selected.planned_at is not None:
+            slot = EditorialSlot(
+                slot_id=f"{candidate.astimezone(CANONICAL_TIMEZONE):%Y-%m-%dT%H:%M}-{selected.slot_type}",
+                planned_at=candidate.isoformat(),
                 timezone=str(CANONICAL_TIMEZONE),
-                priority=selected.priority,
+                slot_type=selected.slot_type,
+                status="queued",
+                assigned_slug=selected.slug,
+                explicit_override=selected.explicit_override,
+                override_reason=selected.override_reason,
             )
+        # A late runner can still publish today, but never catches up on past days.
+        evaluation_time = max(candidate, now)
+        decision = evaluate_feed_eligibility(
+            now=evaluation_time, not_before=selected.not_before, slot=slot,
+            published_at=tuple(simulated_history),
+            legacy=selected.planned_at is None,
+            explicit_override=selected.explicit_override,
+            override_reason=selected.override_reason,
         )
+        if selected.planned_at is None and not decision.eligible:
+            # Only legacy entries may move to another legacy opportunity.
+            legacy_slot = next_legacy_slot(max(legacy_slot, selected.not_before or legacy_slot))
+            continue
+        append(selected, candidate, None if decision.eligible else decision.reason)
         remaining.remove(selected)
-        simulated_history.append(slot)
+        if decision.eligible:
+            simulated_history.append(evaluation_time)
         if selected.planned_at is None:
             legacy_slot = next_legacy_slot(legacy_slot)
     return tuple(projected)
@@ -251,6 +242,12 @@ def build_schedule_overview(
 
 
 def format_schedule_overview(posts: tuple[ScheduledPost, ...]) -> str:
+    reasons = {
+        "daily_feed_limit": "outro post ocupa o mesmo dia",
+        "minimum_interval": "intervalo mínimo de 24 horas",
+        "slot_missed_no_catch_up": "horário vencido; requer decisão humana",
+        "not_before": "barreira not_before posterior ao horário",
+    }
     lines = [
         "",
         "PRÓXIMAS PUBLICAÇÕES AGENDADAS — PROJEÇÃO ATUAL",
@@ -263,6 +260,7 @@ def format_schedule_overview(posts: tuple[ScheduledPost, ...]) -> str:
             lines.append(
                 f"{post.position}. {post.weekday}, {post.date}, às {post.time} — "
                 f"{post.short_slug}"
+                + (f" — BLOQUEADO: {reasons.get(post.reason, post.reason)}" if post.status == "blocked" else "")
             )
     lines.append(
         "Observação: itens com slot usam o horário planejado persistido; itens legados "
@@ -279,10 +277,10 @@ def safe_format_schedule_overview(
     """Render a non-fatal operational summary after an irreversible success."""
     try:
         posts = build_schedule_overview(workspace, now=now)
-    except (OSError, ScheduleOverviewError):
+    except (OSError, ScheduleOverviewError) as exc:
         return (
             "\nPRÓXIMAS PUBLICAÇÕES AGENDADAS\n"
             "Resumo indisponível: a operação principal foi concluída, mas a fila "
-            "não pôde ser projetada com segurança."
+            f"não pôde ser projetada com segurança. Motivo: {exc}"
         )
     return format_schedule_overview(posts)
