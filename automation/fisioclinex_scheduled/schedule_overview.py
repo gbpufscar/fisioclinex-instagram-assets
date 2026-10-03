@@ -172,6 +172,9 @@ def project_schedule(
     projected: list[ScheduledPost] = []
     simulated_history = list(published_at)
     legacy_slot = next_legacy_slot(now)
+    # Fixed entries are consumed once; legacy barriers require at most one retry.
+    safety_limit = max(32, len(remaining) * 3)
+    attempts = 0
     def append(entry: QueueEntry, candidate: datetime, reason: str | None = None) -> None:
         local = candidate.astimezone(CANONICAL_TIMEZONE)
         projected.append(ScheduledPost(
@@ -189,6 +192,9 @@ def project_schedule(
         ))
 
     while remaining:
+        attempts += 1
+        if attempts > safety_limit:
+            raise ScheduleOverviewError("projeção excedeu o limite seguro")
         selected = min(remaining, key=lambda entry: (
             entry.planned_at or legacy_slot,
             entry.priority, entry.queued_at, entry.slug,

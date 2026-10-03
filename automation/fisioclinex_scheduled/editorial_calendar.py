@@ -189,11 +189,58 @@ def load_calendar(path: str | Path, *, policy: CalendarPolicy) -> tuple[Editoria
     return tuple(sorted(slots, key=lambda item: item.planned_datetime))
 
 
-def save_calendar(path: str | Path, slots: Iterable[EditorialSlot], *, policy: CalendarPolicy) -> None:
+def calendar_workspace(path: str | Path) -> Path | None:
+    """Resolve the configured source of truth for the normal project calendar."""
+    from .queue_config import load_queue_config
+    root = Path(path).resolve().parent.parent
+    config = root / "publicacao-agendada/config.json"
+    if config.is_file():
+        return load_queue_config(config).workspace_path
+    if (root / "publication-state").is_dir() and Path(path).parent.name == "publication-state":
+        return root
+    return None
+
+
+def save_calendar(path: str | Path, slots: Iterable[EditorialSlot], *, policy: CalendarPolicy, workspace: str | Path | None = None) -> None:
+    from contextlib import nullcontext
+    from .schedule_integrity import schedule_lock
     target = Path(path)
+    source = workspace if workspace is not None else calendar_workspace(target)
+    # Keep a consistent lock order with queue staging and direct writeback.
+    with schedule_lock(source) if source is not None else nullcontext():
+        with schedule_lock(target):
+            _save_calendar(target, slots, policy=policy, workspace=source)
+
+
+def _save_calendar(target: Path, slots: Iterable[EditorialSlot], *, policy: CalendarPolicy, workspace) -> None:
+    from .schedule_integrity import check_reservations, validate_schedule_write
+
     if target.is_symlink():
         raise EditorialCalendarError("destino de calendário inseguro")
     checked = tuple(_validate_slot(slot, policy) for slot in slots)
+    if len({slot.slot_id for slot in checked}) != len(checked):
+        raise EditorialCalendarError("slot_id duplicado")
+    active = {"assigned", "queued", "published"}
+    previous = load_calendar(target, policy=policy) if target.exists() else ()
+    by_id = {slot.slot_id: slot for slot in checked}
+    old_by_id = {slot.slot_id: slot for slot in previous}
+    for old in previous:
+        new = by_id.get(old.slot_id)
+        if old.status in active and (new is None or new.status == "available" or
+                (new.status in active and new.assigned_slug != old.assigned_slug)):
+            raise EditorialCalendarError(f"slot persistido ocupado: {old.slot_id} por {old.assigned_slug}")
+    reservations = tuple((s.assigned_slug, s.planned_datetime) for s in checked
+                         if s.status in active and s.assigned_slug)
+    for slot in checked:
+        old = old_by_id.get(slot.slot_id)
+        if slot.status not in active or (old is not None and old.assigned_slug == slot.assigned_slug
+                and old.planned_datetime == slot.planned_datetime and old.status in active):
+            continue
+        check_reservations(slot.assigned_slug, slot.planned_datetime, reservations,
+                           explicit_override=slot.explicit_override, override_reason=slot.override_reason)
+        if workspace is not None:
+            validate_schedule_write(workspace, slug=slot.assigned_slug, planned_at=slot.planned_datetime,
+                                    explicit_override=slot.explicit_override, override_reason=slot.override_reason)
     payload = {"schema_version": 1, "policy_version": policy.schema_version, "slots": [asdict(slot) for slot in sorted(checked, key=lambda item: item.planned_datetime)]}
     target.parent.mkdir(parents=True, exist_ok=True)
     fd, temporary_name = tempfile.mkstemp(prefix=f".{target.name}.", dir=target.parent)

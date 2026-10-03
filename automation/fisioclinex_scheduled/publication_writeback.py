@@ -53,6 +53,27 @@ def classify_git_failure(operation: str, stderr: str) -> str:
 
 
 def write_manifest(path: Path, data: dict) -> None:
+    if path.name != "manifest.json" or path.is_symlink() or path.parent.is_symlink():
+        raise WritebackError("manifest path is invalid")
+    from .schedule_integrity import schedule_lock, validate_schedule_write
+    from .manifest import parse_manifest
+    with schedule_lock(path.parents[3]):
+        previous = json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
+        schedule_fields = ("planned_at", "not_before", "slot_id", "slug")
+        changed = previous is None or any(previous.get(key) != data.get(key) for key in schedule_fields)
+        if changed:
+            manifest = parse_manifest(data)
+            planned = manifest.planned_at or manifest.not_before
+            if manifest.status.value == "queued" and (manifest.planned_at is None or manifest.slot_id is None):
+                raise WritebackError("new or changed queued items require an explicit editorial slot")
+            if planned is not None:
+                validate_schedule_write(path.parents[3], slug=manifest.slug, planned_at=planned,
+                                        explicit_override=manifest.explicit_override,
+                                        override_reason=manifest.override_reason)
+        _write_manifest(path, data)
+
+
+def _write_manifest(path: Path, data: dict) -> None:
     if path.name != "manifest.json" or path.is_symlink():
         raise WritebackError("manifest path is invalid")
     path.write_text(
