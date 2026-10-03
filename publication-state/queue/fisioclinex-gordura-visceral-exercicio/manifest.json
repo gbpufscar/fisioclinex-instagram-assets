@@ -9,10 +9,10 @@
     "phase": null,
     "requires_human_review": false
   },
-  "not_before": "2026-10-02T12:00:00-03:00",
+  "not_before": "2026-10-07T12:00:00-03:00",
   "override_reason": null,
   "package_sha256": "cd977906a964a93f132d1a3b4c83fb707a378a2d9a4859c685881a92c8adeea9",
-  "planned_at": "2026-10-02T12:00:00-03:00",
+  "planned_at": "2026-10-07T12:00:00-03:00",
   "priority": 100,
   "publication": {
     "asset_commit": null,
@@ -25,7 +25,7 @@
   "schema_version": 1,
   "short_slug": "gordura-visceral-exercicio",
   "slides_count": 6,
-  "slot_id": "2026-10-02T12:00-scientific",
+  "slot_id": "2026-10-07T12:00-scientific",
   "slot_type": "scientific",
   "slug": "fisioclinex-gordura-visceral-exercicio",
   "status": "queued"

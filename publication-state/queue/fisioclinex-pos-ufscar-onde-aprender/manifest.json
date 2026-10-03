@@ -9,10 +9,10 @@
     "phase": null,
     "requires_human_review": false
   },
-  "not_before": "2026-10-01T12:00:00-03:00",
+  "not_before": "2026-10-06T12:00:00-03:00",
   "override_reason": null,
   "package_sha256": "1800626105a852aea6897e0cfeb400d1ddb77e828fdf60ea27131e5712b220f8",
-  "planned_at": "2026-10-01T12:00:00-03:00",
+  "planned_at": "2026-10-06T12:00:00-03:00",
   "priority": 100,
   "publication": {
     "asset_commit": null,
@@ -25,7 +25,7 @@
   "schema_version": 1,
   "short_slug": "pos-ufscar-onde-aprender",
   "slides_count": 6,
-  "slot_id": "2026-10-01T12:00-other",
+  "slot_id": "2026-10-06T12:00-other",
   "slot_type": "other",
   "slug": "fisioclinex-pos-ufscar-onde-aprender",
   "status": "queued"
