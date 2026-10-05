@@ -10,7 +10,7 @@ SLUG_RE = re.compile(r"^fisioclinex-[a-z0-9]+(?:-[a-z0-9]+)*$")
 FORBIDDEN_SLUGS = frozenset({"publication-package", "final", "output", "post", "temp"})
 PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
 REQUIRED_DIMENSIONS = (1080, 1350); REQUIRED_STORY_DIMENSIONS = (1080, 1920)
-BUILDER_VERSION = "2.0.0"
+BUILDER_VERSION = "2.1.0"
 CAPTION_HARD_LIMIT = 2200
 CAPTION_SAFE_LIMIT = 2000
 CAPTION_HASHTAG_LIMIT = 30
@@ -82,13 +82,46 @@ def _valid_timestamp(value: Any) -> bool:
     except ValueError: return False
     return parsed.tzinfo is not None and parsed.utcoffset() is not None
 
+def _validate_recomposed_story(data, filename, cover, cover_hash):
+    # Standard-library runtime reader: pixel QA is performed by the local builder.
+    common = {"filename": filename, "dimensions": [1080, 1920], "source_cover": cover,
+              "source_cover_sha256": cover_hash, "adapter_version": "cover-recompose-v2",
+              "placement": {"x": 96, "y": 328, "width": 688, "height": 860},
+              "safe_area": {"top": 269, "bottom": 672, "left": 96, "right": 96},
+              "copy_preservation": "whole-cover-proportional"}
+    if not isinstance(data, dict) or set(data) != set(common) | {"elements"} or any(data.get(k) != v for k, v in common.items()):
+        raise PublicationPackageError("contrato da recomposição Story inválido")
+    elements = data["elements"]
+    expected = {
+        "badge": {"text": "NOVO POST", "placement": {"x": 96, "y": 282, "width": 300, "height": 32}},
+        "cta": {"text": "Veja no feed", "placement": {"x": 96, "y": 1208, "width": 280, "height": 40}},
+        "indicator": {"kind": "right-arrow", "placement": {"x": 400, "y": 1216, "width": 32, "height": 24}},
+    }
+    if not isinstance(elements, dict) or set(elements) != set(expected) | {"logo"} or any(elements.get(k) != v for k, v in expected.items()):
+        raise PublicationPackageError("elementos fixos do Story inválidos")
+    logo = elements["logo"]
+    if not isinstance(logo, dict) or set(logo) != {"variant", "asset", "sha256", "placement"}:
+        raise PublicationPackageError("identidade oficial da logo Story inválida")
+    specs = {
+        "color": ("ID_logos/logo_colorida.png", 148),
+        "white": ("ID_logos/logo_branca.png", 160),
+    }
+    if not isinstance(logo.get("variant"), str) or logo["variant"] not in specs:
+        raise PublicationPackageError("variante da logo Story inválida")
+    asset, height = specs[logo["variant"]]
+    if logo.get("asset") != asset or not isinstance(logo.get("sha256"), str) or not re.fullmatch(r"[0-9a-f]{64}", logo["sha256"]):
+        raise PublicationPackageError("origem/hash da logo Story inválidos")
+    if logo.get("placement") != {"x": 844, "y": 352, "width": 112, "height": height}:
+        raise PublicationPackageError("posição/proporção da logo Story inválidas")
+
+
 def validate_publication_package(folder: str | Path, *, expected_slug: str | None = None) -> ValidatedPublicationPackage:
     root = Path(folder).expanduser().resolve(strict=True)
     if not root.is_dir() or root.is_symlink(): raise PublicationPackageError("pasta do pacote é insegura")
     slug = validate_slug(expected_slug) if expected_slug is not None else validate_slug(root.name)
     manifest = _load_json(root / "publication-manifest.json")
     required = {"schema_version", "slug", "post_type", "slide_count", "slides", "story", "caption_file", "approval", "publicable", "files", "created_at", "builder_version"}
-    if set(manifest) != required or manifest.get("schema_version") != "2.0" or manifest.get("slug") != slug: raise PublicationPackageError("publication-manifest.json inválido ou divergente")
+    if set(manifest) != required or manifest.get("schema_version") not in {"2.0", "2.1"} or manifest.get("slug") != slug: raise PublicationPackageError("publication-manifest.json inválido ou divergente")
     if expected_slug is None and root.name != slug: raise PublicationPackageError("basename do pacote diverge da slug")
     count = manifest.get("slide_count")
     if isinstance(count, bool) or not isinstance(count, int) or count not in range(1, 11): raise PublicationPackageError("quantidade de slides deve estar entre 1 e 10")
@@ -100,13 +133,16 @@ def validate_publication_package(folder: str | Path, *, expected_slug: str | Non
     if not re.fullmatch(r"[0-9a-f]{64}", approval.get("copy_sha256", "")): raise PublicationPackageError("hash da copy inválido")
     if not all(_valid_timestamp(approval.get(key)) for key in ("copy_approved_at", "final_approved_at")): raise PublicationPackageError("datas de aprovação inválidas")
     if manifest.get("publicable") is not True: raise PublicationPackageError("pacote não está publicável")
-    if not _valid_timestamp(manifest.get("created_at")) or manifest.get("builder_version") != BUILDER_VERSION: raise PublicationPackageError("metadados do builder inválidos")
+    if not _valid_timestamp(manifest.get("created_at")) or manifest.get("builder_version") != ({"2.0": "2.0.0", "2.1": BUILDER_VERSION}[manifest["schema_version"]]): raise PublicationPackageError("metadados do builder inválidos")
     slides = tuple(root / name for name in names)
     for slide in slides:
         if not slide.is_file() or slide.is_symlink() or png_dimensions(slide) != REQUIRED_DIMENSIONS: raise PublicationPackageError(f"slide ausente, inseguro ou com dimensões inválidas: {slide.name}")
     story_name = f"{slug}-story.png"; story_data = manifest.get("story")
     expected_story = {"filename": story_name, "dimensions": [1080, 1920], "source_cover": names[0], "source_cover_sha256": sha256(slides[0]), "adapter_version": "cover-contain-v1", "placement": {"x": 0, "y": 285, "width": 1080, "height": 1350}}
-    if story_data != expected_story: raise PublicationPackageError("integridade do contrato do Story é inválida")
+    if manifest["schema_version"] == "2.0":
+        if story_data != expected_story: raise PublicationPackageError("integridade do contrato do Story é inválida")
+    else:
+        _validate_recomposed_story(story_data, story_name, names[0], sha256(slides[0]))
     story = root / story_name
     if not story.is_file() or story.is_symlink() or png_dimensions(story) != REQUIRED_STORY_DIMENSIONS: raise PublicationPackageError("asset do Story ausente, inseguro ou com dimensões inválidas")
     caption = root / "legenda.txt"

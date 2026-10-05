@@ -9,7 +9,7 @@ from pathlib import Path
 
 from fisioclinex_scheduled.fingerprint import fingerprint_mapped_files
 from fisioclinex_scheduled.manifest import Manifest, parse_manifest
-from fisioclinex_scheduled.queue_pages import QueuePagesError, verify_slide_paths
+from fisioclinex_scheduled.queue_pages import QueuePagesError, verify_slide_paths, verify_story_path
 from fisioclinex_scheduled.registry import read_registry
 from fisioclinex_scheduled.result import ResultCode
 from fisioclinex_scheduled.selector import select_next
@@ -307,6 +307,9 @@ def run_shadow_verified(
         kwargs["monotonic"] = monotonic
     try:
         verified_slides = verify_slide_paths(selection.slug, slides, **kwargs)
+        selected_manifest = parse_manifest((root / "publication-state/queue" / selection.slug / "manifest.json").read_bytes())
+        if selected_manifest.story is not None:
+            verify_story_path(selection.slug, root / "posts" / selection.slug / f"{selection.slug}-story.png", fetcher=fetcher)
     except QueuePagesError:
         report = VerifiedShadowReport(
             **base,

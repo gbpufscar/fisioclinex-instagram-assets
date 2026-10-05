@@ -224,3 +224,21 @@ def verify_slide_paths(
             if remaining <= 0:
                 raise QueuePagesError("GitHub Pages propagation timed out") from None
             sleeper(min(float(retry_interval_seconds), remaining))
+
+
+def verify_story_path(slug: str, path: Path, *, fetcher) -> str:
+    """Exact Story role, official URL, public PNG dimensions and package bytes.
+
+    A Story action gets one verification attempt; no publication retry policy.
+    """
+    if path.name != f"{slug}-story.png" or path.is_symlink() or not path.is_file():
+        raise QueuePagesError("Story role or file is invalid")
+    url = official_slide_url(slug, path.name)
+    try:
+        response = fetcher(url)
+        if not isinstance(response, PageResponse):
+            raise QueuePagesError("Story response is invalid")
+        _verify_response(url, response, path.read_bytes(), expected_dimensions=(1080, 1920))
+    except (ConnectionError, TimeoutError, OSError, _TransientPagesError):
+        raise QueuePagesError("Story is not publicly verified") from None
+    return url

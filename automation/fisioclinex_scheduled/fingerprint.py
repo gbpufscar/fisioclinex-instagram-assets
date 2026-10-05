@@ -126,3 +126,10 @@ def build_publication_key(slug: str, package_sha256: str) -> str:
     if not isinstance(package_sha256, str) or not _SHA256_RE.fullmatch(package_sha256):
         raise FingerprintError("package_sha256 is invalid")
     return f"{slug}:{package_sha256}"
+
+
+def build_story_publication_key(slug: str, package_sha256: str) -> str:
+    """Domain-separated SHA-256 action identity; package fingerprint stays unchanged."""
+    feed_key = build_publication_key(slug, package_sha256)
+    digest = hashlib.sha256(b"FISIOCLINEX-STORY-ACTION\x00v1\x00" + feed_key.encode("ascii")).hexdigest()
+    return build_publication_key(slug, digest)

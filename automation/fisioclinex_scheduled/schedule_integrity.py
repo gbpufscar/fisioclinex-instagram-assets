@@ -84,6 +84,8 @@ def persisted_reservations(workspace):
         if path.is_symlink() or path.parent.is_symlink():
             raise ValueError("unsafe queue manifest")
         manifest = parse_manifest(path.read_bytes())
+        if manifest.status.value == "cancelled":
+            continue
         if manifest.publication.published_at is not None:
             reservations.append((manifest.slug, manifest.publication.published_at))
         elif manifest.planned_at is not None:
@@ -106,3 +108,48 @@ def persisted_reservations(workspace):
 def validate_schedule_write(workspace, *, slug, planned_at, explicit_override=False, override_reason=None):
     check_reservations(slug, planned_at, persisted_reservations(workspace),
                        explicit_override=explicit_override, override_reason=override_reason)
+
+
+def story_planned_at(feed_planned_at):
+    """S4 fixed planning barrier; never based on actual feed publication."""
+    from datetime import time
+    if not isinstance(feed_planned_at, (datetime, str)):
+        raise ValueError("Story planning requires an aware feed timestamp")
+    local = timestamp(feed_planned_at).astimezone(ZONE)
+    if (local.hour, local.minute, local.second, local.microsecond) != (12, 0, 0, 0):
+        raise ValueError("Story planning requires a feed at 12:00 America/Sao_Paulo")
+    return datetime.combine(local.date(), time(18), ZONE)
+
+
+def validate_story_plan(feed_planned_at, story_not_before):
+    if timestamp(story_not_before) != story_planned_at(feed_planned_at):
+        raise ValueError("Story planning must be 18:00 on its feed's local day")
+
+
+def validate_occurrences(occurrences):
+    """Validate derived projections without reserving another editorial slot."""
+    items = tuple(occurrences)
+    ids = [item['occurrence_id'] for item in items]
+    if len(ids) != len(set(ids)):
+        raise ValueError("duplicate occurrence identity")
+    feeds = {item['occurrence_id']: item for item in items if item['surface'] == 'feed'}
+    if len({item["slug"] for item in feeds.values()}) != len(feeds):
+        raise ValueError("one feed occurrence per topic is required")
+    children = set()
+    for item in items:
+        if item['surface'] == 'feed':
+            if item['parent_id'] is not None or not item['reserves_feed']:
+                raise ValueError("invalid feed occurrence")
+        elif item['surface'] == 'story':
+            parent = feeds.get(item['parent_id'])
+            if parent is None or parent['slug'] != item['slug'] or item['reserves_feed']:
+                raise ValueError("Story must have a matching feed parent and no feed reservation")
+            if item['parent_id'] in children:
+                raise ValueError("duplicate Story child")
+            children.add(item['parent_id'])
+            validate_story_plan(parent['planned_at'], item['planned_at'])
+        else:
+            raise ValueError("unknown occurrence surface")
+    reservations = tuple((item['slug'], timestamp(item['planned_at'])) for item in feeds.values())
+    for slug, planned in reservations:
+        check_reservations(slug, planned, reservations)

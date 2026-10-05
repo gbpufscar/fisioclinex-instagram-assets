@@ -13,7 +13,7 @@ from publication_package import validate_caption_text
 from .publication_state import (
     authorize, begin_publishing, mark_failed, mark_feed_published, mark_published,
 )
-from .publication_writeback import append_registry, persist, write_manifest
+from .publication_writeback import append_registry, persist, write_manifest, persist_feed, execution_locked
 from .queue_pages import official_slide_url
 from .registry import read_registry
 from .manifest import parse_manifest
@@ -52,7 +52,7 @@ class PublicationResult:
     verified: bool
     publication_performed: bool
     media_id: str
-    story_media_id: str
+    story_media_id: str | None
     published_at: str
     state_writeback: bool
     registry_writeback: bool
@@ -66,6 +66,7 @@ class PublicationResult:
         return data
 
 
+@execution_locked
 def _run_publication(
     repository_root: str | Path,
     *,
@@ -150,7 +151,7 @@ def _run_publication(
             git_runner=git_runner,
         )
     except Exception as exc:
-        write_manifest(manifest_path, manifest)
+        # Preserve fencing state if commit/push failed; never blindly reopen.
         raise PublicationRunnerError(
             "lock_push",
             run_id=run_id,
@@ -200,6 +201,17 @@ def _run_publication(
         feed_state = mark_feed_published(
             locked, media_id=media_id, published_at=feed_published_at
         )
+        if parsed_manifest.story is not None:
+            try:
+                persist_feed(root, manifest_path, feed_state, git_runner=git_runner)
+            except Exception:
+                raise PublicationRunnerError("writeback_after_feed", run_id=run_id,
+                                             publication_performed=True) from None
+            return PublicationResult(
+                mode, verified.slug, verified.short_slug, "published", verified.slides_count,
+                asset_commit, verified.package_sha256, verified.publication_key,
+                True, True, True, media_id, None, feed_published_at.isoformat(), True, True,
+            )
         write_manifest(manifest_path, feed_state)
         try:
             persist(
@@ -216,6 +228,9 @@ def _run_publication(
         meta_client.wait_finished(story_container_id)
         story_media_id = meta_client.publish(story_container_id)
     except Exception as exc:
+        if parsed_manifest.story is not None and media_id is not None:
+            # Confirmed feed must never be downgraded by writeback failure.
+            raise PublicationRunnerError("writeback_after_feed", run_id=run_id, publication_performed=True) from None
         phase = getattr(exc, "phase", "meta")
         failed = mark_failed(
             feed_state,

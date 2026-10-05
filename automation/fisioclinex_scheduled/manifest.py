@@ -10,6 +10,7 @@ from pathlib import PurePosixPath
 from typing import Any, Mapping
 
 from .fingerprint import build_publication_key
+from .story_state import FeedState, StoryPublication, StoryStateError, parse_story
 from .states import HUMAN_REVIEW_STATES, QueueState
 from content_policy import (
     ACTIVE_ARTIFACT_STATUS,
@@ -110,6 +111,19 @@ class Manifest:
     slot_type: str | None = None
     explicit_override: bool = False
     override_reason: str | None = None
+    story: StoryPublication | None = None
+    story_plan_version: int | None = None
+
+    @property
+    def feed_status(self) -> FeedState:
+        # Success is based on confirmed feed identity/time, not the child's state.
+        if self.publication.media_id is not None and self.publication.published_at is not None:
+            return FeedState.PUBLISHED
+        if self.status in HUMAN_REVIEW_STATES or self.status is QueueState.FAILED_BEFORE_META:
+            return FeedState.FAILED
+        if self.status is QueueState.PUBLISHING:
+            return FeedState.PUBLISHING
+        return FeedState.PENDING
 
 
 def _require_exact_fields(data: Mapping[str, Any], expected: frozenset[str], label: str) -> None:
@@ -154,7 +168,7 @@ def _parse_timestamp(value: Any, field: str, *, optional: bool = False) -> datet
 
 def _parse_mapping(data: Mapping[str, Any]) -> Manifest:
     missing = (_TOP_LEVEL_FIELDS - _CONTENT_POLICY_FIELDS) - data.keys()
-    unknown = data.keys() - (_TOP_LEVEL_FIELDS | _OPTIONAL_PHASE6_FIELDS | _SLOT_FIELDS)
+    unknown = data.keys() - (_TOP_LEVEL_FIELDS | _OPTIONAL_PHASE6_FIELDS | _SLOT_FIELDS | {"story", "story_plan_version"})
     if missing:
         raise ManifestValidationError(
             f"manifest missing required fields: {', '.join(sorted(missing))}"
@@ -308,7 +322,10 @@ def _parse_mapping(data: Mapping[str, Any]) -> Manifest:
         if publication.media_id is None or publication.published_at is None:
             raise ManifestValidationError("published status requires media_id and published_at")
     elif publication.published_at is not None:
-        raise ManifestValidationError("published_at is only valid for published status")
+        if publication.media_id is None or status not in {
+            QueueState.PUBLISHING, QueueState.FAILED_AFTER_META, QueueState.NEEDS_REVIEW
+        }:
+            raise ManifestValidationError("confirmed feed time is inconsistent with status")
 
     if publication.media_id is not None and status not in {
         QueueState.PUBLISHING,
@@ -323,7 +340,38 @@ def _parse_mapping(data: Mapping[str, Any]) -> Manifest:
     if failure.requires_human_review and status not in HUMAN_REVIEW_STATES:
         raise ManifestValidationError("human review flag is inconsistent with status")
 
+    story = None
+    if "story" in data:
+        if any(key in data for key in ("story_container_id", "story_media_id", "story_published_at")):
+            raise ManifestValidationError("nested and legacy story state cannot be mixed")
+        try:
+            story = parse_story(data["story"], slug=data["slug"],
+                                package_sha256=data["package_sha256"],
+                                feed_published_at=publication.published_at)
+        except StoryStateError as exc:
+            raise ManifestValidationError(str(exc)) from None
+        if publication.published_at is not None and status is not QueueState.PUBLISHED:
+            raise ManifestValidationError("new manifests preserve confirmed feed status as published")
+
+    plan_version = data.get("story_plan_version")
+    if "story_plan_version" in data:
+        if type(plan_version) is not int or plan_version != 1 or story is None or planned_at is None or slot_id is None:
+            raise ManifestValidationError("Story planning requires a feed parent/slot and version 1")
+        from zoneinfo import ZoneInfo
+        local_plan = planned_at.astimezone(ZoneInfo("America/Sao_Paulo"))
+        if slot_id != f"{local_plan:%Y-%m-%dT%H:%M}-{slot_type}":
+            raise ManifestValidationError("Story parent slot identity differs from planning")
+        if publication.published_at is None and status is not QueueState.CANCELLED:
+            try:
+                from .schedule_integrity import validate_story_plan
+                validate_story_plan(planned_at, story.not_before)
+            except (ValueError, TypeError, AttributeError) as exc:
+                raise ManifestValidationError(str(exc)) from None
+        if status is QueueState.CANCELLED and story.not_before is not None:
+            raise ManifestValidationError("cancelled Story planning must have no barrier")
     return Manifest(
+        story_plan_version=plan_version,
+        story=story,
         schema_version=data["schema_version"],
         content_policy_version=content_policy_version,
         artifact_status=artifact_status,

@@ -3,6 +3,9 @@
 from __future__ import annotations
 
 import json
+import os
+import tempfile
+from functools import wraps
 from pathlib import Path
 
 
@@ -59,6 +62,10 @@ def write_manifest(path: Path, data: dict) -> None:
     from .manifest import parse_manifest
     with schedule_lock(path.parents[3]):
         previous = json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
+        if previous and previous.get("story_plan_version") == 1 and data.get("story_plan_version") != 1:
+            raise WritebackError("Story planning cannot be removed independently from its feed")
+        if "story_plan_version" in data:
+            parse_manifest(data)  # Validate child-only writes too, not just feed dates.
         schedule_fields = ("planned_at", "not_before", "slot_id", "slug")
         changed = previous is None or any(previous.get(key) != data.get(key) for key in schedule_fields)
         if changed:
@@ -74,20 +81,93 @@ def write_manifest(path: Path, data: dict) -> None:
 
 
 def _write_manifest(path: Path, data: dict) -> None:
-    if path.name != "manifest.json" or path.is_symlink():
+    if (path.name != "manifest.json" or path.is_symlink()
+            or any(parent.is_symlink() for parent in path.parents[:3])):
         raise WritebackError("manifest path is invalid")
-    path.write_text(
-        json.dumps(data, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
-    )
+    atomic_write(path, json.dumps(data, ensure_ascii=False, indent=2, sort_keys=True) + "\n")
+
+
+def atomic_write(path: Path, text: str) -> None:
+    if path.is_symlink() or path.parent.is_symlink():
+        raise WritebackError("unsafe state path")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fd, name = tempfile.mkstemp(prefix=".publication-", dir=path.parent)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as handle:
+            handle.write(text)
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(name, path)
+        directory = os.open(path.parent, os.O_RDONLY)
+        try:
+            os.fsync(directory)
+        finally:
+            os.close(directory)
+    finally:
+        if os.path.exists(name):
+            os.unlink(name)
+
+
+def execution_locked(function):
+    """One local publication worker per repository; Actions also uses Git fencing.
+
+    A separate resource avoids nesting the write-side schedule lock.
+    """
+    @wraps(function)
+    def locked(repository_root, *args, **kwargs):
+        from .schedule_integrity import schedule_lock
+        with schedule_lock(Path(repository_root) / ".publication-execution"):
+            return function(repository_root, *args, **kwargs)
+    return locked
 
 
 def append_registry(path: Path, record: dict) -> None:
+    from .schedule_integrity import schedule_lock
+    from .registry import _read_records, RegistryError
     if path.name != "publications.jsonl" or path.is_symlink():
         raise WritebackError("registry path is invalid")
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("a", encoding="utf-8") as handle:
-        handle.write(json.dumps(record, sort_keys=True, separators=(",", ":")) + "\n")
+    with schedule_lock(path):
+        existing = _read_records(path)
+        same = next((r for r in existing if r.publication_key == record["publication_key"]), None)
+        if same is not None:
+            if same.media_id != record["media_id"] or same.published_at != record["published_at"]:
+                raise RegistryError("confirmed registry result cannot be replaced")
+            return
+        if any(r.media_id == record["media_id"] for r in existing):
+            raise RegistryError("duplicate media_id")
+        previous = path.read_text(encoding="utf-8") if path.exists() else ""
+        payload = previous + json.dumps(record, sort_keys=True, separators=(",", ":")) + "\n"
+        # Validate the complete replacement before exposing it to readers.
+        fd, name = tempfile.mkstemp(dir=path.parent if path.parent.exists() else None)
+        try:
+            with os.fdopen(fd, "w", encoding="utf-8") as handle:
+                handle.write(payload)
+            _read_records(Path(name))
+        finally:
+            os.unlink(name)
+        atomic_write(path, payload)
+
+
+def persist_feed(root: Path, manifest_path: Path, data: dict, *, git_runner) -> None:
+    """Write manifest first, then registry; interruptions keep feed non-repostable.
+
+    Files are individually atomic. They are not a two-file transaction: a crash
+    between them requires operator writeback repair, never a new Meta call.
+    """
+    from .manifest import parse_manifest
+    manifest = parse_manifest(data)
+    if not manifest.publication.media_id or not manifest.publication.published_at:
+        raise WritebackError("feed confirmation is missing")
+    record = {
+        "publication_key": manifest.publication_key, "slug": manifest.slug,
+        "media_id": manifest.publication.media_id,
+        "published_at": manifest.publication.published_at.isoformat(),
+    }
+    write_manifest(manifest_path, data)
+    registry_path = root / "publication-state/publications.jsonl"
+    append_registry(registry_path, record)
+    persist(root, paths=(manifest_path, registry_path),
+            message=f"queue: registrar feed {manifest.slug}", git_runner=git_runner)
 
 
 def persist(

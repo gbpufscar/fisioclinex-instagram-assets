@@ -8,7 +8,7 @@ from dataclasses import asdict, dataclass
 from datetime import datetime
 from pathlib import Path
 
-from .fingerprint import build_publication_key
+from .fingerprint import build_publication_key, build_story_publication_key
 from .result import ResultCode, ScheduledResult
 
 _FIELDS = frozenset({"publication_key", "slug", "media_id", "published_at"})
@@ -59,6 +59,8 @@ class PublicationRecord:
         if timestamp.tzinfo is None or timestamp.utcoffset() is None:
             raise RegistryError("published_at must include a timezone")
 
+        if not isinstance(self.publication_key, str):
+            raise RegistryError("publication_key is invalid")
         separator = self.publication_key.rfind(":")
         if separator <= 0:
             raise RegistryError("publication_key is invalid")
@@ -71,14 +73,36 @@ class PublicationRecord:
             raise RegistryError("publication_key does not match slug")
 
 
-def read_registry(path: str | Path) -> tuple[PublicationRecord, ...]:
+
+@dataclass(frozen=True, slots=True)
+class StoryPublicationRecord:
+    schema_version: int
+    surface: str
+    publication_key: str
+    feed_publication_key: str
+    slug: str
+    media_id: str
+    published_at: str
+
+    def validate(self) -> None:
+        if type(self.schema_version) is not int or self.schema_version != 2 or self.surface != "story":
+            raise RegistryError("story registry version or surface is invalid")
+        PublicationRecord(self.feed_publication_key, self.slug, self.media_id, self.published_at).validate()
+        digest = self.feed_publication_key.rsplit(":", 1)[-1]
+        if self.publication_key != build_story_publication_key(self.slug, digest):
+            raise RegistryError("story registry identity differs from parent feed")
+
+
+_STORY_ACTION_FIELDS = frozenset(StoryPublicationRecord.__dataclass_fields__)
+
+def _read_records(path: str | Path) -> tuple[PublicationRecord | StoryPublicationRecord, ...]:
     registry_path = Path(path)
     if not registry_path.exists():
         return ()
     if registry_path.is_symlink() or not registry_path.is_file():
         raise RegistryError("registry path is invalid")
 
-    records: list[PublicationRecord] = []
+    records: list[PublicationRecord | StoryPublicationRecord] = []
     keys: set[str] = set()
     media_ids: set[str] = set()
     with registry_path.open("r", encoding="utf-8") as handle:
@@ -94,6 +118,7 @@ def read_registry(path: str | Path) -> tuple[PublicationRecord, ...]:
                 _WORKFLOW_FIELDS,
                 _STORY_WORKFLOW_FIELDS,
                 _SLOT_HISTORY_FIELDS,
+                _STORY_ACTION_FIELDS,
             ):
                 raise RegistryError(f"registry line {line_number} has invalid fields")
             if data.keys() in (_WORKFLOW_FIELDS, _STORY_WORKFLOW_FIELDS, _SLOT_HISTORY_FIELDS):
@@ -104,7 +129,7 @@ def read_registry(path: str | Path) -> tuple[PublicationRecord, ...]:
                     "published_at": data["published_at"],
                 }
             try:
-                record = PublicationRecord(**data)
+                record = StoryPublicationRecord(**data) if data.keys() == _STORY_ACTION_FIELDS else PublicationRecord(**data)
             except TypeError as exc:
                 raise RegistryError(f"registry line {line_number} is invalid") from exc
             record.validate()
@@ -115,13 +140,32 @@ def read_registry(path: str | Path) -> tuple[PublicationRecord, ...]:
             keys.add(record.publication_key)
             media_ids.add(record.media_id)
             records.append(record)
+    feeds = {r.publication_key: r for r in records if isinstance(r, PublicationRecord)}
+    for record in records:
+        if isinstance(record, StoryPublicationRecord):
+            parent = feeds.get(record.feed_publication_key)
+            if parent is None or parent.slug != record.slug:
+                raise RegistryError("story registry requires confirmed parent feed")
+            if datetime.fromisoformat(record.published_at.replace("Z", "+00:00")) < datetime.fromisoformat(parent.published_at.replace("Z", "+00:00")):
+                raise RegistryError("story registry publication precedes feed")
     return tuple(records)
 
 
+def read_registry(path: str | Path) -> tuple[PublicationRecord, ...]:
+    """Feed-only view: Story actions never count towards feed spacing or slots."""
+    return tuple(r for r in _read_records(path) if isinstance(r, PublicationRecord))
+
+
+def read_story_registry(path: str | Path) -> tuple[StoryPublicationRecord, ...]:
+    return tuple(r for r in _read_records(path) if isinstance(r, StoryPublicationRecord))
+
+
 def append_record(path: str | Path, record: PublicationRecord) -> ScheduledResult:
+    if not isinstance(record, PublicationRecord):
+        raise RegistryError("feed append requires a feed record")
     record.validate()
     registry_path = Path(path)
-    existing = read_registry(registry_path)
+    existing = _read_records(registry_path)
     if any(item.publication_key == record.publication_key for item in existing):
         return ScheduledResult.failure(
             ResultCode.DUPLICATE,

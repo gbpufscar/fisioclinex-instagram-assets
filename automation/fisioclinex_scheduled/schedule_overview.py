@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import json
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 from datetime import datetime, time, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -44,6 +44,7 @@ class QueueEntry:
     slot_type: str | None = None
     explicit_override: bool = False
     override_reason: str | None = None
+    story_not_before: datetime | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -59,6 +60,9 @@ class ScheduledPost:
     priority: int
     status: str = "projected"
     reason: str | None = None
+    surface: str = "feed"
+    occurrence_id: str | None = None
+    parent_id: str | None = None
 
     def to_dict(self) -> dict[str, object]:
         return asdict(self)
@@ -109,7 +113,16 @@ def _load_entry(path: Path) -> QueueEntry | None:
         raise ScheduleOverviewError(f"slot inválido: {path.parent.name}")
     explicit_override = data.get("explicit_override", False)
     override_reason = data.get("override_reason")
-    return QueueEntry(slug, short_slug, priority, queued_at, not_before, planned_at, slot_type, explicit_override, override_reason)
+    child_at = None
+    if data.get("story_plan_version") is not None:
+        from .manifest import parse_manifest, ManifestValidationError
+        try:
+            manifest = parse_manifest(data)
+        except ManifestValidationError as exc:
+            raise ScheduleOverviewError(str(exc)) from None
+        child_at = manifest.story.not_before
+    return QueueEntry(slug, short_slug, priority, queued_at, not_before, planned_at,
+                      slot_type, explicit_override, override_reason, child_at)
 
 
 def load_queued_entries(workspace: str | Path) -> tuple[QueueEntry, ...]:
@@ -169,6 +182,8 @@ def project_schedule(
     if now.tzinfo is None or now.utcoffset() is None:
         raise ScheduleOverviewError("instante atual sem fuso horário")
     remaining = list(entries)
+    if len({entry.slug for entry in remaining}) != len(remaining):
+        raise ScheduleOverviewError("duplicate feed/topic identity in projection")
     projected: list[ScheduledPost] = []
     simulated_history = list(published_at)
     legacy_slot = next_legacy_slot(now)
@@ -189,7 +204,19 @@ def project_schedule(
             priority=entry.priority,
             status="blocked" if reason else "projected",
             reason=reason,
+            occurrence_id=entry.slug + ":feed",
         ))
+        if entry.story_not_before is not None:
+            from .schedule_integrity import validate_story_plan
+            validate_story_plan(entry.planned_at, entry.story_not_before)
+            child = entry.story_not_before.astimezone(CANONICAL_TIMEZONE)
+            projected.append(ScheduledPost(
+                position=len(projected)+1, slug=entry.slug, short_slug=entry.short_slug,
+                scheduled_at=child.isoformat(), date=child.strftime("%d/%m/%Y"),
+                weekday=PORTUGUESE_WEEKDAYS[child.weekday()], time=child.strftime("%Hh%M"),
+                timezone=str(CANONICAL_TIMEZONE), priority=entry.priority,
+                status="planning_only", reason="independent_story_not_enabled", surface="story",
+                occurrence_id=entry.slug+":story", parent_id=entry.slug+":feed"))
 
     while remaining:
         attempts += 1
@@ -231,7 +258,8 @@ def project_schedule(
             simulated_history.append(evaluation_time)
         if selected.planned_at is None:
             legacy_slot = next_legacy_slot(legacy_slot)
-    return tuple(projected)
+    ordered = sorted(projected, key=lambda p: p.scheduled_at)
+    return tuple(replace(post, position=index) for index, post in enumerate(ordered, 1))
 
 
 def build_schedule_overview(
@@ -265,7 +293,8 @@ def format_schedule_overview(posts: tuple[ScheduledPost, ...]) -> str:
         for post in posts:
             lines.append(
                 f"{post.position}. {post.weekday}, {post.date}, às {post.time} — "
-                f"{post.short_slug}"
+                f"{'↳ Story derivado' if post.surface == 'story' else 'Feed'} — {post.short_slug}"
+                + (" — planejado; execução desabilitada" if post.surface == "story" else "")
                 + (f" — BLOQUEADO: {reasons.get(post.reason, post.reason)}" if post.status == "blocked" else "")
             )
     lines.append(
@@ -283,7 +312,7 @@ def safe_format_schedule_overview(
     """Render a non-fatal operational summary after an irreversible success."""
     try:
         posts = build_schedule_overview(workspace, now=now)
-    except (OSError, ScheduleOverviewError) as exc:
+    except (OSError, ValueError) as exc:
         return (
             "\nPRÓXIMAS PUBLICAÇÕES AGENDADAS\n"
             "Resumo indisponível: a operação principal foi concluída, mas a fila "

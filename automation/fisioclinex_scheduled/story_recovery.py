@@ -39,6 +39,8 @@ def recover_story(
     if manifest_path.is_symlink() or not manifest_path.is_file():
         raise StoryRecoveryError("prepare")
     original = json.loads(manifest_path.read_text(encoding="utf-8"))
+    if "story" in original:
+        raise StoryRecoveryError("independent_story_requires_reconciliation_runner")
     publication = original.get("publication", {})
     feed_published = (
         original.get("status") in {"published", "failed_after_meta"}
