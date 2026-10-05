@@ -19,7 +19,10 @@ def main(argv=None):
     path = root / "automation/story-scheduler-control.json"
     if path.is_symlink():
         raise ValueError("unsafe scheduler control")
-    control = json.loads(path.read_bytes())
+    try:
+        control = json.loads(path.read_bytes())
+    except FileNotFoundError:
+        control = None  # Missing explicit opt-in stays disabled, without loading credentials.
     if control != {"schema_version": 1, "story_scheduler_enabled": True}:
         print(json.dumps({"status": "disabled", "selected": False}))
         return 0
