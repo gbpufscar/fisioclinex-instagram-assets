@@ -8,7 +8,7 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 
-from .publication_writeback import persist, write_manifest
+from .publication_writeback import persist, write_manifest, execution_locked
 from .queue_pages import official_slide_url
 
 
@@ -18,6 +18,7 @@ class StoryRecoveryError(RuntimeError):
         self.phase = phase
 
 
+@execution_locked
 def recover_story(
     repository_root: str | Path,
     *,
@@ -26,7 +27,16 @@ def recover_story(
     meta_client,
     git_runner,
     now_fn=lambda: datetime.now(timezone.utc),
+    fetcher=None,
+    operation=None,
 ) -> dict:
+    if operation == "reconcile-story":
+        from .story_publisher import reconcile_story, StoryPublicationError
+        try:
+            return reconcile_story.__wrapped__(repository_root, short_slug=short_slug, confirmation=confirmation,
+                       meta_client=meta_client,git_runner=git_runner,now_fn=now_fn)
+        except StoryPublicationError as exc:
+            raise StoryRecoveryError(exc.phase) from None
     if (
         not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", short_slug or "")
         or short_slug.startswith("fisioclinex-")
@@ -40,7 +50,24 @@ def recover_story(
         raise StoryRecoveryError("prepare")
     original = json.loads(manifest_path.read_text(encoding="utf-8"))
     if "story" in original:
-        raise StoryRecoveryError("independent_story_requires_reconciliation_runner")
+        # Reconciliation is a separate read-only operation with separate authorization.
+        from .story_publisher import publish_story, StoryPublicationError
+        from .manifest import parse_manifest
+        child = parse_manifest(original).story
+        if operation is None:
+            raise StoryRecoveryError("independent_story_requires_explicit_action")
+        try:
+            if operation == "publish-story":
+                if child.status.value == "published":
+                    return {"status":"published", "publication_performed":False}
+                if child.status.value in {"publishing", "ambiguous"}:
+                    raise StoryRecoveryError("reconciliation_required")
+                # The outer execution lock also covers this dispatch; avoid nested flock acquisition.
+                return publish_story.__wrapped__(root,short_slug=short_slug,confirmation=confirmation,
+                       fetcher=fetcher,meta_client=meta_client,git_runner=git_runner,now_fn=now_fn)
+            raise StoryRecoveryError("operation")
+        except StoryPublicationError as exc:
+            raise StoryRecoveryError(exc.phase) from None
     publication = original.get("publication", {})
     feed_published = (
         original.get("status") in {"published", "failed_after_meta"}

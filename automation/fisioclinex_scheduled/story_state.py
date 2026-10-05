@@ -51,6 +51,8 @@ class StoryPublication:
     media_id: str | None = None
     published_at: datetime | None = None
     last_error: StoryError | None = None
+    attempt_stage: str | None = None
+    retry_allowed: bool | None = None
 
 
 def _timestamp(value, field, *, optional=True):
@@ -76,8 +78,26 @@ def _string(value, field):
 def parse_story(data: Mapping, *, slug: str, package_sha256: str,
                 feed_published_at: datetime | None) -> StoryPublication:
     fields = set(StoryPublication.__dataclass_fields__)
-    if not isinstance(data, Mapping) or set(data) != fields:
+    optional = {"attempt_stage", "retry_allowed"}
+    if not isinstance(data, Mapping) or not fields - optional <= set(data) or set(data) - fields:
         raise StoryStateError("story fields are incomplete or unknown")
+    data = dict(data)
+    for key in optional:
+        data.setdefault(key, None)
+    stage = data["attempt_stage"]
+    retry = data["retry_allowed"]
+    if (stage is not None and not isinstance(stage, str)) or stage not in {None, "started", "container_created", "publish_requested", "publish_confirmed"}:
+        raise StoryStateError("unknown attempt stage")
+    if retry is not None and type(retry) is not bool:
+        raise StoryStateError("retry_allowed must be boolean")
+    if stage is not None and data["attempt_count"] == 0:
+        raise StoryStateError("attempt stage requires an attempt")
+    if stage in {"container_created", "publish_requested", "publish_confirmed"} and not data["container_id"]:
+        raise StoryStateError("attempt stage requires container identity")
+    if stage == "publish_confirmed" and (not data["media_id"] or not data["published_at"]):
+        raise StoryStateError("confirmed stage requires publication evidence")
+    if retry is True and (type(data["attempt_count"]) is not int or data["attempt_count"] >= MAX_STORY_ATTEMPTS or data["last_error"] is None):
+        raise StoryStateError("retry permission requires remaining attempt and evidence")
     try:
         status = StoryState(data["status"])
     except (ValueError, TypeError):
@@ -101,6 +121,11 @@ def parse_story(data: Mapping, *, slug: str, package_sha256: str,
             raise StoryStateError("story failure classification is invalid")
         error = StoryError(phase, error["classification"],
                            _timestamp(error["occurred_at"], "story.last_error.occurred_at", optional=False))
+    if retry is not None and count == 0:
+        raise StoryStateError("retry decision requires an attempt")
+    if retry is True and (status not in {StoryState.FAILED, StoryState.ELIGIBLE}
+                          or error is None or error.classification != "confirmed_not_published"):
+        raise StoryStateError("retry permission requires confirmed non-publication")
     if (count == 0) != (last is None):
         raise StoryStateError("story attempt count and timestamp disagree")
     if status != StoryState.PENDING and feed_published_at is None:
@@ -127,6 +152,8 @@ def parse_story(data: Mapping, *, slug: str, package_sha256: str,
     if error is not None and (last is None or error.occurred_at < last):
         raise StoryStateError("story error precedes its attempt")
     if status == StoryState.ELIGIBLE:
+        if retry is False:
+            raise StoryStateError("terminal Story cannot become eligible")
         if not_before is None or count >= MAX_STORY_ATTEMPTS:
             raise StoryStateError("eligible story requires a barrier and remaining attempt")
         if count and (error is None or error.classification != "confirmed_not_published"
@@ -140,7 +167,7 @@ def parse_story(data: Mapping, *, slug: str, package_sha256: str,
         if error.classification != "ambiguous" or published < error.occurred_at:
             raise StoryStateError("published story requires coherent reconciliation evidence")
     return StoryPublication(status, data["publication_key"], not_before, count, last,
-                            container, media, published, error)
+                            container, media, published, error, stage, retry)
 
 
 def story_json(story: StoryPublication) -> dict:
@@ -150,6 +177,9 @@ def story_json(story: StoryPublication) -> dict:
         value[key] = value[key].isoformat() if value[key] is not None else None
     if value["last_error"] is not None:
         value["last_error"]["occurred_at"] = story.last_error.occurred_at.isoformat()
+    for key in ("attempt_stage", "retry_allowed"):
+        if value[key] is None:
+            value.pop(key)
     return value
 
 
@@ -186,13 +216,14 @@ def transition_story(story: StoryPublication, target: StoryState, *, now: dateti
         if story.not_before is None or now < story.not_before:
             raise StoryStateError("story barrier has not passed")
         changes.update(attempt_count=story.attempt_count + 1, last_attempt_at=now,
-                       container_id=None, last_error=None)
+                       container_id=None, last_error=None,
+                       attempt_stage="started" if story.attempt_stage is not None else None, retry_allowed=None)
     elif target == StoryState.PUBLISHED:
         if story.status == StoryState.AMBIGUOUS and reconciliation != "published":
             raise StoryStateError("ambiguous story requires reconciliation")
         if story.media_id and media_id != story.media_id:
             raise StoryStateError("known story media_id cannot be replaced")
-        changes.update(media_id=media_id, published_at=now,
+        changes.update(media_id=media_id, published_at=now, retry_allowed=None,
                        container_id=container_id or story.container_id)
     else:
         if story.status == StoryState.AMBIGUOUS:

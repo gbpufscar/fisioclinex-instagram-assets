@@ -6,6 +6,7 @@ import json
 import os
 import tempfile
 from functools import wraps
+from datetime import datetime
 from pathlib import Path
 
 
@@ -130,7 +131,7 @@ def append_registry(path: Path, record: dict) -> None:
         existing = _read_records(path)
         same = next((r for r in existing if r.publication_key == record["publication_key"]), None)
         if same is not None:
-            if same.media_id != record["media_id"] or same.published_at != record["published_at"]:
+            if same.media_id != record["media_id"] or datetime.fromisoformat(same.published_at.replace("Z", "+00:00")) != datetime.fromisoformat(record["published_at"].replace("Z", "+00:00")):
                 raise RegistryError("confirmed registry result cannot be replaced")
             return
         if any(r.media_id == record["media_id"] for r in existing):

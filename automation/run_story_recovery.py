@@ -8,13 +8,14 @@ import subprocess
 import sys
 from pathlib import Path
 
-from run_manual_publication import _git_runner, _meta_transport, _required, _validate_github_context
+from run_manual_publication import _pages_fetch, _git_runner, _meta_transport, _required, _validate_github_context
 from fisioclinex_scheduled.meta_client import MetaClient
 from fisioclinex_scheduled.story_recovery import StoryRecoveryError, recover_story
 
 
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--operation", choices=("legacy", "publish-story", "reconcile-story"))
     parser.add_argument("--short-slug", required=True)
     parser.add_argument("--confirmation", required=True)
     parser.add_argument("--repository-root")
@@ -34,6 +35,8 @@ def main(argv=None) -> int:
             confirmation=args.confirmation,
             meta_client=client,
             git_runner=_git_runner(root),
+            fetcher=_pages_fetch,
+            operation=None if args.operation == "legacy" else args.operation,
         )
     except StoryRecoveryError as exc:
         print(json.dumps({"status": "interrupted", "phase": exc.phase}, sort_keys=True))
