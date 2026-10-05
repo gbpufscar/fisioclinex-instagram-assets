@@ -6,6 +6,7 @@ import copy
 from datetime import datetime
 
 from .manifest import parse_manifest
+from .story_timing import initial_story_not_before
 from .story_state import transition_story, story_json
 
 
@@ -109,6 +110,8 @@ def mark_feed_published(data: dict, *, media_id: str, published_at: datetime) ->
     result["publication"]["published_at"] = published_at.isoformat()
     if "story" in result:
         result["status"] = "published"
+        if data["publication"].get("published_at") is None:
+            result["story"]["not_before"] = initial_story_not_before(published_at).isoformat()
         result["failure"] = {"phase": None, "occurred_at": None, "requires_human_review": False}
     parse_manifest(result)
     return result

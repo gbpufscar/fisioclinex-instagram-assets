@@ -63,6 +63,7 @@ class ScheduledPost:
     surface: str = "feed"
     occurrence_id: str | None = None
     parent_id: str | None = None
+    planned_at: str | None = None
 
     def to_dict(self) -> dict[str, object]:
         return asdict(self)
@@ -272,7 +273,30 @@ def build_schedule_overview(
         datetime.fromisoformat(record.published_at.replace("Z", "+00:00"))
         for record in read_registry(root / "publication-state" / "publications.jsonl")
     )
-    return project_schedule(load_queued_entries(root), now=now, published_at=history)
+    posts = list(project_schedule(load_queued_entries(root), now=now, published_at=history))
+    from .manifest import parse_manifest
+    for path in sorted((root / "publication-state/queue").glob("*/manifest.json")):
+        if path.is_symlink() or path.parent.is_symlink():
+            raise ScheduleOverviewError("manifesto de fila inseguro")
+        manifest = parse_manifest(json.loads(path.read_bytes()))
+        if manifest.status.value != "published" or manifest.story is None:
+            continue
+        story = manifest.story
+        barrier = story.published_at or story.not_before
+        if barrier is None:
+            continue
+        local = barrier.astimezone(CANONICAL_TIMEZONE)
+        # Retain planned editorial history separately from the operational barrier.
+        planned = (manifest.planned_at.astimezone(CANONICAL_TIMEZONE).replace(hour=18, minute=0, second=0, microsecond=0)
+                   if manifest.planned_at else None)
+        posts.append(ScheduledPost(position=0, slug=manifest.slug, short_slug=manifest.short_slug,
+            scheduled_at=local.isoformat(), date=local.strftime("%d/%m/%Y"),
+            weekday=PORTUGUESE_WEEKDAYS[local.weekday()], time=local.strftime("%Hh%M"),
+            timezone=str(CANONICAL_TIMEZONE), priority=manifest.priority, status=story.status.value,
+            surface="story", occurrence_id=manifest.slug+":story", parent_id=manifest.slug+":feed",
+            planned_at=planned.isoformat() if planned else None))
+    return tuple(replace(post, position=index) for index, post in enumerate(
+        sorted(posts, key=lambda post: (post.scheduled_at, post.occurrence_id or post.slug)), 1))
 
 
 def format_schedule_overview(posts: tuple[ScheduledPost, ...]) -> str:
@@ -294,7 +318,8 @@ def format_schedule_overview(posts: tuple[ScheduledPost, ...]) -> str:
             lines.append(
                 f"{post.position}. {post.weekday}, {post.date}, às {post.time} — "
                 f"{'↳ Story derivado' if post.surface == 'story' else 'Feed'} — {post.short_slug}"
-                + (" — planejado; execução desabilitada" if post.surface == "story" else "")
+                + (" — planejado; execução desabilitada" if post.surface == "story" and post.status == "planning_only"
+                   else f" — operacional: {post.status}" if post.surface == "story" else "")
                 + (f" — BLOQUEADO: {reasons.get(post.reason, post.reason)}" if post.status == "blocked" else "")
             )
     lines.append(

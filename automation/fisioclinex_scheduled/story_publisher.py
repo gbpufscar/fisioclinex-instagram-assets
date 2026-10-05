@@ -1,4 +1,4 @@
-"""Explicit Story publishing with one safe deferred retry; no scheduler."""
+"""Explicit Story publishing with one safe deferred retry."""
 from __future__ import annotations
 
 from datetime import datetime, timezone, timedelta
@@ -12,6 +12,7 @@ from .queue_pages import verify_story_path
 from .registry import read_registry, read_story_registry
 from .shadow_runner import _validate_package
 from .story_state import StoryState
+from .story_timing import initial_story_not_before
 
 
 class StoryPublicationError(RuntimeError):
@@ -78,7 +79,8 @@ def publish_story(repository_root, *, short_slug, confirmation, fetcher, meta_cl
                 or (story.attempt_count == 1 and story.retry_allowed is not True)):
             raise StoryPublicationError("story_not_eligible")
         now = now_fn()
-        if story.not_before is None or now < story.not_before:
+        if (story.not_before is None or now < story.not_before
+                or (story.attempt_count == 0 and now < initial_story_not_before(manifest.publication.published_at))):
             raise StoryPublicationError("story_barrier")
         _validate_package(root, path, manifest)
         url = verify_story_path(manifest.slug, root / "posts" / manifest.slug / f"{manifest.slug}-story.png",
