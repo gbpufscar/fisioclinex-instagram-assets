@@ -1,7 +1,9 @@
 {
   "artifact_status": "active",
-  "attempts": 0,
+  "attempts": 1,
   "caption_file": "legenda.txt",
+  "carousel_container_id": null,
+  "child_container_ids": [],
   "content_policy_version": "editorial-v3-1-to-10",
   "explicit_override": false,
   "failure": {
@@ -15,18 +17,26 @@
   "planned_at": "2026-10-05T12:00:00-03:00",
   "priority": 100,
   "publication": {
-    "asset_commit": null,
+    "asset_commit": "d061bddca6bd4f25452018669ad358735544125f",
     "media_id": null,
     "published_at": null,
-    "workflow_run_id": null
+    "workflow_run_id": "37378055618"
   },
   "publication_key": "fisioclinex-zonas-dominios-intensidade:83c9b91d21808075b6573737fc12c307165efeadbeb9c129ce27b6e2026ca07a",
+  "publication_run_id": "872fefb3-f446-4847-86f6-595b5fe3aa2c",
+  "pushed": true,
   "queued_at": "2026-09-29T22:42:42.845963+00:00",
   "schema_version": 1,
   "short_slug": "zonas-dominios-intensidade",
+  "single_image_container_id": null,
   "slides_count": 6,
   "slot_id": "2026-10-05T12:00-scientific",
   "slot_type": "scientific",
   "slug": "fisioclinex-zonas-dominios-intensidade",
-  "status": "queued"
+  "started_at": "2026-10-05T21:47:15.642228+00:00",
+  "status": "publishing",
+  "story_container_id": null,
+  "story_media_id": null,
+  "story_published_at": null,
+  "verified": true
 }
