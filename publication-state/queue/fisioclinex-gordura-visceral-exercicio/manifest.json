@@ -1,7 +1,9 @@
 {
   "artifact_status": "active",
-  "attempts": 0,
+  "attempts": 1,
   "caption_file": "legenda.txt",
+  "carousel_container_id": null,
+  "child_container_ids": [],
   "content_policy_version": "editorial-v3-1-to-10",
   "explicit_override": false,
   "failure": {
@@ -15,18 +17,26 @@
   "planned_at": "2026-10-07T12:00:00-03:00",
   "priority": 100,
   "publication": {
-    "asset_commit": null,
+    "asset_commit": "148a01f4d5ab2cc294c6f85e6bb0b4cdb0c0cce0",
     "media_id": null,
     "published_at": null,
-    "workflow_run_id": null
+    "workflow_run_id": "37675368184"
   },
   "publication_key": "fisioclinex-gordura-visceral-exercicio:cd977906a964a93f132d1a3b4c83fb707a378a2d9a4859c685881a92c8adeea9",
+  "publication_run_id": "55fee6cf-f88e-445b-a9c8-6d45eb40bcf0",
+  "pushed": true,
   "queued_at": "2026-09-30T19:13:22.231673+00:00",
   "schema_version": 1,
   "short_slug": "gordura-visceral-exercicio",
+  "single_image_container_id": null,
   "slides_count": 6,
   "slot_id": "2026-10-07T12:00-scientific",
   "slot_type": "scientific",
   "slug": "fisioclinex-gordura-visceral-exercicio",
-  "status": "queued"
+  "started_at": "2026-10-07T19:33:53.953342+00:00",
+  "status": "publishing",
+  "story_container_id": null,
+  "story_media_id": null,
+  "story_published_at": null,
+  "verified": true
 }
