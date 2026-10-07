@@ -27,6 +27,7 @@ class ScheduledResult:
     publication_key: str | None = None
     candidate_count: int = 0
     eligible_count: int = 0
+    examined: tuple[dict, ...] = ()
 
     @classmethod
     def success(cls, code: ResultCode, reason: str, **details: object) -> "ScheduledResult":

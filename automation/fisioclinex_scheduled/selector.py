@@ -59,12 +59,16 @@ def select_next(
     registered = frozenset(registered_publication_keys)
     history = tuple(published_at)
     eligible = []
+    examined = []
     for manifest in parsed:
         if (
             not is_selectable_queue_state(manifest.status)
             or manifest.publication.media_id is not None
             or manifest.publication_key in registered
         ):
+            reason = "already_registered" if manifest.publication_key in registered else "state_not_selectable"
+            examined.append({"slug":manifest.slug,"status":manifest.status.value,"reason":reason,
+                             "planned_at":manifest.planned_at.isoformat() if manifest.planned_at else None})
             continue
         decision = evaluate_feed_eligibility(
             now=now,
@@ -75,6 +79,8 @@ def select_next(
             explicit_override=manifest.explicit_override,
             override_reason=manifest.override_reason,
         )
+        examined.append({"slug":manifest.slug,"status":manifest.status.value,"reason":decision.reason,
+                         "planned_at":manifest.planned_at.isoformat() if manifest.planned_at else None})
         if decision.eligible:
             eligible.append(manifest)
     eligible.sort(key=lambda item: (item.priority, item.queued_at, item.slug))
@@ -82,9 +88,9 @@ def select_next(
     if not eligible:
         return ScheduledResult.success(
             ResultCode.QUEUE_EMPTY,
-            "no eligible queued item",
+            next((row["reason"] for row in examined if row["reason"] != "state_not_selectable"), "no eligible queued item"),
             candidate_count=candidate_count,
-            eligible_count=0,
+            eligible_count=0, examined=tuple(examined),
         )
 
     selected = eligible[0]
@@ -96,5 +102,5 @@ def select_next(
         status=selected.status.value,
         publication_key=selected.publication_key,
         candidate_count=candidate_count,
-        eligible_count=len(eligible),
+        eligible_count=len(eligible), examined=tuple(examined),
     )

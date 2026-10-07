@@ -59,7 +59,6 @@ def schedule_lock(resource):
 def check_reservations(slug, planned_at, reservations, *, explicit_override=False, override_reason=None):
     planned = timestamp(planned_at)
     # An editorial override never authorizes two reservations on the same day.
-    allow_interval = explicit_override and isinstance(override_reason, str) and bool(override_reason.strip())
     for other_slug, other_at in reservations:
         if other_slug == slug:
             continue
@@ -67,7 +66,7 @@ def check_reservations(slug, planned_at, reservations, *, explicit_override=Fals
         from .feed_eligibility import evaluate_feed_spacing
         earlier, later = sorted((planned, other))
         decision = evaluate_feed_spacing(now=later, published_at=(earlier,))
-        if not decision.eligible and not (decision.reason == "minimum_interval" and allow_interval):
+        if not decision.eligible:
             raise ScheduleConflictError(slug, planned, other_slug, other, decision.reason)
 
 

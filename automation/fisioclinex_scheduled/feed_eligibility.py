@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import datetime, timedelta
+from datetime import datetime
 from zoneinfo import ZoneInfo
 
 from .editorial_calendar import EditorialSlot
@@ -27,12 +27,9 @@ def evaluate_feed_spacing(
     aware_history = tuple(value for value in published_at if value.tzinfo is not None and value.utcoffset() is not None)
     if aware_history:
         zone = ZoneInfo(timezone_name)
-        latest = max(aware_history)
         same_day = any(value.astimezone(zone).date() == now.astimezone(zone).date() for value in aware_history)
         if same_day and not override_valid:
             return FeedEligibility(False, "daily_feed_limit")
-        if now - latest < timedelta(hours=24) and not override_valid:
-            return FeedEligibility(False, "minimum_interval")
     if explicit_override and not override_valid:
         return FeedEligibility(False, "override_requires_reason")
     return FeedEligibility(True, "explicit_override" if override_valid else "eligible")
@@ -68,7 +65,8 @@ def evaluate_feed_eligibility(
     if not_before is not None and not_before > now:
         return FeedEligibility(False, "not_before")
     if legacy:
-        return FeedEligibility(True, "legacy_queue_item")
+        return evaluate_feed_spacing(now=now, published_at=published_at,
+            explicit_override=explicit_override, override_reason=override_reason)
     if slot is None or slot.status != "queued" or slot.assigned_slug is None:
         return FeedEligibility(False, "slot_not_queued")
     planned = slot.planned_datetime

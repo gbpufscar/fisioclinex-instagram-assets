@@ -279,7 +279,16 @@ def build_schedule_overview(
         if path.is_symlink() or path.parent.is_symlink():
             raise ScheduleOverviewError("manifesto de fila inseguro")
         manifest = parse_manifest(json.loads(path.read_bytes()))
-        if manifest.status.value != "published" or manifest.story is None:
+        if manifest.status.value != "published":
+            continue
+        local = manifest.publication.published_at.astimezone(CANONICAL_TIMEZONE)
+        posts.append(ScheduledPost(position=0, slug=manifest.slug, short_slug=manifest.short_slug,
+            scheduled_at=local.isoformat(), date=local.strftime("%d/%m/%Y"),
+            weekday=PORTUGUESE_WEEKDAYS[local.weekday()], time=local.strftime("%Hh%M"),
+            timezone=str(CANONICAL_TIMEZONE), priority=manifest.priority, status="published",
+            surface="feed", occurrence_id=manifest.slug+":feed",
+            planned_at=manifest.planned_at.isoformat() if manifest.planned_at else None))
+        if manifest.story is None:
             continue
         story = manifest.story
         barrier = story.published_at or story.not_before
@@ -302,7 +311,6 @@ def build_schedule_overview(
 def format_schedule_overview(posts: tuple[ScheduledPost, ...]) -> str:
     reasons = {
         "daily_feed_limit": "outro post ocupa o mesmo dia",
-        "minimum_interval": "intervalo mínimo de 24 horas",
         "slot_missed_no_catch_up": "horário vencido; requer decisão humana",
         "not_before": "barreira not_before posterior ao horário",
     }

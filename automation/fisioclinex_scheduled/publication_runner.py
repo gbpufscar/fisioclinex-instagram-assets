@@ -15,7 +15,7 @@ from .publication_state import (
 )
 from .publication_writeback import append_registry, persist, write_manifest, persist_feed, execution_locked
 from .queue_pages import official_slide_url
-from .registry import read_registry
+from .registry import read_registry, feed_selection_history
 from .manifest import parse_manifest
 from .feed_eligibility import evaluate_feed_eligibility, manifest_slot
 
@@ -29,8 +29,10 @@ class PublicationRunnerError(RuntimeError):
         publication_performed=None,
         git_operation: str | None = None,
         git_category: str | None = None,
+        reason: str | None = None,
     ):
         super().__init__(f"manual publication interrupted in phase {phase}")
+        self.reason = reason
         self.phase = phase
         self.run_id = run_id
         self.publication_performed = publication_performed
@@ -81,6 +83,7 @@ def _run_publication(
     now_fn=lambda: datetime.now(timezone.utc),
     run_id_factory=lambda: str(uuid.uuid4()),
     verifier=None,
+    expected_slug: str | None = None,
 ) -> PublicationResult:
     root = Path(repository_root).resolve(strict=True)
     if not isinstance(workflow_run_id, str) or not workflow_run_id.isdigit():
@@ -92,7 +95,9 @@ def _run_publication(
             from github_actions.shadow_runner import run_shadow_verified as verifier
     verified = verifier(root, now=now_fn(), fetcher=fetcher)
     if not verified.selected or not verified.verified:
-        raise PublicationRunnerError("prepare", publication_performed=False)
+        raise PublicationRunnerError("prepare", publication_performed=False, reason=getattr(verified, "reason", None))
+    if expected_slug is not None and verified.slug != expected_slug:
+        raise PublicationRunnerError("eligibility", publication_performed=False, reason="state_changed_after_prepare")
     if mode == "workflow_manual":
         try:
             authorize(short_slug, confirmation, verified.short_slug)
@@ -123,16 +128,13 @@ def _run_publication(
         now=publication_now,
         not_before=parsed_manifest.not_before,
         slot=manifest_slot(parsed_manifest),
-        published_at=tuple(
-            datetime.fromisoformat(record.published_at.replace("Z", "+00:00"))
-            for record in registry
-        ),
+        published_at=feed_selection_history(registry)["published_at"],
         legacy=parsed_manifest.slot_id is None,
         explicit_override=parsed_manifest.explicit_override,
         override_reason=parsed_manifest.override_reason,
     )
     if not eligibility.eligible:
-        raise PublicationRunnerError("eligibility", publication_performed=False)
+        raise PublicationRunnerError("eligibility", publication_performed=False, reason=eligibility.reason)
 
     run_id = run_id_factory()
     locked = begin_publishing(

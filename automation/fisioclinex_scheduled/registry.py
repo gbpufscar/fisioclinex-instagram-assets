@@ -195,3 +195,10 @@ def append_record(path: str | Path, record: PublicationRecord) -> ScheduledResul
         slug=record.slug,
         publication_key=record.publication_key,
     )
+
+
+def feed_selection_history(records):
+    """Shared validated feed history for preparation and final precheck."""
+    return {"registered_publication_keys":tuple(record.publication_key for record in records),
+            "published_at":tuple(datetime.fromisoformat(record.published_at.replace("Z", "+00:00"))
+                                 for record in records)}

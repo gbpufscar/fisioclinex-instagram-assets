@@ -127,13 +127,15 @@ def _prepare(root: Path) -> int:
         print(json.dumps({"reason": "schedule_disabled", "selected": False}))
         return 0
     report = run_shadow_verified(root, now=datetime.now(timezone.utc), fetcher=_pages_fetch)
-    _write("GITHUB_OUTPUT", [f"selected={'true' if report.selected else 'false'}"])
+    _write("GITHUB_OUTPUT", [f"selected={'true' if report.selected else 'false'}", f"slug={report.slug or ''}"])
     if not report.selected:
         _write("GITHUB_STEP_SUMMARY", [
             "# FisioClinEx — Publicação agendada da fila", "",
             "**NENHUM POST ELEGÍVEL**", "",
             f"- Itens examinados: {report.scanned_count}",
             "- Itens elegíveis: 0", "- Publicação realizada: não",
+            f"- Motivo: {report.reason}",
+            *[f"- `{row['slug']}`: {row['reason']} — {row['planned_at']}" for row in report.examined],
         ])
     else:
         _write("GITHUB_STEP_SUMMARY", [
@@ -143,7 +145,7 @@ def _prepare(root: Path) -> int:
             "- Pages verificado: sim", "- pushed: `true`", "- verified: `true`",
             "- Publicação realizada: não",
         ])
-    print(json.dumps({"selected": report.selected, "verified": report.verified}))
+    print(json.dumps(report.sanitized()))
     return 0
 
 
@@ -167,19 +169,25 @@ def main(argv=None) -> int:
         result = run_scheduled_publication(
             root, asset_commit=_required("GITHUB_SHA"),
             workflow_run_id=_required("GITHUB_RUN_ID"), fetcher=_pages_fetch,
-            meta_client=client, git_runner=_git_runner(root),
+            meta_client=client, git_runner=_git_runner(root), expected_slug=_required("PREPARED_SLUG"),
         )
     except PublicationRunnerError as exc:
         performed = exc.publication_performed
+        controlled = performed is False and exc.phase in {"prepare", "eligibility"} and exc.reason in {
+            "daily_feed_limit", "slot_not_started", "not_before", "slot_missed_no_catch_up",
+            "already_registered", "state_not_selectable", "no eligible queued item", "queue is disabled",
+            "state_changed_after_prepare"}
         label = "sim" if performed is True else "não" if performed is False else "desconhecida"
         _write("GITHUB_STEP_SUMMARY", [
             "# FisioClinEx — Publicação agendada da fila", "",
-            "**PUBLICAÇÃO AGENDADA INTERROMPIDA — NÃO REPETIR AUTOMATICAMENTE**", "",
+            "**NENHUM POST PUBLICADO — CONDIÇÃO OPERACIONAL**" if controlled else "**PUBLICAÇÃO AGENDADA INTERROMPIDA — NÃO REPETIR AUTOMATICAMENTE**", "",
+            f"- Motivo: `{exc.reason or exc.phase}`",
             f"- Fase: `{exc.phase}`", f"- Run ID: `{exc.run_id or 'indisponível'}`",
-            "- Revisão humana: necessária", f"- Publicação realizada: {label}",
+            "- Revisão humana: necessária" if not controlled or exc.reason == "slot_missed_no_catch_up" else "- Reavaliar no próximo tick seguro", f"- Publicação realizada: {label}",
         ])
-        print(json.dumps({"phase": exc.phase, "publication_performed": performed, "status": "interrupted"}))
-        return 1
+        print(json.dumps({"phase": exc.phase, "reason": exc.reason, "publication_performed": performed,
+                          "status": "not_eligible" if controlled else "interrupted"}))
+        return 0 if controlled else 1
     overview = safe_format_schedule_overview(
         root, now=datetime.now(timezone.utc)
     ).splitlines()

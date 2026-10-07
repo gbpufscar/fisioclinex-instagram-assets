@@ -6,11 +6,12 @@ import json
 from dataclasses import asdict, dataclass
 from datetime import datetime
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 from fisioclinex_scheduled.fingerprint import fingerprint_mapped_files
 from fisioclinex_scheduled.manifest import Manifest, parse_manifest
 from fisioclinex_scheduled.queue_pages import QueuePagesError, verify_slide_paths, verify_story_path
-from fisioclinex_scheduled.registry import read_registry
+from fisioclinex_scheduled.registry import read_registry, feed_selection_history
 from fisioclinex_scheduled.result import ResultCode
 from fisioclinex_scheduled.selector import select_next
 from fisioclinex_scheduled.states import is_active_queue_state
@@ -47,6 +48,8 @@ class ShadowReport:
     slides_count: int | None = None
     package_sha256: str | None = None
     publication_key: str | None = None
+    examined: tuple[dict, ...] = ()
+    current_local_time: str | None = None
 
     def sanitized(self) -> dict[str, object]:
         data = asdict(self)
@@ -78,6 +81,9 @@ class VerifiedShadowReport:
     verified: bool
     publication_performed: bool
     phase: str | None = None
+    reason: str | None = None
+    examined: tuple[dict, ...] = ()
+    current_local_time: str | None = None
 
     def sanitized(self) -> dict[str, object]:
         data = asdict(self)
@@ -186,7 +192,7 @@ def run_shadow(
         manifests,
         queue_enabled=control.queue_enabled,
         now=now,
-        registered_publication_keys=(record.publication_key for record in registry),
+        **feed_selection_history(registry),
     )
     if not selection.ok:
         raise ShadowRunnerError(selection.reason)
@@ -202,6 +208,8 @@ def run_shadow(
         eligible_count=selection.eligible_count,
         selected=selection.code is ResultCode.ITEM_SELECTED,
         reason=selection.reason,
+        examined=selection.examined,
+        current_local_time=now.astimezone(ZoneInfo("America/Sao_Paulo")).isoformat(),
         slug=selection.slug,
         short_slug=selection.short_slug,
         status=selection.status,
@@ -227,6 +235,8 @@ def _write_summary(path: Path, report: ShadowReport) -> None:
         "**MODO SOMBRA — NENHUMA PUBLICAÇÃO FOI REALIZADA**",
         "",
         f"- Itens examinados: {report.scanned_count}",
+        f"- Horário local: {report.current_local_time}",
+        *[f"- `{row['slug']}`: {row['reason']} — {row['planned_at']}" for row in report.examined],
         f"- Itens elegíveis: {report.eligible_count}",
         f"- Seleção: {'sim' if report.selected else 'não'}",
     ]
@@ -280,6 +290,8 @@ def run_shadow_verified(
         "publication_key": selection.publication_key,
         "pushed": selection.selected,
         "publication_performed": False,
+        "reason": selection.reason, "examined": selection.examined,
+        "current_local_time": selection.current_local_time,
     }
     if not selection.selected:
         report = VerifiedShadowReport(
@@ -340,6 +352,8 @@ def _write_verified_summary(path: Path, root: Path, report: VerifiedShadowReport
         "**MODO SOMBRA — NENHUMA PUBLICAÇÃO FOI REALIZADA**",
         "",
         f"- Itens examinados: {report.scanned_count}",
+        f"- Horário local: {report.current_local_time}",
+        *[f"- `{row['slug']}`: {row['reason']} — {row['planned_at']}" for row in report.examined],
         f"- Itens elegíveis: {report.eligible_count}",
         f"- Slug selecionada: `{report.slug or 'nenhuma'}`",
         f"- Status preservado: `{report.status_preserved or 'n/a'}`",
