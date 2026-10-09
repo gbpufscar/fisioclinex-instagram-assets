@@ -115,7 +115,7 @@ def _validate_recomposed_story(data, filename, cover, cover_hash):
         raise PublicationPackageError("posição/proporção da logo Story inválidas")
 
 
-def validate_publication_package(folder: str | Path, *, expected_slug: str | None = None) -> ValidatedPublicationPackage:
+def validate_publication_package(folder: str | Path, *, expected_slug: str | None = None, new_publication: bool = False) -> ValidatedPublicationPackage:
     root = Path(folder).expanduser().resolve(strict=True)
     if not root.is_dir() or root.is_symlink(): raise PublicationPackageError("pasta do pacote é insegura")
     slug = validate_slug(expected_slug) if expected_slug is not None else validate_slug(root.name)
@@ -160,4 +160,6 @@ def validate_publication_package(folder: str | Path, *, expected_slug: str | Non
         if len(relative.parts) != 1 or relative.is_absolute() or ".." in relative.parts: raise PublicationPackageError("caminho inseguro no manifesto")
         path = root / item["path"]
         if not path.is_file() or path.is_symlink() or path.stat().st_size != item["size_bytes"] or sha256(path) != item["sha256"]: raise PublicationPackageError(f"integridade divergente: {item['path']}")
+    if new_publication and (manifest['schema_version'] != '2.1' or story_data.get('adapter_version') != 'cover-recompose-v2'):
+        raise PublicationPackageError("new publication packages require visual contract 2.1 / cover-recompose-v2")
     return ValidatedPublicationPackage(root, slug, slides, caption, story, manifest)

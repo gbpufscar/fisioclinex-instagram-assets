@@ -36,14 +36,14 @@ class QueuePackage:
     visual_schema_version: str = "2.0"
 
 
-def validate_queue_package(folder: str | Path) -> QueuePackage:
+def validate_queue_package(folder: str | Path, *, new_publication: bool = False) -> QueuePackage:
     raw = Path(folder).expanduser()
     if raw.is_symlink() or not raw.is_dir():
         raise QueuePackageError("package directory is invalid")
     root = raw.resolve(strict=True)
     try:
         reject_local_validation_package(root)
-        package = validate_publication_package(root)
+        package = validate_publication_package(root, new_publication=new_publication)
     except (ContentPolicyError, PublicationPackageError) as exc:
         raise QueuePackageError(str(exc)) from exc
     # Keep the operational publication fingerprint contract stable; visual files are
