@@ -9,10 +9,10 @@
     "phase": null,
     "requires_human_review": false
   },
-  "not_before": "2026-10-06T12:00:00-03:00",
+  "not_before": "2026-10-15T12:00:00-03:00",
   "override_reason": null,
   "package_sha256": "eb6cb0472b651b3b370b198a7a16d0668ef712be1a7768f26471ae669ecedfe5",
-  "planned_at": "2026-10-06T12:00:00-03:00",
+  "planned_at": "2026-10-15T12:00:00-03:00",
   "priority": 100,
   "publication": {
     "asset_commit": null,
@@ -25,7 +25,7 @@
   "schema_version": 1,
   "short_slug": "ufscar-the-2027",
   "slides_count": 1,
-  "slot_id": "2026-10-06T12:00-other",
+  "slot_id": "2026-10-15T12:00-other",
   "slot_type": "other",
   "slug": "fisioclinex-ufscar-the-2027",
   "status": "queued"
