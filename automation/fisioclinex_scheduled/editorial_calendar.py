@@ -194,10 +194,10 @@ def load_calendar(path: str | Path, *, policy: CalendarPolicy) -> tuple[Editoria
 
 def calendar_workspace(path: str | Path) -> Path | None:
     """Resolve the configured source of truth for the normal project calendar."""
-    from .queue_config import load_queue_config
     root = Path(path).resolve().parent.parent
     config = root / "publicacao-agendada/config.json"
     if config.is_file():
+        from .queue_config import load_queue_config
         return load_queue_config(config).workspace_path
     if (root / "publication-state").is_dir() and Path(path).parent.name == "publication-state":
         return root
@@ -360,7 +360,7 @@ def project_calendar_occurrences(slots):
     return tuple(result)
 
 
-def _move_association(slots, *, slug, target_slot_id, cancel=False):
+def _move_association(slots, *, slug, target_slot_id, cancel=False, now=None):
     active = [s for s in slots if s.assigned_slug == slug and s.status in {'assigned', 'queued', 'published'}]
     if len(active) != 1 or active[0].status == 'published':
         raise EditorialCalendarError('reagendamento exige uma pauta ainda não publicada')
@@ -380,7 +380,8 @@ def _move_association(slots, *, slug, target_slot_id, cancel=False):
     moved = replace(target, status=old.status, assigned_slug=slug, queued_at=old.queued_at,
                     derived_story=old.derived_story, explicit_override=old.explicit_override,
                     override_reason=old.override_reason)
-    freed = replace(old, status='available', assigned_slug=None, queued_at=None,
+    expired = now is not None and old.planned_datetime.astimezone(ZoneInfo(old.timezone)).date() < now.astimezone(ZoneInfo(old.timezone)).date()
+    freed = replace(old, status='skipped' if expired else 'available', assigned_slug=None, queued_at=None,
                     derived_story=False, explicit_override=False, override_reason=None)
     return tuple(moved if s.slot_id == target.slot_id else freed if s.slot_id == old.slot_id
                  else s for s in slots), old, moved
@@ -397,7 +398,7 @@ def _atomic_bytes(path, payload):
             os.unlink(temporary)
 
 
-def update_planning(calendar, *, policy, slug, target_slot_id=None, workspace=None, cancel=False):
+def update_planning(calendar, *, policy, slug, target_slot_id=None, workspace=None, cancel=False, now=None):
     """Explicit local operation. Locks + atomic files + byte rollback, no Git/Meta.
 
     Cross-file crash atomicity is not claimed. An interrupted process needs review.
@@ -446,7 +447,7 @@ def update_planning(calendar, *, policy, slug, target_slot_id=None, workspace=No
                 raise EditorialCalendarError('feed publicado, em execução ou ambíguo não pode ser reagendado')
             if stored.story and stored.story.status is not StoryState.PENDING:
                 raise EditorialCalendarError('Story iniciado/publicado não pode ser reagendado')
-        moved, old, new = _move_association(slots, slug=slug, target_slot_id=target_slot_id, cancel=cancel)
+        moved, old, new = _move_association(slots, slug=slug, target_slot_id=target_slot_id, cancel=cancel, now=now)
         if stored is None and old.status == 'queued':
             raise EditorialCalendarError('slot queued exige manifest operacional')
         if stored is not None and (stored.slot_id != old.slot_id or stored.planned_at != old.planned_datetime):
@@ -459,7 +460,7 @@ def update_planning(calendar, *, policy, slug, target_slot_id=None, workspace=No
         if mirror and mirror.resolve() != path.resolve() and mirror.exists():
             locks.enter_context(schedule_lock(mirror))
             mirror_slots = load_calendar(mirror, policy=policy)
-            mirrors, mirror_old, _ = _move_association(mirror_slots, slug=slug, target_slot_id=target_slot_id, cancel=cancel)
+            mirrors, mirror_old, _ = _move_association(mirror_slots, slug=slug, target_slot_id=target_slot_id, cancel=cancel, now=now)
             if (mirror_old.slot_id, mirror_old.planned_at, mirror_old.derived_story) != (old.slot_id, old.planned_at, old.derived_story):
                 raise EditorialCalendarError('espelho operacional divergente')
             plans.append((mirror, mirrors))

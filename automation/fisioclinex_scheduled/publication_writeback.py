@@ -133,6 +133,21 @@ def append_registry(path: Path, record: dict) -> None:
         if same is not None:
             if same.media_id != record["media_id"] or datetime.fromisoformat(same.published_at.replace("Z", "+00:00")) != datetime.fromisoformat(record["published_at"].replace("Z", "+00:00")):
                 raise RegistryError("confirmed registry result cannot be replaced")
+            lines = path.read_text(encoding="utf-8").splitlines()
+            updated = False
+            for index, line in enumerate(lines):
+                old = json.loads(line)
+                if old["publication_key"] != record["publication_key"]:
+                    continue
+                for field in ("story_media_id", "story_published_at"):
+                    if record.get(field) is not None and field in old:
+                        if old[field] is not None and old[field] != record[field]:
+                            raise RegistryError("confirmed Story result cannot be replaced")
+                        if old[field] is None:
+                            old[field] = record[field]; updated = True
+                lines[index] = json.dumps(old, sort_keys=True, separators=(",", ":"))
+            if updated:
+                atomic_write(path, "\n".join(lines) + "\n")
             return
         if any(r.media_id == record["media_id"] for r in existing):
             raise RegistryError("duplicate media_id")
@@ -149,26 +164,66 @@ def append_registry(path: Path, record: dict) -> None:
         atomic_write(path, payload)
 
 
-def persist_feed(root: Path, manifest_path: Path, data: dict, *, git_runner) -> None:
-    """Write manifest first, then registry; interruptions keep feed non-repostable.
+def persist_feed(root: Path, manifest_path: Path, data: dict, *, git_runner, record=None, mode="workflow_scheduled") -> None:
+    """One logical post-feed writeback; durable evidence precedes projection.
 
-    Files are individually atomic. They are not a two-file transaction: a crash
-    between them requires operator writeback repair, never a new Meta call.
+    A failure never rolls back a confirmed feed. Reconciliation repairs only
+    documentation, never retries Meta. Individual files are crash-safe.
     """
     from .manifest import parse_manifest
+    from .schedule_integrity import schedule_lock
+    from .publication_consistency import project_confirmed_feed
     manifest = parse_manifest(data)
     if not manifest.publication.media_id or not manifest.publication.published_at:
         raise WritebackError("feed confirmation is missing")
-    record = {
-        "publication_key": manifest.publication_key, "slug": manifest.slug,
-        "media_id": manifest.publication.media_id,
-        "published_at": manifest.publication.published_at.isoformat(),
-    }
+    if record is None:
+        record = {
+            "publication_key": manifest.publication_key, "slug": manifest.slug,
+            "media_id": manifest.publication.media_id,
+            "published_at": manifest.publication.published_at.isoformat(),
+        }
+    if record.keys() == {"publication_key", "slug", "media_id", "published_at"} and data.get("publication_run_id"):
+        record.update(schema_version=1, short_slug=manifest.short_slug,
+                      asset_commit=manifest.publication.asset_commit,
+                      package_sha256=manifest.package_sha256, slides_count=manifest.slides_count,
+                      publication_run_id=data["publication_run_id"],
+                      workflow_run_id=manifest.publication.workflow_run_id, mode=mode)
+        if manifest.slot_id is not None:
+            record.update(story_media_id=data.get("story_media_id"), story_published_at=data.get("story_published_at"),
+                          slot_id=manifest.slot_id, planned_at=manifest.planned_at.isoformat(),
+                          slot_type=manifest.slot_type, assigned_slug=manifest.slug,
+                          queued_at=manifest.queued_at.isoformat(), slot_status="published")
     write_manifest(manifest_path, data)
     registry_path = root / "publication-state/publications.jsonl"
-    append_registry(registry_path, record)
-    persist(root, paths=(manifest_path, registry_path),
+    # The root lock protects the editorial projection against reschedule writes.
+    # Avoid nesting write_manifest's root flock.
+    with schedule_lock(root):
+        append_registry(registry_path, record)
+        calendar_path = project_confirmed_feed(root, manifest)
+    paths = (manifest_path, registry_path) + ((calendar_path,) if calendar_path else ())
+    persist(root, paths=paths,
             message=f"queue: registrar feed {manifest.slug}", git_runner=git_runner)
+
+
+def verify_remote(root, paths, *, git_runner, branch="main"):
+    """Fetch remote, require commit ancestry and equal exact-path Git blobs.
+
+    A concurrent unrelated descendant is allowed. Any changed operational path
+    fails; no overwrite/rebase/automatic retry is attempted.
+    """
+    import re
+    head = git_runner(("rev-parse", "HEAD"))
+    if not isinstance(head, str) or not re.fullmatch(r"[0-9a-f]{40}", head):
+        raise WritebackError("remote_verification_failed: invalid_head")
+    git_runner(("fetch", "origin", branch))
+    git_runner(("merge-base", "--is-ancestor", head, f"origin/{branch}"))
+    for path in paths:
+        relative = Path(path).resolve(strict=True).relative_to(Path(root).resolve(strict=True)).as_posix()
+        local = git_runner(("rev-parse", f"{head}:{relative}"))
+        remote = git_runner(("rev-parse", f"origin/{branch}:{relative}"))
+        if not re.fullmatch(r"[0-9a-f]{40}", local or "") or remote != local:
+            raise WritebackError(f"remote_verification_failed: {relative}")
+    return head
 
 
 def persist(
@@ -187,7 +242,7 @@ def persist(
         relative = resolved.relative_to(root).as_posix()
         if not (
             relative.startswith("publication-state/queue/")
-            or relative == "publication-state/publications.jsonl"
+            or relative in {"publication-state/publications.jsonl", "publication-state/editorial-calendar.json"}
         ):
             raise WritebackError("writeback path is not allowlisted")
         relatives.append(relative)
@@ -208,4 +263,5 @@ def persist(
         result = git_runner(args)
         if not isinstance(result, str):
             raise WritebackError("Git writeback failed")
+    verify_remote(root, paths, git_runner=git_runner)
     return result

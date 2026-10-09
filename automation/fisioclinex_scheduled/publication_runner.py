@@ -205,34 +205,31 @@ def _run_publication(
         )
         if parsed_manifest.story is not None:
             try:
-                persist_feed(root, manifest_path, feed_state, git_runner=git_runner)
+                persist_feed(root, manifest_path, feed_state, git_runner=git_runner, mode=mode)
             except Exception:
                 raise PublicationRunnerError("writeback_after_feed", run_id=run_id,
-                                             publication_performed=True) from None
+                                             publication_performed=True, reason="state_reconciliation_required") from None
             return PublicationResult(
                 mode, verified.slug, verified.short_slug, "published", verified.slides_count,
                 asset_commit, verified.package_sha256, verified.publication_key,
                 True, True, True, media_id, None, feed_published_at.isoformat(), True, True,
             )
-        write_manifest(manifest_path, feed_state)
         try:
-            persist(
-                root,
-                paths=(manifest_path,),
-                message=f"queue: registrar feed {verified.slug}",
-                git_runner=git_runner,
-            )
+            persist_feed(root, manifest_path, feed_state, git_runner=git_runner, mode=mode)
         except Exception:
             raise PublicationRunnerError(
-                "writeback_after_feed", run_id=run_id, publication_performed=True
+                "writeback_after_feed", run_id=run_id, publication_performed=True,
+                reason="state_reconciliation_required",
             ) from None
         story_container_id = meta_client.create_story(story_url)
         meta_client.wait_finished(story_container_id)
         story_media_id = meta_client.publish(story_container_id)
     except Exception as exc:
+        if isinstance(exc, PublicationRunnerError) and exc.phase == "writeback_after_feed":
+            raise
         if parsed_manifest.story is not None and media_id is not None:
             # Confirmed feed must never be downgraded by writeback failure.
-            raise PublicationRunnerError("writeback_after_feed", run_id=run_id, publication_performed=True) from None
+            raise PublicationRunnerError("writeback_after_feed", run_id=run_id, publication_performed=True, reason="state_reconciliation_required") from None
         phase = getattr(exc, "phase", "meta")
         failed = mark_failed(
             feed_state,
@@ -297,17 +294,12 @@ def _run_publication(
                 "slot_status": "published",
             }
         )
-    append_registry(registry_path, record)
     try:
-        persist(
-            root,
-            paths=(manifest_path, registry_path),
-            message=f"queue: registrar publicação {verified.slug}",
-            git_runner=git_runner,
-        )
+        persist_feed(root, manifest_path, completed, record=record, git_runner=git_runner, mode=mode)
     except Exception:
         raise PublicationRunnerError(
-            "writeback_after_publish", run_id=run_id, publication_performed=True
+            "writeback_after_publish", run_id=run_id, publication_performed=True,
+            reason="state_reconciliation_required",
         ) from None
     return PublicationResult(
         mode=mode,

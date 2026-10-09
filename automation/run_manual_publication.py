@@ -74,7 +74,7 @@ def _meta_transport(method: str, url: str, headers: dict, body: bytes, timeout: 
 
 
 def _git_runner(root: Path):
-    allowed = {"add", "commit", "push"}
+    allowed = {"add", "commit", "push", "fetch", "rev-parse", "merge-base"}
 
     def run(args):
         if not args or args[0] not in allowed:

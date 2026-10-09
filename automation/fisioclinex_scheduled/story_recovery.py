@@ -8,7 +8,7 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 
-from .publication_writeback import persist, write_manifest, execution_locked
+from .publication_writeback import persist, write_manifest, execution_locked, persist_feed
 from .queue_pages import official_slide_url
 
 
@@ -82,6 +82,10 @@ def recover_story(
     if story_path.is_symlink() or not story_path.is_file():
         raise StoryRecoveryError("story_asset_missing")
 
+    try:
+        persist_feed(root, manifest_path, original, git_runner=git_runner)
+    except Exception:
+        raise StoryRecoveryError("state_reconciliation_required") from None
     state = copy.deepcopy(original)
     container_id = None
     try:
@@ -119,12 +123,7 @@ def recover_story(
         "requires_human_review": False,
     }
     write_manifest(manifest_path, state)
-    persist(
-        root,
-        paths=(manifest_path,),
-        message=f"queue: registrar Story {slug}",
-        git_runner=git_runner,
-    )
+    persist_feed(root, manifest_path, state, git_runner=git_runner)
     return {
         "slug": slug,
         "status": "story_published",

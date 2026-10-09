@@ -269,23 +269,32 @@ def build_schedule_overview(
     now: datetime,
 ) -> tuple[ScheduledPost, ...]:
     root = Path(workspace).expanduser().resolve(strict=True)
+    records = read_registry(root / "publication-state/publications.jsonl")
+    registered = {record.publication_key: record for record in records}
+    published_slugs = {record.slug for record in records}
     history = tuple(
         datetime.fromisoformat(record.published_at.replace("Z", "+00:00"))
         for record in read_registry(root / "publication-state" / "publications.jsonl")
     )
-    posts = list(project_schedule(load_queued_entries(root), now=now, published_at=history))
+    posts = list(project_schedule(tuple(entry for entry in load_queued_entries(root) if entry.slug not in published_slugs), now=now, published_at=history))
     from .manifest import parse_manifest
     for path in sorted((root / "publication-state/queue").glob("*/manifest.json")):
         if path.is_symlink() or path.parent.is_symlink():
             raise ScheduleOverviewError("manifesto de fila inseguro")
         manifest = parse_manifest(json.loads(path.read_bytes()))
-        if manifest.status.value != "published":
+        durable = registered.get(manifest.publication_key)
+        if durable is None and manifest.publication.published_at is None:
             continue
-        local = manifest.publication.published_at.astimezone(CANONICAL_TIMEZONE)
+        from .publication_consistency import health, matching_confirmation
+        mismatch = not matching_confirmation(manifest, durable)
+        mismatch |= any(issue.get("slug") == manifest.slug for issue in health(root)["issues"])
+        confirmed_time = datetime.fromisoformat(durable.published_at.replace("Z", "+00:00")) if durable else manifest.publication.published_at
+        local = confirmed_time.astimezone(CANONICAL_TIMEZONE)
         posts.append(ScheduledPost(position=0, slug=manifest.slug, short_slug=manifest.short_slug,
             scheduled_at=local.isoformat(), date=local.strftime("%d/%m/%Y"),
             weekday=PORTUGUESE_WEEKDAYS[local.weekday()], time=local.strftime("%Hh%M"),
             timezone=str(CANONICAL_TIMEZONE), priority=manifest.priority, status="published",
+            reason="state_reconciliation_required" if mismatch else None,
             surface="feed", occurrence_id=manifest.slug+":feed",
             planned_at=manifest.planned_at.isoformat() if manifest.planned_at else None))
         if manifest.story is None:
@@ -328,6 +337,8 @@ def format_schedule_overview(posts: tuple[ScheduledPost, ...]) -> str:
                 f"{'↳ Story derivado' if post.surface == 'story' else 'Feed'} — {post.short_slug}"
                 + (" — planejado; execução desabilitada" if post.surface == "story" and post.status == "planning_only"
                    else f" — operacional: {post.status}" if post.surface == "story" else "")
+                + (" — PUBLICADO" if post.surface == "feed" and post.status == "published" else "")
+                + (" — state_reconciliation_required" if post.reason == "state_reconciliation_required" else "")
                 + (f" — BLOQUEADO: {reasons.get(post.reason, post.reason)}" if post.status == "blocked" else "")
             )
     lines.append(
