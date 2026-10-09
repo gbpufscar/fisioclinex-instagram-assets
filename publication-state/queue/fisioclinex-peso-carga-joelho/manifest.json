@@ -11,7 +11,7 @@
   },
   "not_before": "2026-10-12T12:00:00-03:00",
   "override_reason": null,
-  "package_sha256": "30e325a09fb20bbf82bcb3c86987aadfd95661fa366b62f685fda3f037780780",
+  "package_sha256": "f3e91306398d3bd4be93cda208b55031305ad3def12fea03306363205e60039b",
   "planned_at": "2026-10-12T12:00:00-03:00",
   "priority": 100,
   "publication": {
@@ -20,7 +20,7 @@
     "published_at": null,
     "workflow_run_id": null
   },
-  "publication_key": "fisioclinex-peso-carga-joelho:30e325a09fb20bbf82bcb3c86987aadfd95661fa366b62f685fda3f037780780",
+  "publication_key": "fisioclinex-peso-carga-joelho:f3e91306398d3bd4be93cda208b55031305ad3def12fea03306363205e60039b",
   "queued_at": "2026-10-09T19:57:05.887717+00:00",
   "schema_version": 1,
   "short_slug": "peso-carga-joelho",
@@ -28,5 +28,17 @@
   "slot_id": "2026-10-12T12:00-scientific",
   "slot_type": "scientific",
   "slug": "fisioclinex-peso-carga-joelho",
-  "status": "queued"
+  "status": "queued",
+  "story": {
+    "attempt_count": 0,
+    "container_id": null,
+    "last_attempt_at": null,
+    "last_error": null,
+    "media_id": null,
+    "not_before": "2026-10-12T18:00:00-03:00",
+    "publication_key": "fisioclinex-peso-carga-joelho:3e5aa6b34fed8ced22336f141c844f13a8aa3c4837d2b87e366ef9419e76f2d6",
+    "published_at": null,
+    "status": "pending"
+  },
+  "story_plan_version": 1
 }

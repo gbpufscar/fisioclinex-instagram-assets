@@ -103,12 +103,13 @@
       "planned_at": "2026-10-12T12:00:00-03:00",
       "timezone": "America/Sao_Paulo",
       "slot_type": "scientific",
-      "status": "available",
-      "assigned_slug": null,
-      "queued_at": null,
+      "status": "queued",
+      "assigned_slug": "fisioclinex-peso-carga-joelho",
+      "queued_at": "2026-10-09T19:57:05.887717+00:00",
       "actual_published_at": null,
       "explicit_override": false,
-      "override_reason": null
+      "override_reason": null,
+      "derived_story": true
     },
     {
       "slot_id": "2026-10-13T12:00-other",
@@ -127,9 +128,9 @@
       "planned_at": "2026-10-14T12:00:00-03:00",
       "timezone": "America/Sao_Paulo",
       "slot_type": "scientific",
-      "status": "available",
-      "assigned_slug": null,
-      "queued_at": null,
+      "status": "queued",
+      "assigned_slug": "fisioclinex-mais-de-30-treinos-2026",
+      "queued_at": "2026-10-09T20:38:45.451962+00:00",
       "actual_published_at": null,
       "explicit_override": false,
       "override_reason": null
