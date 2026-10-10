@@ -1,0 +1,102 @@
+{
+  "schema_version": "2.1",
+  "slug": "fisioclinex-fisioterapia-alem-do-exercicio",
+  "post_type": "single_image",
+  "slide_count": 1,
+  "slides": [
+    "fisioclinex-fisioterapia-alem-do-exercicio-slide-01.png"
+  ],
+  "story": {
+    "filename": "fisioclinex-fisioterapia-alem-do-exercicio-story.png",
+    "dimensions": [
+      1080,
+      1920
+    ],
+    "source_cover": "fisioclinex-fisioterapia-alem-do-exercicio-slide-01.png",
+    "source_cover_sha256": "3df944c665a287ff5aa7435968a58e9680afb7ca1f76e34cf9cc4faa74db1349",
+    "adapter_version": "cover-recompose-v2",
+    "placement": {
+      "x": 96,
+      "y": 328,
+      "width": 688,
+      "height": 860
+    },
+    "safe_area": {
+      "top": 269,
+      "bottom": 672,
+      "left": 96,
+      "right": 96
+    },
+    "copy_preservation": "whole-cover-proportional",
+    "elements": {
+      "badge": {
+        "text": "NOVO POST",
+        "placement": {
+          "x": 96,
+          "y": 282,
+          "width": 300,
+          "height": 32
+        }
+      },
+      "cta": {
+        "text": "Veja no feed",
+        "placement": {
+          "x": 96,
+          "y": 1208,
+          "width": 280,
+          "height": 40
+        }
+      },
+      "indicator": {
+        "kind": "right-arrow",
+        "placement": {
+          "x": 400,
+          "y": 1216,
+          "width": 32,
+          "height": 24
+        }
+      },
+      "logo": {
+        "variant": "color",
+        "asset": "ID_logos/logo_colorida.png",
+        "sha256": "00e1938640efa577a42c03f957c84aad5e33619e319b43d490c38d5a5b534957",
+        "placement": {
+          "x": 844,
+          "y": 352,
+          "width": 112,
+          "height": 148
+        }
+      }
+    }
+  },
+  "caption_file": "legenda.txt",
+  "approval": {
+    "status": "approved",
+    "copy_sha256": "1c9f5ba38a507fa6432b4624c0e0424b2540620ae2ae28b050d0ff7d9e420651",
+    "copy_approved_at": "2026-10-10T12:42:19.847366Z",
+    "final_approved_at": "2026-10-10T12:42:19.905184Z"
+  },
+  "publicable": true,
+  "files": [
+    {
+      "path": "fisioclinex-fisioterapia-alem-do-exercicio-slide-01.png",
+      "role": "slide",
+      "size_bytes": 858813,
+      "sha256": "3df944c665a287ff5aa7435968a58e9680afb7ca1f76e34cf9cc4faa74db1349"
+    },
+    {
+      "path": "fisioclinex-fisioterapia-alem-do-exercicio-story.png",
+      "role": "story",
+      "size_bytes": 448873,
+      "sha256": "0061ad983f665531285f69600638cf5aa19c3b7b39fd44b243de806f5ffa3034"
+    },
+    {
+      "path": "legenda.txt",
+      "role": "caption",
+      "size_bytes": 900,
+      "sha256": "375c06fe94202d850f072707f363b7509880b4fb72db0e2fb04941263a58f791"
+    }
+  ],
+  "created_at": "2026-10-10T12:42:34Z",
+  "builder_version": "2.1.0"
+}

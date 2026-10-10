@@ -177,12 +177,13 @@
       "planned_at": "2026-10-20T12:00:00-03:00",
       "timezone": "America/Sao_Paulo",
       "slot_type": "other",
-      "status": "available",
-      "assigned_slug": null,
-      "queued_at": null,
+      "status": "queued",
+      "assigned_slug": "fisioclinex-fisioterapia-alem-do-exercicio",
+      "queued_at": "2026-10-10T12:44:07.564760+00:00",
       "actual_published_at": null,
       "explicit_override": false,
-      "override_reason": null
+      "override_reason": null,
+      "derived_story": true
     },
     {
       "slot_id": "2026-10-21T12:00-scientific",
