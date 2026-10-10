@@ -1,0 +1,102 @@
+{
+  "schema_version": "2.1",
+  "slug": "fisioclinex-peso-carga-joelho",
+  "post_type": "single_image",
+  "slide_count": 1,
+  "slides": [
+    "fisioclinex-peso-carga-joelho-slide-01.png"
+  ],
+  "story": {
+    "filename": "fisioclinex-peso-carga-joelho-story.png",
+    "dimensions": [
+      1080,
+      1920
+    ],
+    "source_cover": "fisioclinex-peso-carga-joelho-slide-01.png",
+    "source_cover_sha256": "702d3966c2c0dbb315263751f45c18222a7ce0a7c35255fb8ed1be7f5046c5a1",
+    "adapter_version": "cover-recompose-v2",
+    "placement": {
+      "x": 96,
+      "y": 328,
+      "width": 688,
+      "height": 860
+    },
+    "safe_area": {
+      "top": 269,
+      "bottom": 672,
+      "left": 96,
+      "right": 96
+    },
+    "copy_preservation": "whole-cover-proportional",
+    "elements": {
+      "badge": {
+        "text": "NOVO POST",
+        "placement": {
+          "x": 96,
+          "y": 282,
+          "width": 300,
+          "height": 32
+        }
+      },
+      "cta": {
+        "text": "Veja no feed",
+        "placement": {
+          "x": 96,
+          "y": 1208,
+          "width": 280,
+          "height": 40
+        }
+      },
+      "indicator": {
+        "kind": "right-arrow",
+        "placement": {
+          "x": 400,
+          "y": 1216,
+          "width": 32,
+          "height": 24
+        }
+      },
+      "logo": {
+        "variant": "white",
+        "asset": "ID_logos/logo_branca.png",
+        "sha256": "b50d37d2b5ea81465625b374fbff24dd921fbb5fc644510a759589ff7f75ec40",
+        "placement": {
+          "x": 844,
+          "y": 352,
+          "width": 112,
+          "height": 160
+        }
+      }
+    }
+  },
+  "caption_file": "legenda.txt",
+  "approval": {
+    "status": "approved",
+    "copy_sha256": "c396a26175a6be2d0d1e38cd6cd12ddbf04eeff7a4b922f6d365e94338531622",
+    "copy_approved_at": "2026-10-09T19:52:27.422162Z",
+    "final_approved_at": "2026-10-09T19:52:27.475398Z"
+  },
+  "publicable": true,
+  "files": [
+    {
+      "path": "fisioclinex-peso-carga-joelho-slide-01.png",
+      "role": "slide",
+      "size_bytes": 1766725,
+      "sha256": "702d3966c2c0dbb315263751f45c18222a7ce0a7c35255fb8ed1be7f5046c5a1"
+    },
+    {
+      "path": "fisioclinex-peso-carga-joelho-story.png",
+      "role": "story",
+      "size_bytes": 827317,
+      "sha256": "e3f0dceff1fc0635d7f3e7dc9f030dfcceff0a6a62253082a9a153583f1e6750"
+    },
+    {
+      "path": "legenda.txt",
+      "role": "caption",
+      "size_bytes": 924,
+      "sha256": "218df6f28bfe14b8bc4ab48249d8ce651e4a7cc76f807c2ccc643a2288518266"
+    }
+  ],
+  "created_at": "2026-10-10T09:17:49Z",
+  "builder_version": "2.1.0"
+}
