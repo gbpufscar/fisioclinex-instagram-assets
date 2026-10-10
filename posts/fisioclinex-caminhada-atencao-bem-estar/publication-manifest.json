@@ -1,0 +1,130 @@
+{
+  "schema_version": "2.1",
+  "slug": "fisioclinex-caminhada-atencao-bem-estar",
+  "post_type": "carousel",
+  "slide_count": 5,
+  "slides": [
+    "fisioclinex-caminhada-atencao-bem-estar-slide-01.png",
+    "fisioclinex-caminhada-atencao-bem-estar-slide-02.png",
+    "fisioclinex-caminhada-atencao-bem-estar-slide-03.png",
+    "fisioclinex-caminhada-atencao-bem-estar-slide-04.png",
+    "fisioclinex-caminhada-atencao-bem-estar-slide-05.png"
+  ],
+  "story": {
+    "filename": "fisioclinex-caminhada-atencao-bem-estar-story.png",
+    "dimensions": [
+      1080,
+      1920
+    ],
+    "source_cover": "fisioclinex-caminhada-atencao-bem-estar-slide-01.png",
+    "source_cover_sha256": "b80336ab5e4943481bccd3cbec93d00b06a8ba1eb65a39d4ca2a1d8bb72e5d7c",
+    "adapter_version": "cover-recompose-v2",
+    "placement": {
+      "x": 96,
+      "y": 328,
+      "width": 688,
+      "height": 860
+    },
+    "safe_area": {
+      "top": 269,
+      "bottom": 672,
+      "left": 96,
+      "right": 96
+    },
+    "copy_preservation": "whole-cover-proportional",
+    "elements": {
+      "badge": {
+        "text": "NOVO POST",
+        "placement": {
+          "x": 96,
+          "y": 282,
+          "width": 300,
+          "height": 32
+        }
+      },
+      "cta": {
+        "text": "Veja no feed",
+        "placement": {
+          "x": 96,
+          "y": 1208,
+          "width": 280,
+          "height": 40
+        }
+      },
+      "indicator": {
+        "kind": "right-arrow",
+        "placement": {
+          "x": 400,
+          "y": 1216,
+          "width": 32,
+          "height": 24
+        }
+      },
+      "logo": {
+        "variant": "color",
+        "asset": "ID_logos/logo_colorida.png",
+        "sha256": "00e1938640efa577a42c03f957c84aad5e33619e319b43d490c38d5a5b534957",
+        "placement": {
+          "x": 844,
+          "y": 352,
+          "width": 112,
+          "height": 148
+        }
+      }
+    }
+  },
+  "caption_file": "legenda.txt",
+  "approval": {
+    "status": "approved",
+    "copy_sha256": "ad3467351b93fa5b5a8ac3f3a0d5fbd2f98486a2ba6a8586551dc83c03bc65d6",
+    "copy_approved_at": "2026-10-10T10:52:04.395457Z",
+    "final_approved_at": "2026-10-10T11:04:10.029094Z"
+  },
+  "publicable": true,
+  "files": [
+    {
+      "path": "fisioclinex-caminhada-atencao-bem-estar-slide-01.png",
+      "role": "slide",
+      "size_bytes": 1382512,
+      "sha256": "b80336ab5e4943481bccd3cbec93d00b06a8ba1eb65a39d4ca2a1d8bb72e5d7c"
+    },
+    {
+      "path": "fisioclinex-caminhada-atencao-bem-estar-slide-02.png",
+      "role": "slide",
+      "size_bytes": 1231778,
+      "sha256": "d7aec5d5ee7c162a0aaaf719dddf8d54156dbd7d56a14a4d9431ac8ed0be8504"
+    },
+    {
+      "path": "fisioclinex-caminhada-atencao-bem-estar-slide-03.png",
+      "role": "slide",
+      "size_bytes": 1043277,
+      "sha256": "70f756add7d0ee20331297cc3525f94e1cd58ffc867c40f2dedaf456e5bad9b0"
+    },
+    {
+      "path": "fisioclinex-caminhada-atencao-bem-estar-slide-04.png",
+      "role": "slide",
+      "size_bytes": 1306552,
+      "sha256": "042c3be081daba99dabe6c18f3c11c541a167c497c376482f77f4e0d123a15c3"
+    },
+    {
+      "path": "fisioclinex-caminhada-atencao-bem-estar-slide-05.png",
+      "role": "slide",
+      "size_bytes": 1604230,
+      "sha256": "7d9967c3df094b92bd530672a373370574b5a8fa01fef538bf2111f83b3ae0de"
+    },
+    {
+      "path": "fisioclinex-caminhada-atencao-bem-estar-story.png",
+      "role": "story",
+      "size_bytes": 677629,
+      "sha256": "6e27088f05d52f0d34959449a6fb5fbbe0ff0522ac9088d78ae5d88b12bb17e9"
+    },
+    {
+      "path": "legenda.txt",
+      "role": "caption",
+      "size_bytes": 742,
+      "sha256": "d692dd1fc00c5d60ea4b4774ecfdd7b40824c84e687fb8cb6fc34a8ebe045182"
+    }
+  ],
+  "created_at": "2026-10-10T11:05:39Z",
+  "builder_version": "2.1.0"
+}

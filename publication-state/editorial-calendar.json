@@ -152,12 +152,13 @@
       "planned_at": "2026-10-16T12:00:00-03:00",
       "timezone": "America/Sao_Paulo",
       "slot_type": "scientific",
-      "status": "available",
-      "assigned_slug": null,
-      "queued_at": null,
+      "status": "queued",
+      "assigned_slug": "fisioclinex-caminhada-atencao-bem-estar",
+      "queued_at": "2026-10-10T11:06:00.970451+00:00",
       "actual_published_at": null,
       "explicit_override": false,
-      "override_reason": null
+      "override_reason": null,
+      "derived_story": true
     },
     {
       "slot_id": "2026-10-19T12:00-scientific",
