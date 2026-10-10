@@ -171,6 +171,9 @@ def _validate_slot(slot: EditorialSlot, policy: CalendarPolicy) -> EditorialSlot
 
 def load_calendar(path: str | Path, *, policy: CalendarPolicy) -> tuple[EditorialSlot, ...]:
     source = Path(path)
+    if (source.parent.name == "editorial-calendar" and
+            (source.parent.parent / "publicacao-agendada/config.json").is_file()):
+        raise EditorialCalendarError("Studio calendar is not an operational source")
     if source.is_symlink() or not source.is_file():
         raise EditorialCalendarError("calendário indisponível")
     try:
@@ -208,6 +211,9 @@ def save_calendar(path: str | Path, slots: Iterable[EditorialSlot], *, policy: C
     from contextlib import nullcontext
     from .schedule_integrity import schedule_lock
     target = Path(path)
+    if (target.parent.name == "editorial-calendar" and
+            (target.parent.parent / "publicacao-agendada/config.json").is_file()):
+        raise EditorialCalendarError("Studio calendar is not an operational source")
     source = workspace if workspace is not None else calendar_workspace(target)
     # Keep a consistent lock order with queue staging and direct writeback.
     with schedule_lock(source) if source is not None else nullcontext():
@@ -218,6 +224,9 @@ def save_calendar(path: str | Path, slots: Iterable[EditorialSlot], *, policy: C
 def _save_calendar(target: Path, slots: Iterable[EditorialSlot], *, policy: CalendarPolicy, workspace, release_slug=None) -> None:
     from .schedule_integrity import check_reservations, validate_schedule_write
 
+    if (target.parent.name == "editorial-calendar" and
+            (target.parent.parent / "publicacao-agendada/config.json").is_file()):
+        raise EditorialCalendarError("Studio calendar is not an operational source")
     if target.is_symlink():
         raise EditorialCalendarError("destino de calendário inseguro")
     checked = tuple(_validate_slot(slot, policy) for slot in slots)

@@ -5,19 +5,13 @@ from __future__ import annotations
 import argparse
 from datetime import date, datetime, timezone
 from pathlib import Path
-from zoneinfo import ZoneInfo
 
 from .editorial_calendar import (
     assign_slot,
-    calendar_workspace,
     generate_slots,
-    load_calendar,
-    load_policy,
     merge_generated,
     next_available_slot,
     render_calendar,
-    save_calendar,
-    transition_slot,
     update_planning,
 )
 from .queue_package import validate_queue_package
@@ -25,8 +19,9 @@ from .queue_package import validate_queue_package
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="calendario-editorial")
-    parser.add_argument("--calendar", required=True)
-    parser.add_argument("--policy", required=True)
+    parser.add_argument("--calendar")
+    parser.add_argument("--workspace")
+    parser.add_argument("--policy", help="compatibility argument; Assets policy is authoritative")
     sub = parser.add_subparsers(dest="command", required=True)
     generate = sub.add_parser("generate")
     generate.add_argument("--start", type=date.fromisoformat, required=True)
@@ -44,29 +39,30 @@ def build_parser() -> argparse.ArgumentParser:
     reschedule = sub.add_parser("reschedule")
     reschedule.add_argument("--slug", required=True)
     reschedule.add_argument("--slot-id", required=True)
-    reschedule.add_argument("--workspace")
+    reschedule.add_argument("--workspace", default=argparse.SUPPRESS)
     reschedule.add_argument("--persist-remote", action="store_true")
     reschedule.add_argument("--expected-head")
     reschedule.add_argument("--audit-script")
     cancel = sub.add_parser("cancel")
     cancel.add_argument("--slug", required=True)
-    cancel.add_argument("--workspace")
+    cancel.add_argument("--workspace", default=argparse.SUPPRESS)
     return parser
 
 
-def main(argv=None, *, now_fn=lambda: datetime.now(timezone.utc), output_fn=print) -> int:
+def main(argv=None, *, snapshot_reader=None, now_fn=lambda: datetime.now(timezone.utc), output_fn=print) -> int:
     args = build_parser().parse_args(argv)
-    policy = load_policy(args.policy)
-    slots = load_calendar(args.calendar, policy=policy)
+    from .assets_calendar import read_current, CALENDAR
+    from .queue_config import load_queue_config
+    root = Path(__file__).resolve().parents[2]
+    configured = root / "publicacao-agendada/config.json"
+    workspace = Path(args.workspace or load_queue_config(configured).workspace_path)
+    head, policy, slots = (snapshot_reader or read_current)(workspace)
+    canonical = workspace / CALENDAR
+    if args.calendar and Path(args.calendar).resolve() != canonical.resolve():
+        raise ValueError("Studio calendar is not an operational source")
+    args.calendar = str(canonical)
     now = now_fn()
-    workspace = calendar_workspace(args.calendar)
-    generated_view = merge_generated(
-        slots,
-        generate_slots(
-            now.astimezone(ZoneInfo(policy.timezone)).date(),
-            policy=policy,
-        ),
-    )
+    generated_view = slots
     if args.command in {"reschedule", "cancel"}:
         if args.command == "reschedule" and args.persist_remote:
             from .planning_writeback import reschedule_remote
@@ -88,10 +84,12 @@ def main(argv=None, *, now_fn=lambda: datetime.now(timezone.utc), output_fn=prin
                                      workspace=args.workspace or workspace, cancel=args.command == "cancel", now=now)
             output_fn(f"local_mutation_successful: {result}: {args.slug}; remote_not_verified")
     elif args.command == "generate":
-        slots = merge_generated(slots, generate_slots(args.start, policy=policy, weeks=args.weeks))
-        save_calendar(args.calendar, slots, policy=policy)
-        output_fn(render_calendar(slots, limit=20))
+        output_fn("proposal only; persistence requires authorized Assets maintenance")
+        output_fn(render_calendar(merge_generated(slots, generate_slots(args.start, policy=policy, weeks=args.weeks)), limit=20))
+    elif args.command == "skip":
+        raise ValueError("mutação persistente exige fluxo operacional autorizado no Assets")
     elif args.command == "show":
+        output_fn(f"Assets HEAD: {head}")
         output_fn(render_calendar(generated_view, limit=args.limit))
     elif args.command == "next":
         from .schedule_integrity import ScheduleConflictError, check_reservations, persisted_reservations
@@ -108,6 +106,7 @@ def main(argv=None, *, now_fn=lambda: datetime.now(timezone.utc), output_fn=prin
                     continue
                 available.append(candidate)
         slot = next_available_slot(available, now=now)
+        output_fn(f"Assets HEAD: {head}")
         output_fn("nenhum slot disponível" if slot is None else render_calendar((slot,), limit=1))
     elif args.command == "assign":
         package = validate_queue_package(args.package)
@@ -121,12 +120,11 @@ def main(argv=None, *, now_fn=lambda: datetime.now(timezone.utc), output_fn=prin
             override_reason=args.override_reason,
             derived_story=package.visual_schema_version == "2.1",
         )
-        save_calendar(args.calendar, slots, policy=policy)
-        output_fn(f"assigned: {package.slug} -> {args.slot_id}")
-    elif args.command == "skip":
-        slots = transition_slot(slots, slot_id=args.slot_id, status="skipped", occurred_at=now)
-        save_calendar(args.calendar, slots, policy=policy)
-        output_fn(f"skipped: {args.slot_id}")
+        from .schedule_integrity import validate_schedule_write
+        slot = next(s for s in slots if s.slot_id == args.slot_id)
+        validate_schedule_write(workspace, slug=package.slug, planned_at=slot.planned_datetime,
+                                explicit_override=slot.explicit_override, override_reason=slot.override_reason)
+        output_fn(f"proposed: {package.slug} -> {args.slot_id}; planning_head={head}; not persisted")
     return 0
 
 
