@@ -115,6 +115,16 @@ def health(root):
     by_slot = {s.slot_id:s for s in slots}
     reservations = {}
     for m in manifests.values():
+        from .visual_provenance import requires_visual_manifest, validate_visual_provenance
+        if requires_visual_manifest(m):
+            visual = root/'posts'/m.slug/'publication-manifest.json'
+            if not visual.is_file():
+                issue('missing_visual_manifest', m.slug)
+            else:
+                try:
+                    validate_visual_provenance(root, m)
+                except (OSError, ValueError) as exc:
+                    issue('invalid_visual_manifest', m.slug, diagnostic=str(exc))
         r = by_key.get(m.publication_key)
         confirmed = matching_confirmation(m, r) and registry_schedule_matches(root, m)
         if r is not None and not confirmed:

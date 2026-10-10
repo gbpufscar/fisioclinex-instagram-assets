@@ -134,6 +134,10 @@ def _validate_package(root: Path, manifest_path: Path, manifest: Manifest) -> No
         raise ShadowRunnerError("post slide directory contains invalid entries")
     actual_names = {entry.name for entry in entries}
     expected_asset_names = set(expected_names) | {story_name}
+    from fisioclinex_scheduled.visual_provenance import validate_visual_provenance
+    validate_visual_provenance(root, manifest)
+    if (posts/'publication-manifest.json').exists():
+        expected_asset_names.add('publication-manifest.json')
     if actual_names != expected_asset_names:
         raise ShadowRunnerError("public asset set is invalid")
     mapped = {"legenda.txt": caption}
