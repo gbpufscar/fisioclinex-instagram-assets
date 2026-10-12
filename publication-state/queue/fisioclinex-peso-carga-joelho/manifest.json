@@ -18,8 +18,8 @@
   "priority": 100,
   "publication": {
     "asset_commit": "20b142914f937ba4790e5b0eabee06cba0f78dd5",
-    "media_id": null,
-    "published_at": null,
+    "media_id": "17908019400328669",
+    "published_at": "2026-10-12T17:44:53.249129+00:00",
     "workflow_run_id": "38286189900"
   },
   "publication_key": "fisioclinex-peso-carga-joelho:f3e91306398d3bd4be93cda208b55031305ad3def12fea03306363205e60039b",
@@ -34,7 +34,7 @@
   "slot_type": "scientific",
   "slug": "fisioclinex-peso-carga-joelho",
   "started_at": "2026-10-12T17:44:36.429050+00:00",
-  "status": "publishing",
+  "status": "published",
   "story": {
     "attempt_count": 0,
     "container_id": null,
