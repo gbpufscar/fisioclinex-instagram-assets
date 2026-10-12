@@ -1,0 +1,44 @@
+{
+  "artifact_status": "active",
+  "attempts": 0,
+  "caption_file": "legenda.txt",
+  "content_policy_version": "editorial-v3-1-to-10",
+  "explicit_override": false,
+  "failure": {
+    "occurred_at": null,
+    "phase": null,
+    "requires_human_review": false
+  },
+  "not_before": "2026-10-19T12:00:00-03:00",
+  "override_reason": null,
+  "package_sha256": "d74adfaf19a46566f62a241d61dc58bb7591249dbd862d48764be552388be1a9",
+  "planned_at": "2026-10-19T12:00:00-03:00",
+  "priority": 100,
+  "publication": {
+    "asset_commit": null,
+    "media_id": null,
+    "published_at": null,
+    "workflow_run_id": null
+  },
+  "publication_key": "fisioclinex-treino-forca-saude-mental:d74adfaf19a46566f62a241d61dc58bb7591249dbd862d48764be552388be1a9",
+  "queued_at": "2026-10-12T18:10:39.863232+00:00",
+  "schema_version": 1,
+  "short_slug": "treino-forca-saude-mental",
+  "slides_count": 5,
+  "slot_id": "2026-10-19T12:00-scientific",
+  "slot_type": "scientific",
+  "slug": "fisioclinex-treino-forca-saude-mental",
+  "status": "queued",
+  "story": {
+    "attempt_count": 0,
+    "container_id": null,
+    "last_attempt_at": null,
+    "last_error": null,
+    "media_id": null,
+    "not_before": "2026-10-19T18:00:00-03:00",
+    "publication_key": "fisioclinex-treino-forca-saude-mental:f6d70888a9b745a4442a8db5995b079bf4159b2112b182f55510becc8def7adc",
+    "published_at": null,
+    "status": "pending"
+  },
+  "story_plan_version": 1
+}

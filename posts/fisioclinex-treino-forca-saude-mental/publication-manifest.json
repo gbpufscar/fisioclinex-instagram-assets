@@ -1,0 +1,130 @@
+{
+  "schema_version": "2.1",
+  "slug": "fisioclinex-treino-forca-saude-mental",
+  "post_type": "carousel",
+  "slide_count": 5,
+  "slides": [
+    "fisioclinex-treino-forca-saude-mental-slide-01.png",
+    "fisioclinex-treino-forca-saude-mental-slide-02.png",
+    "fisioclinex-treino-forca-saude-mental-slide-03.png",
+    "fisioclinex-treino-forca-saude-mental-slide-04.png",
+    "fisioclinex-treino-forca-saude-mental-slide-05.png"
+  ],
+  "story": {
+    "filename": "fisioclinex-treino-forca-saude-mental-story.png",
+    "dimensions": [
+      1080,
+      1920
+    ],
+    "source_cover": "fisioclinex-treino-forca-saude-mental-slide-01.png",
+    "source_cover_sha256": "a5156fd702d661fda95f7c54b05dd6a8d974c0bcd864a37229b8d6822310a558",
+    "adapter_version": "cover-recompose-v2",
+    "placement": {
+      "x": 96,
+      "y": 328,
+      "width": 688,
+      "height": 860
+    },
+    "safe_area": {
+      "top": 269,
+      "bottom": 672,
+      "left": 96,
+      "right": 96
+    },
+    "copy_preservation": "whole-cover-proportional",
+    "elements": {
+      "badge": {
+        "text": "NOVO POST",
+        "placement": {
+          "x": 96,
+          "y": 282,
+          "width": 300,
+          "height": 32
+        }
+      },
+      "cta": {
+        "text": "Veja no feed",
+        "placement": {
+          "x": 96,
+          "y": 1208,
+          "width": 280,
+          "height": 40
+        }
+      },
+      "indicator": {
+        "kind": "right-arrow",
+        "placement": {
+          "x": 400,
+          "y": 1216,
+          "width": 32,
+          "height": 24
+        }
+      },
+      "logo": {
+        "variant": "white",
+        "asset": "ID_logos/logo_branca.png",
+        "sha256": "b50d37d2b5ea81465625b374fbff24dd921fbb5fc644510a759589ff7f75ec40",
+        "placement": {
+          "x": 844,
+          "y": 352,
+          "width": 112,
+          "height": 160
+        }
+      }
+    }
+  },
+  "caption_file": "legenda.txt",
+  "approval": {
+    "status": "approved",
+    "copy_sha256": "aed01ebfa02f07d974e9e7a3687c2891484f8178be5207c1fb3e0b427ce2b6bd",
+    "copy_approved_at": "2026-10-10T18:41:47.950976Z",
+    "final_approved_at": "2026-10-12T18:09:05.895229Z"
+  },
+  "publicable": true,
+  "files": [
+    {
+      "path": "fisioclinex-treino-forca-saude-mental-slide-01.png",
+      "role": "slide",
+      "size_bytes": 1594176,
+      "sha256": "a5156fd702d661fda95f7c54b05dd6a8d974c0bcd864a37229b8d6822310a558"
+    },
+    {
+      "path": "fisioclinex-treino-forca-saude-mental-slide-02.png",
+      "role": "slide",
+      "size_bytes": 1133693,
+      "sha256": "ae5b584a05d54f5d017f6470ddeb16ce559122e8286e1bda345c3cd99f4c8b37"
+    },
+    {
+      "path": "fisioclinex-treino-forca-saude-mental-slide-03.png",
+      "role": "slide",
+      "size_bytes": 651559,
+      "sha256": "6099b1ccc089254a72a0715f67b6fec26cdbd27135e3f56c65b5efe05b72ec5b"
+    },
+    {
+      "path": "fisioclinex-treino-forca-saude-mental-slide-04.png",
+      "role": "slide",
+      "size_bytes": 1127779,
+      "sha256": "6b5554df1d89176e45fbec8c81b6b99d9c956a61cf53f82d3f91eb34a8cb2750"
+    },
+    {
+      "path": "fisioclinex-treino-forca-saude-mental-slide-05.png",
+      "role": "slide",
+      "size_bytes": 1143234,
+      "sha256": "f844a53f9cad4b52be41e92d5d1c57be6d098bd44e7e9cbf070d2a7ebb901ae8"
+    },
+    {
+      "path": "fisioclinex-treino-forca-saude-mental-story.png",
+      "role": "story",
+      "size_bytes": 758301,
+      "sha256": "45efa76149b786f2b8b196887450fedadfcc406bae5a31b2ec22138ed0e557c1"
+    },
+    {
+      "path": "legenda.txt",
+      "role": "caption",
+      "size_bytes": 1039,
+      "sha256": "d073d6ead8dd82939e3c43ddac263e0932c6bc51a8abe3b2520d24bf5bd250a9"
+    }
+  ],
+  "created_at": "2026-10-12T18:09:08Z",
+  "builder_version": "2.1.0"
+}
