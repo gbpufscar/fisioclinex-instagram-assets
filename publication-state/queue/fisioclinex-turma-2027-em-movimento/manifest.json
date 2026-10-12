@@ -1,0 +1,44 @@
+{
+  "artifact_status": "active",
+  "attempts": 0,
+  "caption_file": "legenda.txt",
+  "content_policy_version": "editorial-v3-1-to-10",
+  "explicit_override": false,
+  "failure": {
+    "occurred_at": null,
+    "phase": null,
+    "requires_human_review": false
+  },
+  "not_before": "2026-10-22T12:00:00-03:00",
+  "override_reason": null,
+  "package_sha256": "c1a749a1254c5a82cc786aa3122825a93e21187bb7612bee82643da441e7623b",
+  "planned_at": "2026-10-22T12:00:00-03:00",
+  "priority": 100,
+  "publication": {
+    "asset_commit": null,
+    "media_id": null,
+    "published_at": null,
+    "workflow_run_id": null
+  },
+  "publication_key": "fisioclinex-turma-2027-em-movimento:c1a749a1254c5a82cc786aa3122825a93e21187bb7612bee82643da441e7623b",
+  "queued_at": "2026-10-12T18:53:50.874863+00:00",
+  "schema_version": 1,
+  "short_slug": "turma-2027-em-movimento",
+  "slides_count": 4,
+  "slot_id": "2026-10-22T12:00-other",
+  "slot_type": "other",
+  "slug": "fisioclinex-turma-2027-em-movimento",
+  "status": "queued",
+  "story": {
+    "attempt_count": 0,
+    "container_id": null,
+    "last_attempt_at": null,
+    "last_error": null,
+    "media_id": null,
+    "not_before": "2026-10-22T18:00:00-03:00",
+    "publication_key": "fisioclinex-turma-2027-em-movimento:0a191c6dc359d3b87e7230378b2d878eb04f0ac1ed1ef409a73f3267d81fc6d9",
+    "published_at": null,
+    "status": "pending"
+  },
+  "story_plan_version": 1
+}

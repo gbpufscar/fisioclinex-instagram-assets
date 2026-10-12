@@ -1,0 +1,123 @@
+{
+  "schema_version": "2.1",
+  "slug": "fisioclinex-turma-2027-em-movimento",
+  "post_type": "carousel",
+  "slide_count": 4,
+  "slides": [
+    "fisioclinex-turma-2027-em-movimento-slide-01.png",
+    "fisioclinex-turma-2027-em-movimento-slide-02.png",
+    "fisioclinex-turma-2027-em-movimento-slide-03.png",
+    "fisioclinex-turma-2027-em-movimento-slide-04.png"
+  ],
+  "story": {
+    "filename": "fisioclinex-turma-2027-em-movimento-story.png",
+    "dimensions": [
+      1080,
+      1920
+    ],
+    "source_cover": "fisioclinex-turma-2027-em-movimento-slide-01.png",
+    "source_cover_sha256": "59d05a213da6168c4ef96724b39a4f88fb196a4f20c0decb58a1e8f5fc747bba",
+    "adapter_version": "cover-recompose-v2",
+    "placement": {
+      "x": 96,
+      "y": 328,
+      "width": 688,
+      "height": 860
+    },
+    "safe_area": {
+      "top": 269,
+      "bottom": 672,
+      "left": 96,
+      "right": 96
+    },
+    "copy_preservation": "whole-cover-proportional",
+    "elements": {
+      "badge": {
+        "text": "NOVO POST",
+        "placement": {
+          "x": 96,
+          "y": 282,
+          "width": 300,
+          "height": 32
+        }
+      },
+      "cta": {
+        "text": "Veja no feed",
+        "placement": {
+          "x": 96,
+          "y": 1208,
+          "width": 280,
+          "height": 40
+        }
+      },
+      "indicator": {
+        "kind": "right-arrow",
+        "placement": {
+          "x": 400,
+          "y": 1216,
+          "width": 32,
+          "height": 24
+        }
+      },
+      "logo": {
+        "variant": "color",
+        "asset": "ID_logos/logo_colorida.png",
+        "sha256": "00e1938640efa577a42c03f957c84aad5e33619e319b43d490c38d5a5b534957",
+        "placement": {
+          "x": 844,
+          "y": 352,
+          "width": 112,
+          "height": 148
+        }
+      }
+    }
+  },
+  "caption_file": "legenda.txt",
+  "approval": {
+    "status": "approved",
+    "copy_sha256": "c163e9f116733e01438891e200ded8cfb65d3ba0ec011be652fe4ca01f8f6860",
+    "copy_approved_at": "2026-10-12T18:52:23.657523Z",
+    "final_approved_at": "2026-10-12T18:52:23.730870Z"
+  },
+  "publicable": true,
+  "files": [
+    {
+      "path": "fisioclinex-turma-2027-em-movimento-slide-01.png",
+      "role": "slide",
+      "size_bytes": 1842133,
+      "sha256": "59d05a213da6168c4ef96724b39a4f88fb196a4f20c0decb58a1e8f5fc747bba"
+    },
+    {
+      "path": "fisioclinex-turma-2027-em-movimento-slide-02.png",
+      "role": "slide",
+      "size_bytes": 1503306,
+      "sha256": "46825f64343966634dd7933625768f83d386cc0f8e95554180af3e413719686e"
+    },
+    {
+      "path": "fisioclinex-turma-2027-em-movimento-slide-03.png",
+      "role": "slide",
+      "size_bytes": 1633772,
+      "sha256": "823ed32c150cd45ea08ced635370b924b0b7652d77d44ca2df155568f0ccfce7"
+    },
+    {
+      "path": "fisioclinex-turma-2027-em-movimento-slide-04.png",
+      "role": "slide",
+      "size_bytes": 1859209,
+      "sha256": "e690266d5eeacf91d5e24e222bd9730643d258da72f1a26c4f994224238a7c71"
+    },
+    {
+      "path": "fisioclinex-turma-2027-em-movimento-story.png",
+      "role": "story",
+      "size_bytes": 877807,
+      "sha256": "4c0f226d8045550267f8884f10205ba60900fe49af2c86ecf40c80cf8f03e708"
+    },
+    {
+      "path": "legenda.txt",
+      "role": "caption",
+      "size_bytes": 954,
+      "sha256": "1a20b0d3701ebaa3c1cb9b863e0e26c4d3fa6f9fd0f71735e3ce788093f3349e"
+    }
+  ],
+  "created_at": "2026-10-12T18:52:24Z",
+  "builder_version": "2.1.0"
+}
