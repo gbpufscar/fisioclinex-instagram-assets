@@ -1,7 +1,9 @@
 {
   "artifact_status": "active",
-  "attempts": 0,
+  "attempts": 1,
   "caption_file": "legenda.txt",
+  "carousel_container_id": null,
+  "child_container_ids": [],
   "content_policy_version": "editorial-v3-1-to-10",
   "explicit_override": false,
   "failure": {
@@ -15,18 +17,26 @@
   "planned_at": "2026-10-14T12:00:00-03:00",
   "priority": 100,
   "publication": {
-    "asset_commit": null,
+    "asset_commit": "a3b046cb801d9613c9bc26ab49491307b207fbfd",
     "media_id": null,
     "published_at": null,
-    "workflow_run_id": null
+    "workflow_run_id": "38611505251"
   },
   "publication_key": "fisioclinex-mais-de-30-treinos-2026:12c799e9cfea8c4b2536c4a1118fdaad8fad6cf5cb555003b76392b44161b572",
+  "publication_run_id": "d21c139d-8ede-47e8-88e5-c944cdb39cb2",
+  "pushed": true,
   "queued_at": "2026-10-09T20:38:45.451962+00:00",
   "schema_version": 1,
   "short_slug": "mais-de-30-treinos-2026",
+  "single_image_container_id": null,
   "slides_count": 6,
   "slot_id": "2026-10-14T12:00-scientific",
   "slot_type": "scientific",
   "slug": "fisioclinex-mais-de-30-treinos-2026",
-  "status": "queued"
+  "started_at": "2026-10-14T18:01:20.454872+00:00",
+  "status": "publishing",
+  "story_container_id": null,
+  "story_media_id": null,
+  "story_published_at": null,
+  "verified": true
 }
