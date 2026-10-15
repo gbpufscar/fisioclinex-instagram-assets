@@ -1,0 +1,45 @@
+{
+  "artifact_status": "active",
+  "attempts": 1,
+  "caption_file": "legenda.txt",
+  "carousel_container_id": null,
+  "child_container_ids": [],
+  "content_policy_version": "editorial-v3-1-to-10",
+  "failure": {
+    "occurred_at": null,
+    "phase": null,
+    "requires_human_review": false
+  },
+  "not_before": null,
+  "package_sha256": "893f18e19309a423423f12c875407d9f2f94821ee29718b2fc04ef00bfab6740",
+  "priority": 100,
+  "publication": {
+    "asset_commit": "68fb083b878c4d16579cf8c88f1a8348022e62f5",
+    "media_id": null,
+    "published_at": null,
+    "workflow_run_id": "0"
+  },
+  "publication_key": "fisioclinex-dia-dos-professores-2026:893f18e19309a423423f12c875407d9f2f94821ee29718b2fc04ef00bfab6740",
+  "publication_run_id": "local-2026-10-15T11:30:37.062562Z",
+  "pushed": true,
+  "queued_at": "2026-10-15T11:32:50.282924+00:00",
+  "schema_version": 1,
+  "short_slug": "dia-dos-professores-2026",
+  "single_image_container_id": null,
+  "slides_count": 1,
+  "slug": "fisioclinex-dia-dos-professores-2026",
+  "started_at": "2026-10-15T11:32:50.318286+00:00",
+  "status": "publishing",
+  "story": {
+    "attempt_count": 0,
+    "container_id": null,
+    "last_attempt_at": null,
+    "last_error": null,
+    "media_id": null,
+    "not_before": null,
+    "publication_key": "fisioclinex-dia-dos-professores-2026:a72589527013d54a171896d6a34d4d87f303761d21238784764d0a0815afec90",
+    "published_at": null,
+    "status": "pending"
+  },
+  "verified": true
+}
