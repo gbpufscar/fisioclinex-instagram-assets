@@ -1,0 +1,102 @@
+{
+  "schema_version": "2.1",
+  "slug": "fisioclinex-dia-dos-professores-2026",
+  "post_type": "single_image",
+  "slide_count": 1,
+  "slides": [
+    "fisioclinex-dia-dos-professores-2026-slide-01.png"
+  ],
+  "story": {
+    "filename": "fisioclinex-dia-dos-professores-2026-story.png",
+    "dimensions": [
+      1080,
+      1920
+    ],
+    "source_cover": "fisioclinex-dia-dos-professores-2026-slide-01.png",
+    "source_cover_sha256": "a584d350b7089c3c551d1b40da35aa91fa10ac81c6262e2572388c75bfb7ffe9",
+    "adapter_version": "cover-recompose-v2",
+    "placement": {
+      "x": 96,
+      "y": 328,
+      "width": 688,
+      "height": 860
+    },
+    "safe_area": {
+      "top": 269,
+      "bottom": 672,
+      "left": 96,
+      "right": 96
+    },
+    "copy_preservation": "whole-cover-proportional",
+    "elements": {
+      "badge": {
+        "text": "NOVO POST",
+        "placement": {
+          "x": 96,
+          "y": 282,
+          "width": 300,
+          "height": 32
+        }
+      },
+      "cta": {
+        "text": "Veja no feed",
+        "placement": {
+          "x": 96,
+          "y": 1208,
+          "width": 280,
+          "height": 40
+        }
+      },
+      "indicator": {
+        "kind": "right-arrow",
+        "placement": {
+          "x": 400,
+          "y": 1216,
+          "width": 32,
+          "height": 24
+        }
+      },
+      "logo": {
+        "variant": "white",
+        "asset": "ID_logos/logo_branca.png",
+        "sha256": "b50d37d2b5ea81465625b374fbff24dd921fbb5fc644510a759589ff7f75ec40",
+        "placement": {
+          "x": 844,
+          "y": 352,
+          "width": 112,
+          "height": 160
+        }
+      }
+    }
+  },
+  "caption_file": "legenda.txt",
+  "approval": {
+    "status": "approved",
+    "copy_sha256": "984aa523d0a4f72335b08d6efffea90d553cc18bb1abf486652c61417e490a9e",
+    "copy_approved_at": "2026-10-15T11:28:16.577091Z",
+    "final_approved_at": "2026-10-15T11:28:16.632526Z"
+  },
+  "publicable": true,
+  "files": [
+    {
+      "path": "fisioclinex-dia-dos-professores-2026-slide-01.png",
+      "role": "slide",
+      "size_bytes": 1334821,
+      "sha256": "a584d350b7089c3c551d1b40da35aa91fa10ac81c6262e2572388c75bfb7ffe9"
+    },
+    {
+      "path": "fisioclinex-dia-dos-professores-2026-story.png",
+      "role": "story",
+      "size_bytes": 699290,
+      "sha256": "ff5e2f8ae91dc2ee6b48e3490360615c2a1c2f8fa977cba8f0dba141b739e0e4"
+    },
+    {
+      "path": "legenda.txt",
+      "role": "caption",
+      "size_bytes": 774,
+      "sha256": "db9283e95a484f4f046126da2c217cef76a282aa6cd9293d29c00d9e1153a816"
+    }
+  ],
+  "created_at": "2026-10-15T11:28:17Z",
+  "builder_version": "2.1.0"
+}
