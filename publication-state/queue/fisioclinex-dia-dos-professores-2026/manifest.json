@@ -15,8 +15,8 @@
   "priority": 100,
   "publication": {
     "asset_commit": "68fb083b878c4d16579cf8c88f1a8348022e62f5",
-    "media_id": null,
-    "published_at": null,
+    "media_id": "18001174656007689",
+    "published_at": "2026-10-15T11:33:10.790832+00:00",
     "workflow_run_id": "0"
   },
   "publication_key": "fisioclinex-dia-dos-professores-2026:893f18e19309a423423f12c875407d9f2f94821ee29718b2fc04ef00bfab6740",
@@ -29,14 +29,14 @@
   "slides_count": 1,
   "slug": "fisioclinex-dia-dos-professores-2026",
   "started_at": "2026-10-15T11:32:50.318286+00:00",
-  "status": "publishing",
+  "status": "published",
   "story": {
     "attempt_count": 0,
     "container_id": null,
     "last_attempt_at": null,
     "last_error": null,
     "media_id": null,
-    "not_before": null,
+    "not_before": "2026-10-15T18:00:00-03:00",
     "publication_key": "fisioclinex-dia-dos-professores-2026:a72589527013d54a171896d6a34d4d87f303761d21238784764d0a0815afec90",
     "published_at": null,
     "status": "pending"
