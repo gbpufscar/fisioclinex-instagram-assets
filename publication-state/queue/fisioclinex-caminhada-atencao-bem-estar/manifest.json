@@ -18,8 +18,8 @@
   "priority": 100,
   "publication": {
     "asset_commit": "1c159c9678dc2d8928e752df28d6ec49d9ed83d8",
-    "media_id": null,
-    "published_at": null,
+    "media_id": "18645229483063671",
+    "published_at": "2026-10-16T17:37:06.242554+00:00",
     "workflow_run_id": "38940937086"
   },
   "publication_key": "fisioclinex-caminhada-atencao-bem-estar:753060ecd0fe2a2c048da684d48785bb400f38486df7f08c3a110e25322726b6",
@@ -34,7 +34,7 @@
   "slot_type": "scientific",
   "slug": "fisioclinex-caminhada-atencao-bem-estar",
   "started_at": "2026-10-16T17:36:33.496467+00:00",
-  "status": "publishing",
+  "status": "published",
   "story": {
     "attempt_count": 0,
     "container_id": null,
