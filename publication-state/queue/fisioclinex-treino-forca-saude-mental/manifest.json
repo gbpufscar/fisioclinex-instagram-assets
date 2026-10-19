@@ -18,8 +18,8 @@
   "priority": 100,
   "publication": {
     "asset_commit": "1e1820a6a8a4f4d0a8e4f4f4e0a7aa577cd3a9b4",
-    "media_id": null,
-    "published_at": null,
+    "media_id": "18349855297252269",
+    "published_at": "2026-10-19T16:35:28.773741+00:00",
     "workflow_run_id": "39285786446"
   },
   "publication_key": "fisioclinex-treino-forca-saude-mental:d74adfaf19a46566f62a241d61dc58bb7591249dbd862d48764be552388be1a9",
@@ -34,7 +34,7 @@
   "slot_type": "scientific",
   "slug": "fisioclinex-treino-forca-saude-mental",
   "started_at": "2026-10-19T16:34:34.617218+00:00",
-  "status": "publishing",
+  "status": "published",
   "story": {
     "attempt_count": 0,
     "container_id": null,
