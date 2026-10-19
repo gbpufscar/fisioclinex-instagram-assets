@@ -1,0 +1,130 @@
+{
+  "schema_version": "2.1",
+  "slug": "fisioclinex-exercicio-cuidado-cardiovascular",
+  "post_type": "carousel",
+  "slide_count": 5,
+  "slides": [
+    "fisioclinex-exercicio-cuidado-cardiovascular-slide-01.png",
+    "fisioclinex-exercicio-cuidado-cardiovascular-slide-02.png",
+    "fisioclinex-exercicio-cuidado-cardiovascular-slide-03.png",
+    "fisioclinex-exercicio-cuidado-cardiovascular-slide-04.png",
+    "fisioclinex-exercicio-cuidado-cardiovascular-slide-05.png"
+  ],
+  "story": {
+    "filename": "fisioclinex-exercicio-cuidado-cardiovascular-story.png",
+    "dimensions": [
+      1080,
+      1920
+    ],
+    "source_cover": "fisioclinex-exercicio-cuidado-cardiovascular-slide-01.png",
+    "source_cover_sha256": "e94e88d9c972bdf07b9066bbbbced08e53e512dbc813b4db1dca01612bb01090",
+    "adapter_version": "cover-recompose-v2",
+    "placement": {
+      "x": 96,
+      "y": 328,
+      "width": 688,
+      "height": 860
+    },
+    "safe_area": {
+      "top": 269,
+      "bottom": 672,
+      "left": 96,
+      "right": 96
+    },
+    "copy_preservation": "whole-cover-proportional",
+    "elements": {
+      "badge": {
+        "text": "NOVO POST",
+        "placement": {
+          "x": 96,
+          "y": 282,
+          "width": 300,
+          "height": 32
+        }
+      },
+      "cta": {
+        "text": "Veja no feed",
+        "placement": {
+          "x": 96,
+          "y": 1208,
+          "width": 280,
+          "height": 40
+        }
+      },
+      "indicator": {
+        "kind": "right-arrow",
+        "placement": {
+          "x": 400,
+          "y": 1216,
+          "width": 32,
+          "height": 24
+        }
+      },
+      "logo": {
+        "variant": "color",
+        "asset": "ID_logos/logo_colorida.png",
+        "sha256": "00e1938640efa577a42c03f957c84aad5e33619e319b43d490c38d5a5b534957",
+        "placement": {
+          "x": 844,
+          "y": 352,
+          "width": 112,
+          "height": 148
+        }
+      }
+    }
+  },
+  "caption_file": "legenda.txt",
+  "approval": {
+    "status": "approved",
+    "copy_sha256": "ac9c659295d54b7dc228028cf39a6be9370118bb30dd707eac6459cec04dbf18",
+    "copy_approved_at": "2026-10-19T17:28:34.783088Z",
+    "final_approved_at": "2026-10-19T17:42:19.110593Z"
+  },
+  "publicable": true,
+  "files": [
+    {
+      "path": "fisioclinex-exercicio-cuidado-cardiovascular-slide-01.png",
+      "role": "slide",
+      "size_bytes": 1624443,
+      "sha256": "e94e88d9c972bdf07b9066bbbbced08e53e512dbc813b4db1dca01612bb01090"
+    },
+    {
+      "path": "fisioclinex-exercicio-cuidado-cardiovascular-slide-02.png",
+      "role": "slide",
+      "size_bytes": 1365420,
+      "sha256": "48d03f82a0bb3e294a146b8bb161d9d730f00ee6f74871f5c124551b973ba8a1"
+    },
+    {
+      "path": "fisioclinex-exercicio-cuidado-cardiovascular-slide-03.png",
+      "role": "slide",
+      "size_bytes": 1137209,
+      "sha256": "7f073d95dff6b3210ce4a02676793b966ba64eef6f40bd92bef7791d0e3747c9"
+    },
+    {
+      "path": "fisioclinex-exercicio-cuidado-cardiovascular-slide-04.png",
+      "role": "slide",
+      "size_bytes": 896150,
+      "sha256": "c5426c37fa20e0c6e29fb4d33672fa9205778888165cd7ea243a7c1959ce1145"
+    },
+    {
+      "path": "fisioclinex-exercicio-cuidado-cardiovascular-slide-05.png",
+      "role": "slide",
+      "size_bytes": 1291321,
+      "sha256": "506d994cab096c9a3d51071405b05deeedee66c672802cf8e738f8ef5c144354"
+    },
+    {
+      "path": "fisioclinex-exercicio-cuidado-cardiovascular-story.png",
+      "role": "story",
+      "size_bytes": 782895,
+      "sha256": "d82d0f9211f105b2502aa88af32da08893e4d6dd578d98059106581f53123535"
+    },
+    {
+      "path": "legenda.txt",
+      "role": "caption",
+      "size_bytes": 763,
+      "sha256": "eed3cfb9f398491c378abd9817be63d01e052f993eb82b6cdb4ff591d50ba202"
+    }
+  ],
+  "created_at": "2026-10-19T17:42:20Z",
+  "builder_version": "2.1.0"
+}
