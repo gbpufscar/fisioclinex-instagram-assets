@@ -18,8 +18,8 @@
   "priority": 100,
   "publication": {
     "asset_commit": "97fa005c8986f77bb1a68a4f9fd6a28629e65504",
-    "media_id": null,
-    "published_at": null,
+    "media_id": "18133835233665237",
+    "published_at": "2026-10-20T15:06:03.751698+00:00",
     "workflow_run_id": "39445163628"
   },
   "publication_key": "fisioclinex-fisioterapia-alem-do-exercicio:603c2ca107993619c275cc4a91506df4693dbb95cbdedfb46d4805ac42b675d7",
@@ -34,7 +34,7 @@
   "slot_type": "other",
   "slug": "fisioclinex-fisioterapia-alem-do-exercicio",
   "started_at": "2026-10-20T15:05:52.568453+00:00",
-  "status": "publishing",
+  "status": "published",
   "story": {
     "attempt_count": 0,
     "container_id": null,
