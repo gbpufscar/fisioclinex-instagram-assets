@@ -18,8 +18,8 @@
   "priority": 100,
   "publication": {
     "asset_commit": "dac5c4b356f3ead8515f664b7abc6b3493e3de60",
-    "media_id": null,
-    "published_at": null,
+    "media_id": "18102647378530194",
+    "published_at": "2026-10-21T15:59:35.479378+00:00",
     "workflow_run_id": "39630476321"
   },
   "publication_key": "fisioclinex-exercicio-cuidado-cardiovascular:6f71a21ea11585c385607fb1d1de70e586fc2a92f0db4dc7fd059640cffedf98",
@@ -34,7 +34,7 @@
   "slot_type": "scientific",
   "slug": "fisioclinex-exercicio-cuidado-cardiovascular",
   "started_at": "2026-10-21T15:58:42.023176+00:00",
-  "status": "publishing",
+  "status": "published",
   "story": {
     "attempt_count": 0,
     "container_id": null,
