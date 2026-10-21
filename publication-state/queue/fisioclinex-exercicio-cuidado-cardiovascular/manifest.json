@@ -1,7 +1,9 @@
 {
   "artifact_status": "active",
-  "attempts": 0,
+  "attempts": 1,
   "caption_file": "legenda.txt",
+  "carousel_container_id": null,
+  "child_container_ids": [],
   "content_policy_version": "editorial-v3-1-to-10",
   "explicit_override": false,
   "failure": {
@@ -15,20 +17,24 @@
   "planned_at": "2026-10-21T12:00:00-03:00",
   "priority": 100,
   "publication": {
-    "asset_commit": null,
+    "asset_commit": "dac5c4b356f3ead8515f664b7abc6b3493e3de60",
     "media_id": null,
     "published_at": null,
-    "workflow_run_id": null
+    "workflow_run_id": "39630476321"
   },
   "publication_key": "fisioclinex-exercicio-cuidado-cardiovascular:6f71a21ea11585c385607fb1d1de70e586fc2a92f0db4dc7fd059640cffedf98",
+  "publication_run_id": "513c0841-8dbc-4f64-b023-a31561115ad9",
+  "pushed": true,
   "queued_at": "2026-10-19T17:43:23.310137+00:00",
   "schema_version": 1,
   "short_slug": "exercicio-cuidado-cardiovascular",
+  "single_image_container_id": null,
   "slides_count": 5,
   "slot_id": "2026-10-21T12:00-scientific",
   "slot_type": "scientific",
   "slug": "fisioclinex-exercicio-cuidado-cardiovascular",
-  "status": "queued",
+  "started_at": "2026-10-21T15:58:42.023176+00:00",
+  "status": "publishing",
   "story": {
     "attempt_count": 0,
     "container_id": null,
@@ -40,5 +46,6 @@
     "published_at": null,
     "status": "pending"
   },
-  "story_plan_version": 1
+  "story_plan_version": 1,
+  "verified": true
 }
