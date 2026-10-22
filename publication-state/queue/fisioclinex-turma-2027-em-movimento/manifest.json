@@ -18,8 +18,8 @@
   "priority": 100,
   "publication": {
     "asset_commit": "470b8e70fcd1bd2545160c704a91b49a4d2fb540",
-    "media_id": null,
-    "published_at": null,
+    "media_id": "18106680191199726",
+    "published_at": "2026-10-22T17:33:03.737981+00:00",
     "workflow_run_id": "39823537387"
   },
   "publication_key": "fisioclinex-turma-2027-em-movimento:c1a749a1254c5a82cc786aa3122825a93e21187bb7612bee82643da441e7623b",
@@ -34,7 +34,7 @@
   "slot_type": "other",
   "slug": "fisioclinex-turma-2027-em-movimento",
   "started_at": "2026-10-22T17:32:34.947199+00:00",
-  "status": "publishing",
+  "status": "published",
   "story": {
     "attempt_count": 0,
     "container_id": null,

@@ -204,10 +204,10 @@
       "planned_at": "2026-10-22T12:00:00-03:00",
       "timezone": "America/Sao_Paulo",
       "slot_type": "other",
-      "status": "queued",
+      "status": "published",
       "assigned_slug": "fisioclinex-turma-2027-em-movimento",
       "queued_at": "2026-10-12T18:53:50.874863+00:00",
-      "actual_published_at": null,
+      "actual_published_at": "2026-10-22T17:33:03.737981+00:00",
       "explicit_override": false,
       "override_reason": null,
       "derived_story": true
