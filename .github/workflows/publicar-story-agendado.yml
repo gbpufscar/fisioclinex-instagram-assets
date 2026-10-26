@@ -1,4 +1,4 @@
-name: FisioClinEx — Stories elegíveis (rollout desabilitado)
+name: FisioClinEx — Publicação automática de Stories
 
 on:
   schedule:
@@ -12,7 +12,7 @@ concurrency:
 jobs:
   story-tick:
     if: ${{ vars.STORY_SCHEDULER_ENABLED == 'true' }}
-    environment: instagram-production
+    environment: instagram-scheduled-production
     permissions:
       contents: write
     runs-on: ubuntu-latest
@@ -24,7 +24,7 @@ jobs:
       - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
           python-version: "3.13"
-      - name: Run due Story tick (rollout defaults off)
+      - name: Run due Story tick (explicit opt-in required)
         env:
           PYTHONDONTWRITEBYTECODE: "1"
           STORY_SCHEDULER_ENABLED: ${{ vars.STORY_SCHEDULER_ENABLED }}

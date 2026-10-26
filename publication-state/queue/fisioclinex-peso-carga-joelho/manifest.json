@@ -41,7 +41,7 @@
     "last_attempt_at": null,
     "last_error": null,
     "media_id": null,
-    "not_before": "2026-10-12T18:00:00-03:00",
+    "not_before": null,
     "publication_key": "fisioclinex-peso-carga-joelho:3e5aa6b34fed8ced22336f141c844f13a8aa3c4837d2b87e366ef9419e76f2d6",
     "published_at": null,
     "status": "pending"

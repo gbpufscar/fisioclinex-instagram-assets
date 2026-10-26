@@ -41,7 +41,7 @@
     "last_attempt_at": null,
     "last_error": null,
     "media_id": null,
-    "not_before": "2026-10-20T18:00:00-03:00",
+    "not_before": null,
     "publication_key": "fisioclinex-fisioterapia-alem-do-exercicio:45b6e268ace7f22a4c6c598c825f4cd558aea714d1d0717037503ba8ffe574d4",
     "published_at": null,
     "status": "pending"

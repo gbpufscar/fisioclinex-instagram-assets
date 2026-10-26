@@ -41,7 +41,7 @@
     "last_attempt_at": null,
     "last_error": null,
     "media_id": null,
-    "not_before": "2026-10-22T18:00:00-03:00",
+    "not_before": null,
     "publication_key": "fisioclinex-turma-2027-em-movimento:0a191c6dc359d3b87e7230378b2d878eb04f0ac1ed1ef409a73f3267d81fc6d9",
     "published_at": null,
     "status": "pending"

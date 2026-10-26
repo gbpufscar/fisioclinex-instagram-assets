@@ -41,7 +41,7 @@
     "last_attempt_at": null,
     "last_error": null,
     "media_id": null,
-    "not_before": "2026-10-16T18:00:00-03:00",
+    "not_before": null,
     "publication_key": "fisioclinex-caminhada-atencao-bem-estar:76cb2779d60618d3b632247f99371b736b2761142519f7279f3a5f2bf8723bd7",
     "published_at": null,
     "status": "pending"

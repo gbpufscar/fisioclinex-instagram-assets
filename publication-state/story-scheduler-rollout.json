@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "authorized_at": "2026-10-26T11:53:11.399690+00:00",
+  "policy": "future_posts_only",
+  "environment": "instagram-scheduled-production",
+  "authorization": "User requested automatic Stories, excluded seven historical Stories and approved scheduled feed environment.",
+  "excluded": [
+    {
+      "slug": "fisioclinex-caminhada-atencao-bem-estar",
+      "previous_not_before": "2026-10-16T18:00:00-03:00",
+      "not_before": null,
+      "attempt_count": 0
+    },
+    {
+      "slug": "fisioclinex-dia-dos-professores-2026",
+      "previous_not_before": "2026-10-15T18:00:00-03:00",
+      "not_before": null,
+      "attempt_count": 0
+    },
+    {
+      "slug": "fisioclinex-exercicio-cuidado-cardiovascular",
+      "previous_not_before": "2026-10-21T18:00:00-03:00",
+      "not_before": null,
+      "attempt_count": 0
+    },
+    {
+      "slug": "fisioclinex-fisioterapia-alem-do-exercicio",
+      "previous_not_before": "2026-10-20T18:00:00-03:00",
+      "not_before": null,
+      "attempt_count": 0
+    },
+    {
+      "slug": "fisioclinex-peso-carga-joelho",
+      "previous_not_before": "2026-10-12T18:00:00-03:00",
+      "not_before": null,
+      "attempt_count": 0
+    },
+    {
+      "slug": "fisioclinex-treino-forca-saude-mental",
+      "previous_not_before": "2026-10-19T18:00:00-03:00",
+      "not_before": null,
+      "attempt_count": 0
+    },
+    {
+      "slug": "fisioclinex-turma-2027-em-movimento",
+      "previous_not_before": "2026-10-22T18:00:00-03:00",
+      "not_before": null,
+      "attempt_count": 0
+    }
+  ]
+}
