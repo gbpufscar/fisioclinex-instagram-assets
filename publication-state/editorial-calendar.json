@@ -241,10 +241,10 @@
       "planned_at": "2026-10-27T12:00:00-03:00",
       "timezone": "America/Sao_Paulo",
       "slot_type": "other",
-      "status": "queued",
+      "status": "published",
       "assigned_slug": "fisioclinex-ufscar-the-2027",
       "queued_at": "2026-10-03T18:20:13.308193+00:00",
-      "actual_published_at": null,
+      "actual_published_at": "2026-10-27T18:18:05.884071+00:00",
       "explicit_override": false,
       "override_reason": null
     },
