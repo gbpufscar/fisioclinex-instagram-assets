@@ -18,8 +18,8 @@
   "priority": 100,
   "publication": {
     "asset_commit": "04aadbfc1d12629c8f125e650f06c5c4a92cfe9f",
-    "media_id": null,
-    "published_at": null,
+    "media_id": "18146334808509766",
+    "published_at": "2026-10-29T16:21:08.374443+00:00",
     "workflow_run_id": "40910501169"
   },
   "publication_key": "fisioclinex-educacao-fisica-alem-das-repeticoes:29d237d0987f6975d6fed468880be7987ae0aa6abca96d86b926b78183ab10dd",
@@ -34,7 +34,7 @@
   "slot_type": "other",
   "slug": "fisioclinex-educacao-fisica-alem-das-repeticoes",
   "started_at": "2026-10-29T16:20:49.438230+00:00",
-  "status": "publishing",
+  "status": "published",
   "story": {
     "attempt_count": 0,
     "container_id": null,
