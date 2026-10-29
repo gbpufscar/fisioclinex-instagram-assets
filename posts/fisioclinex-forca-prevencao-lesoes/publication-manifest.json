@@ -1,0 +1,102 @@
+{
+  "schema_version": "2.1",
+  "slug": "fisioclinex-forca-prevencao-lesoes",
+  "post_type": "single_image",
+  "slide_count": 1,
+  "slides": [
+    "fisioclinex-forca-prevencao-lesoes-slide-01.png"
+  ],
+  "story": {
+    "filename": "fisioclinex-forca-prevencao-lesoes-story.png",
+    "dimensions": [
+      1080,
+      1920
+    ],
+    "source_cover": "fisioclinex-forca-prevencao-lesoes-slide-01.png",
+    "source_cover_sha256": "98b01f0263b41e1d4373032334bface4a6a1ac396b75b8bc0194dc8f39f78c21",
+    "adapter_version": "cover-recompose-v2",
+    "placement": {
+      "x": 96,
+      "y": 328,
+      "width": 688,
+      "height": 860
+    },
+    "safe_area": {
+      "top": 269,
+      "bottom": 672,
+      "left": 96,
+      "right": 96
+    },
+    "copy_preservation": "whole-cover-proportional",
+    "elements": {
+      "badge": {
+        "text": "NOVO POST",
+        "placement": {
+          "x": 96,
+          "y": 282,
+          "width": 300,
+          "height": 32
+        }
+      },
+      "cta": {
+        "text": "Veja no feed",
+        "placement": {
+          "x": 96,
+          "y": 1208,
+          "width": 280,
+          "height": 40
+        }
+      },
+      "indicator": {
+        "kind": "right-arrow",
+        "placement": {
+          "x": 400,
+          "y": 1216,
+          "width": 32,
+          "height": 24
+        }
+      },
+      "logo": {
+        "variant": "white",
+        "asset": "ID_logos/logo_branca.png",
+        "sha256": "b50d37d2b5ea81465625b374fbff24dd921fbb5fc644510a759589ff7f75ec40",
+        "placement": {
+          "x": 844,
+          "y": 352,
+          "width": 112,
+          "height": 160
+        }
+      }
+    }
+  },
+  "caption_file": "legenda.txt",
+  "approval": {
+    "status": "approved",
+    "copy_sha256": "0bd7f50f97332ad146a15b4fa39542ae12527f6a44642e59bcb9b8f9bf88436b",
+    "copy_approved_at": "2026-10-29T13:03:22.629101Z",
+    "final_approved_at": "2026-10-29T13:03:22.699102Z"
+  },
+  "publicable": true,
+  "files": [
+    {
+      "path": "fisioclinex-forca-prevencao-lesoes-slide-01.png",
+      "role": "slide",
+      "size_bytes": 1047545,
+      "sha256": "98b01f0263b41e1d4373032334bface4a6a1ac396b75b8bc0194dc8f39f78c21"
+    },
+    {
+      "path": "fisioclinex-forca-prevencao-lesoes-story.png",
+      "role": "story",
+      "size_bytes": 518603,
+      "sha256": "15eb60e86014bcd4ea8c8e439ebea42e990d787219f3fb16c5e70b800d62bc8a"
+    },
+    {
+      "path": "legenda.txt",
+      "role": "caption",
+      "size_bytes": 1530,
+      "sha256": "1a1e82531a41b37b0442d856e785a10afd7990432ec124d66bc316d1aa6a19b8"
+    }
+  ],
+  "created_at": "2026-10-29T13:03:23Z",
+  "builder_version": "2.1.0"
+}

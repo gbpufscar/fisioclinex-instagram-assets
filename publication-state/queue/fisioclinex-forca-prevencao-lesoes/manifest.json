@@ -1,0 +1,44 @@
+{
+  "artifact_status": "active",
+  "attempts": 0,
+  "caption_file": "legenda.txt",
+  "content_policy_version": "editorial-v3-1-to-10",
+  "explicit_override": false,
+  "failure": {
+    "occurred_at": null,
+    "phase": null,
+    "requires_human_review": false
+  },
+  "not_before": "2026-10-30T12:00:00-03:00",
+  "override_reason": null,
+  "package_sha256": "6d9dc3fa21056db0621c34767b163437c6444d5b6070b298e3442648ed8733e1",
+  "planned_at": "2026-10-30T12:00:00-03:00",
+  "priority": 100,
+  "publication": {
+    "asset_commit": null,
+    "media_id": null,
+    "published_at": null,
+    "workflow_run_id": null
+  },
+  "publication_key": "fisioclinex-forca-prevencao-lesoes:6d9dc3fa21056db0621c34767b163437c6444d5b6070b298e3442648ed8733e1",
+  "queued_at": "2026-10-29T13:05:02.540724+00:00",
+  "schema_version": 1,
+  "short_slug": "forca-prevencao-lesoes",
+  "slides_count": 1,
+  "slot_id": "2026-10-30T12:00-scientific",
+  "slot_type": "scientific",
+  "slug": "fisioclinex-forca-prevencao-lesoes",
+  "status": "queued",
+  "story": {
+    "attempt_count": 0,
+    "container_id": null,
+    "last_attempt_at": null,
+    "last_error": null,
+    "media_id": null,
+    "not_before": "2026-10-30T18:00:00-03:00",
+    "publication_key": "fisioclinex-forca-prevencao-lesoes:8eb8890274eafaf969a8dc19e18cf55135a503626888058ecc95c8abb1d6fcc1",
+    "published_at": null,
+    "status": "pending"
+  },
+  "story_plan_version": 1
+}
