@@ -1,0 +1,123 @@
+{
+  "schema_version": "2.1",
+  "slug": "fisioclinex-conceito-decisao-frequencia-cardiaca",
+  "post_type": "carousel",
+  "slide_count": 4,
+  "slides": [
+    "fisioclinex-conceito-decisao-frequencia-cardiaca-slide-01.png",
+    "fisioclinex-conceito-decisao-frequencia-cardiaca-slide-02.png",
+    "fisioclinex-conceito-decisao-frequencia-cardiaca-slide-03.png",
+    "fisioclinex-conceito-decisao-frequencia-cardiaca-slide-04.png"
+  ],
+  "story": {
+    "filename": "fisioclinex-conceito-decisao-frequencia-cardiaca-story.png",
+    "dimensions": [
+      1080,
+      1920
+    ],
+    "source_cover": "fisioclinex-conceito-decisao-frequencia-cardiaca-slide-01.png",
+    "source_cover_sha256": "12a88f264876e052800091572ec4b924c739dd8b5a8ffd449c9cf7a23fb7a61f",
+    "adapter_version": "cover-recompose-v2",
+    "placement": {
+      "x": 96,
+      "y": 328,
+      "width": 688,
+      "height": 860
+    },
+    "safe_area": {
+      "top": 269,
+      "bottom": 672,
+      "left": 96,
+      "right": 96
+    },
+    "copy_preservation": "whole-cover-proportional",
+    "elements": {
+      "badge": {
+        "text": "NOVO POST",
+        "placement": {
+          "x": 96,
+          "y": 282,
+          "width": 300,
+          "height": 32
+        }
+      },
+      "cta": {
+        "text": "Veja no feed",
+        "placement": {
+          "x": 96,
+          "y": 1208,
+          "width": 280,
+          "height": 40
+        }
+      },
+      "indicator": {
+        "kind": "right-arrow",
+        "placement": {
+          "x": 400,
+          "y": 1216,
+          "width": 32,
+          "height": 24
+        }
+      },
+      "logo": {
+        "variant": "color",
+        "asset": "ID_logos/logo_colorida.png",
+        "sha256": "00e1938640efa577a42c03f957c84aad5e33619e319b43d490c38d5a5b534957",
+        "placement": {
+          "x": 844,
+          "y": 352,
+          "width": 112,
+          "height": 148
+        }
+      }
+    }
+  },
+  "caption_file": "legenda.txt",
+  "approval": {
+    "status": "approved",
+    "copy_sha256": "f6499797099d9940e91ed902441f5862480ae5804bf7168241996983fea13d63",
+    "copy_approved_at": "2026-10-29T17:25:07.729961Z",
+    "final_approved_at": "2026-10-29T18:59:23.397101Z"
+  },
+  "publicable": true,
+  "files": [
+    {
+      "path": "fisioclinex-conceito-decisao-frequencia-cardiaca-slide-01.png",
+      "role": "slide",
+      "size_bytes": 2290695,
+      "sha256": "12a88f264876e052800091572ec4b924c739dd8b5a8ffd449c9cf7a23fb7a61f"
+    },
+    {
+      "path": "fisioclinex-conceito-decisao-frequencia-cardiaca-slide-02.png",
+      "role": "slide",
+      "size_bytes": 2243408,
+      "sha256": "653854cbfe6f925824ed8f79cc6b6f336f9d7b37544574caaf3179ea876a75d0"
+    },
+    {
+      "path": "fisioclinex-conceito-decisao-frequencia-cardiaca-slide-03.png",
+      "role": "slide",
+      "size_bytes": 2329384,
+      "sha256": "6670cced4634001cf479ddb745ab7e51efe8486d9c815fee86439bced37cd9e2"
+    },
+    {
+      "path": "fisioclinex-conceito-decisao-frequencia-cardiaca-slide-04.png",
+      "role": "slide",
+      "size_bytes": 2232800,
+      "sha256": "d5b6bf4bfb9bd91727c13c1e556c62183ead10b993457376851681df1e20e96a"
+    },
+    {
+      "path": "fisioclinex-conceito-decisao-frequencia-cardiaca-story.png",
+      "role": "story",
+      "size_bytes": 835738,
+      "sha256": "6a8ade7c26b3e60900ec737d6e344b4fb01639cdc35742950270279ae5eb8fb3"
+    },
+    {
+      "path": "legenda.txt",
+      "role": "caption",
+      "size_bytes": 1337,
+      "sha256": "935e7b3dd33609a728f6ac44ecf6621ce306d9ef1f7e732c5d37c5a84523122a"
+    }
+  ],
+  "created_at": "2026-10-29T18:59:24Z",
+  "builder_version": "2.1.0"
+}

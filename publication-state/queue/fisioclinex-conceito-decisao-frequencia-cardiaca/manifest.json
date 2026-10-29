@@ -1,0 +1,44 @@
+{
+  "artifact_status": "active",
+  "attempts": 0,
+  "caption_file": "legenda.txt",
+  "content_policy_version": "editorial-v3-1-to-10",
+  "explicit_override": false,
+  "failure": {
+    "occurred_at": null,
+    "phase": null,
+    "requires_human_review": false
+  },
+  "not_before": "2026-11-05T12:00:00-03:00",
+  "override_reason": null,
+  "package_sha256": "a285314ef364883c5f74357a68c0ae525482315483a18186f49f14a9e5316dc4",
+  "planned_at": "2026-11-05T12:00:00-03:00",
+  "priority": 100,
+  "publication": {
+    "asset_commit": null,
+    "media_id": null,
+    "published_at": null,
+    "workflow_run_id": null
+  },
+  "publication_key": "fisioclinex-conceito-decisao-frequencia-cardiaca:a285314ef364883c5f74357a68c0ae525482315483a18186f49f14a9e5316dc4",
+  "queued_at": "2026-10-29T19:00:11.633359+00:00",
+  "schema_version": 1,
+  "short_slug": "conceito-decisao-frequencia-cardiaca",
+  "slides_count": 4,
+  "slot_id": "2026-11-05T12:00-other",
+  "slot_type": "other",
+  "slug": "fisioclinex-conceito-decisao-frequencia-cardiaca",
+  "status": "queued",
+  "story": {
+    "attempt_count": 0,
+    "container_id": null,
+    "last_attempt_at": null,
+    "last_error": null,
+    "media_id": null,
+    "not_before": "2026-11-05T18:00:00-03:00",
+    "publication_key": "fisioclinex-conceito-decisao-frequencia-cardiaca:ad87b76a1d1bb42f0fc1f92bbc16eeefa13bf3bad32d73ff2c9f46773f17f417",
+    "published_at": null,
+    "status": "pending"
+  },
+  "story_plan_version": 1
+}
