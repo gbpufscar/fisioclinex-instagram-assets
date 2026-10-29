@@ -1,0 +1,137 @@
+{
+  "schema_version": "2.1",
+  "slug": "fisioclinex-vo2max-condicionamento-longevidade",
+  "post_type": "carousel",
+  "slide_count": 6,
+  "slides": [
+    "fisioclinex-vo2max-condicionamento-longevidade-slide-01.png",
+    "fisioclinex-vo2max-condicionamento-longevidade-slide-02.png",
+    "fisioclinex-vo2max-condicionamento-longevidade-slide-03.png",
+    "fisioclinex-vo2max-condicionamento-longevidade-slide-04.png",
+    "fisioclinex-vo2max-condicionamento-longevidade-slide-05.png",
+    "fisioclinex-vo2max-condicionamento-longevidade-slide-06.png"
+  ],
+  "story": {
+    "filename": "fisioclinex-vo2max-condicionamento-longevidade-story.png",
+    "dimensions": [
+      1080,
+      1920
+    ],
+    "source_cover": "fisioclinex-vo2max-condicionamento-longevidade-slide-01.png",
+    "source_cover_sha256": "ce4e8725b5d397d154dd9339a908761eedb58a8ee09374a734a093fecffbab08",
+    "adapter_version": "cover-recompose-v2",
+    "placement": {
+      "x": 96,
+      "y": 328,
+      "width": 688,
+      "height": 860
+    },
+    "safe_area": {
+      "top": 269,
+      "bottom": 672,
+      "left": 96,
+      "right": 96
+    },
+    "copy_preservation": "whole-cover-proportional",
+    "elements": {
+      "badge": {
+        "text": "NOVO POST",
+        "placement": {
+          "x": 96,
+          "y": 282,
+          "width": 300,
+          "height": 32
+        }
+      },
+      "cta": {
+        "text": "Veja no feed",
+        "placement": {
+          "x": 96,
+          "y": 1208,
+          "width": 280,
+          "height": 40
+        }
+      },
+      "indicator": {
+        "kind": "right-arrow",
+        "placement": {
+          "x": 400,
+          "y": 1216,
+          "width": 32,
+          "height": 24
+        }
+      },
+      "logo": {
+        "variant": "white",
+        "asset": "ID_logos/logo_branca.png",
+        "sha256": "b50d37d2b5ea81465625b374fbff24dd921fbb5fc644510a759589ff7f75ec40",
+        "placement": {
+          "x": 844,
+          "y": 352,
+          "width": 112,
+          "height": 160
+        }
+      }
+    }
+  },
+  "caption_file": "legenda.txt",
+  "approval": {
+    "status": "approved",
+    "copy_sha256": "4b56fc867d49c63719a4fa0862852162697134bda64f8c784178072db7c8377e",
+    "copy_approved_at": "2026-10-29T13:32:14.062216Z",
+    "final_approved_at": "2026-10-29T14:09:01.147763Z"
+  },
+  "publicable": true,
+  "files": [
+    {
+      "path": "fisioclinex-vo2max-condicionamento-longevidade-slide-01.png",
+      "role": "slide",
+      "size_bytes": 1815422,
+      "sha256": "ce4e8725b5d397d154dd9339a908761eedb58a8ee09374a734a093fecffbab08"
+    },
+    {
+      "path": "fisioclinex-vo2max-condicionamento-longevidade-slide-02.png",
+      "role": "slide",
+      "size_bytes": 1100371,
+      "sha256": "319f4fdc09d99ce2d5500b4494f70fd9060cb9711ef7a01b39f394c1c65fe29e"
+    },
+    {
+      "path": "fisioclinex-vo2max-condicionamento-longevidade-slide-03.png",
+      "role": "slide",
+      "size_bytes": 1018798,
+      "sha256": "cec12fa85af042ee19db56231e2ac607b6d90084e9040fb005f673989ca4817c"
+    },
+    {
+      "path": "fisioclinex-vo2max-condicionamento-longevidade-slide-04.png",
+      "role": "slide",
+      "size_bytes": 1191815,
+      "sha256": "c43253b575a652c7935b61118ca53543cb687fc3538d0e80f3c446a56b99c73f"
+    },
+    {
+      "path": "fisioclinex-vo2max-condicionamento-longevidade-slide-05.png",
+      "role": "slide",
+      "size_bytes": 1022871,
+      "sha256": "60113d50214554fd3fb76b01c7ac20e530518b0a6d30f508607cb7be079711df"
+    },
+    {
+      "path": "fisioclinex-vo2max-condicionamento-longevidade-slide-06.png",
+      "role": "slide",
+      "size_bytes": 1017304,
+      "sha256": "80c6908019b0dd5f46e65b4301e77b1342c50d9691360caa4135967d9ac08793"
+    },
+    {
+      "path": "fisioclinex-vo2max-condicionamento-longevidade-story.png",
+      "role": "story",
+      "size_bytes": 851827,
+      "sha256": "99457c961c59dad3b131e5507ee3ef600f9c305d7bc53c6fa17dd1b0efa4681e"
+    },
+    {
+      "path": "legenda.txt",
+      "role": "caption",
+      "size_bytes": 1542,
+      "sha256": "80c5fd9c7dc1a3800f3e797cdbae457033f0ad723fa38cea821becf9104134b8"
+    }
+  ],
+  "created_at": "2026-10-29T14:09:01Z",
+  "builder_version": "2.1.0"
+}
