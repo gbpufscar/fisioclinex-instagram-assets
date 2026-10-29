@@ -1,0 +1,130 @@
+{
+  "schema_version": "2.1",
+  "slug": "fisioclinex-reabilitacao-tem-dono",
+  "post_type": "carousel",
+  "slide_count": 5,
+  "slides": [
+    "fisioclinex-reabilitacao-tem-dono-slide-01.png",
+    "fisioclinex-reabilitacao-tem-dono-slide-02.png",
+    "fisioclinex-reabilitacao-tem-dono-slide-03.png",
+    "fisioclinex-reabilitacao-tem-dono-slide-04.png",
+    "fisioclinex-reabilitacao-tem-dono-slide-05.png"
+  ],
+  "story": {
+    "filename": "fisioclinex-reabilitacao-tem-dono-story.png",
+    "dimensions": [
+      1080,
+      1920
+    ],
+    "source_cover": "fisioclinex-reabilitacao-tem-dono-slide-01.png",
+    "source_cover_sha256": "705c44f0ef8a54b15593398be8c9777d0fa44b4784d62aa411d8fb3c3f731cd2",
+    "adapter_version": "cover-recompose-v2",
+    "placement": {
+      "x": 96,
+      "y": 328,
+      "width": 688,
+      "height": 860
+    },
+    "safe_area": {
+      "top": 269,
+      "bottom": 672,
+      "left": 96,
+      "right": 96
+    },
+    "copy_preservation": "whole-cover-proportional",
+    "elements": {
+      "badge": {
+        "text": "NOVO POST",
+        "placement": {
+          "x": 96,
+          "y": 282,
+          "width": 300,
+          "height": 32
+        }
+      },
+      "cta": {
+        "text": "Veja no feed",
+        "placement": {
+          "x": 96,
+          "y": 1208,
+          "width": 280,
+          "height": 40
+        }
+      },
+      "indicator": {
+        "kind": "right-arrow",
+        "placement": {
+          "x": 400,
+          "y": 1216,
+          "width": 32,
+          "height": 24
+        }
+      },
+      "logo": {
+        "variant": "white",
+        "asset": "ID_logos/logo_branca.png",
+        "sha256": "b50d37d2b5ea81465625b374fbff24dd921fbb5fc644510a759589ff7f75ec40",
+        "placement": {
+          "x": 844,
+          "y": 352,
+          "width": 112,
+          "height": 160
+        }
+      }
+    }
+  },
+  "caption_file": "legenda.txt",
+  "approval": {
+    "status": "approved",
+    "copy_sha256": "b9a093db5570a4ab354f2b31de0f358caed165fb5923b3cad9e760bb96cb1fdf",
+    "copy_approved_at": "2026-10-29T13:02:10.846575Z",
+    "final_approved_at": "2026-10-29T13:09:56.475157Z"
+  },
+  "publicable": true,
+  "files": [
+    {
+      "path": "fisioclinex-reabilitacao-tem-dono-slide-01.png",
+      "role": "slide",
+      "size_bytes": 1852863,
+      "sha256": "705c44f0ef8a54b15593398be8c9777d0fa44b4784d62aa411d8fb3c3f731cd2"
+    },
+    {
+      "path": "fisioclinex-reabilitacao-tem-dono-slide-02.png",
+      "role": "slide",
+      "size_bytes": 1283517,
+      "sha256": "a4314b38a7be6df0fe103930de7ee6f481a19376614c6b3404199d6a4d94b0f4"
+    },
+    {
+      "path": "fisioclinex-reabilitacao-tem-dono-slide-03.png",
+      "role": "slide",
+      "size_bytes": 1119009,
+      "sha256": "ff971c33d2591ee0a210080c629c36dc75ce5013fad7db5c29d81b73fa1eb904"
+    },
+    {
+      "path": "fisioclinex-reabilitacao-tem-dono-slide-04.png",
+      "role": "slide",
+      "size_bytes": 1259517,
+      "sha256": "beaf4e4c28b364b306b0d4cd4372a092c03c169a07f250acacb2f7cf1df3baae"
+    },
+    {
+      "path": "fisioclinex-reabilitacao-tem-dono-slide-05.png",
+      "role": "slide",
+      "size_bytes": 1096857,
+      "sha256": "5ac0b733183b0d4b9a68282cbcfb2c491b12846e4560837f59c273ee47e261cc"
+    },
+    {
+      "path": "fisioclinex-reabilitacao-tem-dono-story.png",
+      "role": "story",
+      "size_bytes": 891887,
+      "sha256": "5a6c99730f8f7878e0e311399bfc600cc4e9041fd7ace8aa681d84c7d241dd8b"
+    },
+    {
+      "path": "legenda.txt",
+      "role": "caption",
+      "size_bytes": 1487,
+      "sha256": "af9ba0e165a0ff8c3094d52113238c5bb95652ed2f5b5bbd6b56976dbf4a766c"
+    }
+  ],
+  "created_at": "2026-10-29T13:09:57Z",
+  "builder_version": "2.1.0"
+}
