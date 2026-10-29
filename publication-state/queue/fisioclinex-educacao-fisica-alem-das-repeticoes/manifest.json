@@ -36,15 +36,16 @@
   "started_at": "2026-10-29T16:20:49.438230+00:00",
   "status": "published",
   "story": {
-    "attempt_count": 0,
+    "attempt_count": 1,
+    "attempt_stage": "started",
     "container_id": null,
-    "last_attempt_at": null,
+    "last_attempt_at": "2026-10-29T21:19:18.618924+00:00",
     "last_error": null,
     "media_id": null,
     "not_before": "2026-10-29T18:00:00-03:00",
     "publication_key": "fisioclinex-educacao-fisica-alem-das-repeticoes:017e499bbbd5894eeda5f2c6122f06433a4907f3598d59302ddbe45664c70a48",
     "published_at": null,
-    "status": "eligible"
+    "status": "publishing"
   },
   "story_plan_version": 1,
   "verified": true
