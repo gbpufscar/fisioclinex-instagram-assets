@@ -1,0 +1,102 @@
+{
+  "schema_version": "2.1",
+  "slug": "fisioclinex-aprendizado-2027",
+  "post_type": "single_image",
+  "slide_count": 1,
+  "slides": [
+    "fisioclinex-aprendizado-2027-slide-01.png"
+  ],
+  "story": {
+    "filename": "fisioclinex-aprendizado-2027-story.png",
+    "dimensions": [
+      1080,
+      1920
+    ],
+    "source_cover": "fisioclinex-aprendizado-2027-slide-01.png",
+    "source_cover_sha256": "64df32f17d9d32a072422d36e3f0b9b0fb3f95690366996e57f65e8c185dba1f",
+    "adapter_version": "cover-recompose-v2",
+    "placement": {
+      "x": 96,
+      "y": 328,
+      "width": 688,
+      "height": 860
+    },
+    "safe_area": {
+      "top": 269,
+      "bottom": 672,
+      "left": 96,
+      "right": 96
+    },
+    "copy_preservation": "whole-cover-proportional",
+    "elements": {
+      "badge": {
+        "text": "NOVO POST",
+        "placement": {
+          "x": 96,
+          "y": 282,
+          "width": 300,
+          "height": 32
+        }
+      },
+      "cta": {
+        "text": "Veja no feed",
+        "placement": {
+          "x": 96,
+          "y": 1208,
+          "width": 280,
+          "height": 40
+        }
+      },
+      "indicator": {
+        "kind": "right-arrow",
+        "placement": {
+          "x": 400,
+          "y": 1216,
+          "width": 32,
+          "height": 24
+        }
+      },
+      "logo": {
+        "variant": "white",
+        "asset": "ID_logos/logo_branca.png",
+        "sha256": "b50d37d2b5ea81465625b374fbff24dd921fbb5fc644510a759589ff7f75ec40",
+        "placement": {
+          "x": 844,
+          "y": 352,
+          "width": 112,
+          "height": 160
+        }
+      }
+    }
+  },
+  "caption_file": "legenda.txt",
+  "approval": {
+    "status": "approved",
+    "copy_sha256": "a0e16cce5d0bd7ef784ad55c8de4d6ca17bf8df8263d9d0a1fa27bd0e1f8010d",
+    "copy_approved_at": "2026-10-29T17:11:26.433282Z",
+    "final_approved_at": "2026-10-29T17:14:43.280593Z"
+  },
+  "publicable": true,
+  "files": [
+    {
+      "path": "fisioclinex-aprendizado-2027-slide-01.png",
+      "role": "slide",
+      "size_bytes": 1598418,
+      "sha256": "64df32f17d9d32a072422d36e3f0b9b0fb3f95690366996e57f65e8c185dba1f"
+    },
+    {
+      "path": "fisioclinex-aprendizado-2027-story.png",
+      "role": "story",
+      "size_bytes": 583046,
+      "sha256": "fd1bff05f90d36bce21a447aa8029a414b71114b8860a2dc00ade645b6ae768b"
+    },
+    {
+      "path": "legenda.txt",
+      "role": "caption",
+      "size_bytes": 866,
+      "sha256": "5731eaf855afd532ab08c6d6eae83ad459c78aaf9ddacfe9a2960ee7bb19975b"
+    }
+  ],
+  "created_at": "2026-10-29T17:14:44Z",
+  "builder_version": "2.1.0"
+}
