@@ -37,15 +37,15 @@
   "status": "published",
   "story": {
     "attempt_count": 1,
-    "attempt_stage": "publish_requested",
+    "attempt_stage": "publish_confirmed",
     "container_id": "18139169203653586",
     "last_attempt_at": "2026-10-30T23:16:51.407992+00:00",
     "last_error": null,
-    "media_id": null,
+    "media_id": "18089104148290034",
     "not_before": "2026-10-30T18:00:00-03:00",
     "publication_key": "fisioclinex-forca-prevencao-lesoes:8eb8890274eafaf969a8dc19e18cf55135a503626888058ecc95c8abb1d6fcc1",
-    "published_at": null,
-    "status": "publishing"
+    "published_at": "2026-10-30T23:17:02.517038+00:00",
+    "status": "published"
   },
   "story_plan_version": 1,
   "verified": true
