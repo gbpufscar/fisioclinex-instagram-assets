@@ -337,6 +337,66 @@
       "explicit_override": false,
       "override_reason": null,
       "derived_story": true
+    },
+    {
+      "slot_id": "2026-11-06T12:00-scientific",
+      "planned_at": "2026-11-06T12:00:00-03:00",
+      "timezone": "America/Sao_Paulo",
+      "slot_type": "scientific",
+      "status": "available",
+      "assigned_slug": null,
+      "queued_at": null,
+      "actual_published_at": null,
+      "explicit_override": false,
+      "override_reason": null
+    },
+    {
+      "slot_id": "2026-11-09T12:00-scientific",
+      "planned_at": "2026-11-09T12:00:00-03:00",
+      "timezone": "America/Sao_Paulo",
+      "slot_type": "scientific",
+      "status": "available",
+      "assigned_slug": null,
+      "queued_at": null,
+      "actual_published_at": null,
+      "explicit_override": false,
+      "override_reason": null
+    },
+    {
+      "slot_id": "2026-11-10T12:00-other",
+      "planned_at": "2026-11-10T12:00:00-03:00",
+      "timezone": "America/Sao_Paulo",
+      "slot_type": "other",
+      "status": "available",
+      "assigned_slug": null,
+      "queued_at": null,
+      "actual_published_at": null,
+      "explicit_override": false,
+      "override_reason": null
+    },
+    {
+      "slot_id": "2026-11-11T12:00-scientific",
+      "planned_at": "2026-11-11T12:00:00-03:00",
+      "timezone": "America/Sao_Paulo",
+      "slot_type": "scientific",
+      "status": "available",
+      "assigned_slug": null,
+      "queued_at": null,
+      "actual_published_at": null,
+      "explicit_override": false,
+      "override_reason": null
+    },
+    {
+      "slot_id": "2026-11-12T12:00-other",
+      "planned_at": "2026-11-12T12:00:00-03:00",
+      "timezone": "America/Sao_Paulo",
+      "slot_type": "other",
+      "status": "available",
+      "assigned_slug": null,
+      "queued_at": null,
+      "actual_published_at": null,
+      "explicit_override": false,
+      "override_reason": null
     }
   ]
 }
