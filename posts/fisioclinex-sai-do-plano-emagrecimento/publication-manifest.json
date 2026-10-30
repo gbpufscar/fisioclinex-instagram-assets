@@ -1,0 +1,102 @@
+{
+  "schema_version": "2.1",
+  "slug": "fisioclinex-sai-do-plano-emagrecimento",
+  "post_type": "single_image",
+  "slide_count": 1,
+  "slides": [
+    "fisioclinex-sai-do-plano-emagrecimento-slide-01.png"
+  ],
+  "story": {
+    "filename": "fisioclinex-sai-do-plano-emagrecimento-story.png",
+    "dimensions": [
+      1080,
+      1920
+    ],
+    "source_cover": "fisioclinex-sai-do-plano-emagrecimento-slide-01.png",
+    "source_cover_sha256": "7700496f8fa2aacb3d6896ec3ea8cbb86e83768e79ddb767fbf255176bb283a5",
+    "adapter_version": "cover-recompose-v2",
+    "placement": {
+      "x": 96,
+      "y": 328,
+      "width": 688,
+      "height": 860
+    },
+    "safe_area": {
+      "top": 269,
+      "bottom": 672,
+      "left": 96,
+      "right": 96
+    },
+    "copy_preservation": "whole-cover-proportional",
+    "elements": {
+      "badge": {
+        "text": "NOVO POST",
+        "placement": {
+          "x": 96,
+          "y": 282,
+          "width": 300,
+          "height": 32
+        }
+      },
+      "cta": {
+        "text": "Veja no feed",
+        "placement": {
+          "x": 96,
+          "y": 1208,
+          "width": 280,
+          "height": 40
+        }
+      },
+      "indicator": {
+        "kind": "right-arrow",
+        "placement": {
+          "x": 400,
+          "y": 1216,
+          "width": 32,
+          "height": 24
+        }
+      },
+      "logo": {
+        "variant": "white",
+        "asset": "ID_logos/logo_branca.png",
+        "sha256": "b50d37d2b5ea81465625b374fbff24dd921fbb5fc644510a759589ff7f75ec40",
+        "placement": {
+          "x": 844,
+          "y": 352,
+          "width": 112,
+          "height": 160
+        }
+      }
+    }
+  },
+  "caption_file": "legenda.txt",
+  "approval": {
+    "status": "approved",
+    "copy_sha256": "b05ee98cab3291e97aa0ad6f0d7a433f622b080142652b0b408c6aca6e3bb025",
+    "copy_approved_at": "2026-10-30T13:10:33.986669Z",
+    "final_approved_at": "2026-10-30T13:19:13.753485Z"
+  },
+  "publicable": true,
+  "files": [
+    {
+      "path": "fisioclinex-sai-do-plano-emagrecimento-slide-01.png",
+      "role": "slide",
+      "size_bytes": 84728,
+      "sha256": "7700496f8fa2aacb3d6896ec3ea8cbb86e83768e79ddb767fbf255176bb283a5"
+    },
+    {
+      "path": "fisioclinex-sai-do-plano-emagrecimento-story.png",
+      "role": "story",
+      "size_bytes": 158820,
+      "sha256": "c5aca0d65010b8f37a15ce979e17db2bc976e24c7523f4c42c99e1929ca9f92f"
+    },
+    {
+      "path": "legenda.txt",
+      "role": "caption",
+      "size_bytes": 1874,
+      "sha256": "2c6f514ace87b2cf4de87d78316da5753d733a9555205cd7ee9f53d34ae3946a"
+    }
+  ],
+  "created_at": "2026-10-30T13:19:14Z",
+  "builder_version": "2.1.0"
+}
