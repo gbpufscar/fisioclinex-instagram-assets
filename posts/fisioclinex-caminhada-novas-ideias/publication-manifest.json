@@ -1,0 +1,116 @@
+{
+  "schema_version": "2.1",
+  "slug": "fisioclinex-caminhada-novas-ideias",
+  "post_type": "carousel",
+  "slide_count": 3,
+  "slides": [
+    "fisioclinex-caminhada-novas-ideias-slide-01.png",
+    "fisioclinex-caminhada-novas-ideias-slide-02.png",
+    "fisioclinex-caminhada-novas-ideias-slide-03.png"
+  ],
+  "story": {
+    "filename": "fisioclinex-caminhada-novas-ideias-story.png",
+    "dimensions": [
+      1080,
+      1920
+    ],
+    "source_cover": "fisioclinex-caminhada-novas-ideias-slide-01.png",
+    "source_cover_sha256": "07dd0da0eb30c5a307012f563c07af01d6fb62210cf6e9a0d10f6aedbdbd20c4",
+    "adapter_version": "cover-recompose-v2",
+    "placement": {
+      "x": 96,
+      "y": 328,
+      "width": 688,
+      "height": 860
+    },
+    "safe_area": {
+      "top": 269,
+      "bottom": 672,
+      "left": 96,
+      "right": 96
+    },
+    "copy_preservation": "whole-cover-proportional",
+    "elements": {
+      "badge": {
+        "text": "NOVO POST",
+        "placement": {
+          "x": 96,
+          "y": 282,
+          "width": 300,
+          "height": 32
+        }
+      },
+      "cta": {
+        "text": "Veja no feed",
+        "placement": {
+          "x": 96,
+          "y": 1208,
+          "width": 280,
+          "height": 40
+        }
+      },
+      "indicator": {
+        "kind": "right-arrow",
+        "placement": {
+          "x": 400,
+          "y": 1216,
+          "width": 32,
+          "height": 24
+        }
+      },
+      "logo": {
+        "variant": "color",
+        "asset": "ID_logos/logo_colorida.png",
+        "sha256": "00e1938640efa577a42c03f957c84aad5e33619e319b43d490c38d5a5b534957",
+        "placement": {
+          "x": 844,
+          "y": 352,
+          "width": 112,
+          "height": 148
+        }
+      }
+    }
+  },
+  "caption_file": "legenda.txt",
+  "approval": {
+    "status": "approved",
+    "copy_sha256": "78dadbae25f701008f2a0ae88424eab4b122736968648709ac13c2f34d5461da",
+    "copy_approved_at": "2026-11-02T14:13:58.857247Z",
+    "final_approved_at": "2026-11-02T14:40:25.215281Z"
+  },
+  "publicable": true,
+  "files": [
+    {
+      "path": "fisioclinex-caminhada-novas-ideias-slide-01.png",
+      "role": "slide",
+      "size_bytes": 1935923,
+      "sha256": "07dd0da0eb30c5a307012f563c07af01d6fb62210cf6e9a0d10f6aedbdbd20c4"
+    },
+    {
+      "path": "fisioclinex-caminhada-novas-ideias-slide-02.png",
+      "role": "slide",
+      "size_bytes": 1610224,
+      "sha256": "2fece44614df8303715dfdca05fd85d450518d1934f6ea997a0b40a5dc608f41"
+    },
+    {
+      "path": "fisioclinex-caminhada-novas-ideias-slide-03.png",
+      "role": "slide",
+      "size_bytes": 1756072,
+      "sha256": "95316fe3c5a5a0a2e2918c60ea04a40822ffb9347295a7694e80cae48a2c8fb8"
+    },
+    {
+      "path": "fisioclinex-caminhada-novas-ideias-story.png",
+      "role": "story",
+      "size_bytes": 929657,
+      "sha256": "885ce1591a8a1aa173ce775001a24935996ee5696166ecef1ce6b5bce5c570ff"
+    },
+    {
+      "path": "legenda.txt",
+      "role": "caption",
+      "size_bytes": 606,
+      "sha256": "1508cd84b9f932e6caa14b7f4bacd16f7f261a1640efd40e66eb01a672e6a984"
+    }
+  ],
+  "created_at": "2026-11-02T14:40:26Z",
+  "builder_version": "2.1.0"
+}
