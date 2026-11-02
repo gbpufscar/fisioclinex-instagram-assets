@@ -1,0 +1,137 @@
+{
+  "schema_version": "2.1",
+  "slug": "fisioclinex-desinformacao-saude-lupa",
+  "post_type": "carousel",
+  "slide_count": 6,
+  "slides": [
+    "fisioclinex-desinformacao-saude-lupa-slide-01.png",
+    "fisioclinex-desinformacao-saude-lupa-slide-02.png",
+    "fisioclinex-desinformacao-saude-lupa-slide-03.png",
+    "fisioclinex-desinformacao-saude-lupa-slide-04.png",
+    "fisioclinex-desinformacao-saude-lupa-slide-05.png",
+    "fisioclinex-desinformacao-saude-lupa-slide-06.png"
+  ],
+  "story": {
+    "filename": "fisioclinex-desinformacao-saude-lupa-story.png",
+    "dimensions": [
+      1080,
+      1920
+    ],
+    "source_cover": "fisioclinex-desinformacao-saude-lupa-slide-01.png",
+    "source_cover_sha256": "369398b8ba0684d998f488c17f74181c4dcb87b6be00611ab5b3758689e9787e",
+    "adapter_version": "cover-recompose-v2",
+    "placement": {
+      "x": 96,
+      "y": 328,
+      "width": 688,
+      "height": 860
+    },
+    "safe_area": {
+      "top": 269,
+      "bottom": 672,
+      "left": 96,
+      "right": 96
+    },
+    "copy_preservation": "whole-cover-proportional",
+    "elements": {
+      "badge": {
+        "text": "NOVO POST",
+        "placement": {
+          "x": 96,
+          "y": 282,
+          "width": 300,
+          "height": 32
+        }
+      },
+      "cta": {
+        "text": "Veja no feed",
+        "placement": {
+          "x": 96,
+          "y": 1208,
+          "width": 280,
+          "height": 40
+        }
+      },
+      "indicator": {
+        "kind": "right-arrow",
+        "placement": {
+          "x": 400,
+          "y": 1216,
+          "width": 32,
+          "height": 24
+        }
+      },
+      "logo": {
+        "variant": "white",
+        "asset": "ID_logos/logo_branca.png",
+        "sha256": "b50d37d2b5ea81465625b374fbff24dd921fbb5fc644510a759589ff7f75ec40",
+        "placement": {
+          "x": 844,
+          "y": 352,
+          "width": 112,
+          "height": 160
+        }
+      }
+    }
+  },
+  "caption_file": "legenda.txt",
+  "approval": {
+    "status": "approved",
+    "copy_sha256": "3518c867dfb4bf3df3a5b4f636e61d2eb8b8489711b16f4875748fc0aef2779a",
+    "copy_approved_at": "2026-11-02T17:24:55.413104Z",
+    "final_approved_at": "2026-11-02T17:37:54.065540Z"
+  },
+  "publicable": true,
+  "files": [
+    {
+      "path": "fisioclinex-desinformacao-saude-lupa-slide-01.png",
+      "role": "slide",
+      "size_bytes": 1689610,
+      "sha256": "369398b8ba0684d998f488c17f74181c4dcb87b6be00611ab5b3758689e9787e"
+    },
+    {
+      "path": "fisioclinex-desinformacao-saude-lupa-slide-02.png",
+      "role": "slide",
+      "size_bytes": 1621480,
+      "sha256": "9000398a51fb68db1bcf78c7fa4f6d3422dcc1bf1b26b0fc4520343395e7554d"
+    },
+    {
+      "path": "fisioclinex-desinformacao-saude-lupa-slide-03.png",
+      "role": "slide",
+      "size_bytes": 720601,
+      "sha256": "968b29bad9ea87c79eaa37328f33d81333e150c01371da2854e8af209d68cb8d"
+    },
+    {
+      "path": "fisioclinex-desinformacao-saude-lupa-slide-04.png",
+      "role": "slide",
+      "size_bytes": 1303155,
+      "sha256": "aaa886230f178954d01fa70f91e4c6feabba310be3242a274e270f61d261fb70"
+    },
+    {
+      "path": "fisioclinex-desinformacao-saude-lupa-slide-05.png",
+      "role": "slide",
+      "size_bytes": 1466363,
+      "sha256": "053a45806f86a2ef23323bd0b5a6071f518382e93e10fada722779c178d57d17"
+    },
+    {
+      "path": "fisioclinex-desinformacao-saude-lupa-slide-06.png",
+      "role": "slide",
+      "size_bytes": 1456836,
+      "sha256": "02d5596337f32990435983159373b2154eefe40c982284106c54a4dedacbdef9"
+    },
+    {
+      "path": "fisioclinex-desinformacao-saude-lupa-story.png",
+      "role": "story",
+      "size_bytes": 788701,
+      "sha256": "de1526ac4982dda9006515c63b4f54c4bd894f95f96174639211cce57ad04abf"
+    },
+    {
+      "path": "legenda.txt",
+      "role": "caption",
+      "size_bytes": 1339,
+      "sha256": "74615a92391569a106851c19c6743a47a78b52593244202227818e3baff287aa"
+    }
+  ],
+  "created_at": "2026-11-02T17:38:54Z",
+  "builder_version": "2.1.0"
+}
