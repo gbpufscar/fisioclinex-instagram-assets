@@ -18,8 +18,8 @@
   "priority": 100,
   "publication": {
     "asset_commit": "3b7816b29082013c7a1004e2967d931f6bb95e0d",
-    "media_id": null,
-    "published_at": null,
+    "media_id": "18115369595581164",
+    "published_at": "2026-11-02T20:11:52.376166+00:00",
     "workflow_run_id": "41516712696"
   },
   "publication_key": "fisioclinex-reabilitacao-tem-dono:c8650dbbb51c077af28af472d64720e6c82cdbfc70f5d54e14d0811bd4d81df3",
@@ -34,7 +34,7 @@
   "slot_type": "scientific",
   "slug": "fisioclinex-reabilitacao-tem-dono",
   "started_at": "2026-11-02T20:10:53.998074+00:00",
-  "status": "publishing",
+  "status": "published",
   "story": {
     "attempt_count": 0,
     "container_id": null,
