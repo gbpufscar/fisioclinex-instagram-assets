@@ -1,7 +1,9 @@
 {
   "artifact_status": "active",
-  "attempts": 0,
+  "attempts": 1,
   "caption_file": "legenda.txt",
+  "carousel_container_id": null,
+  "child_container_ids": [],
   "content_policy_version": "editorial-v3-1-to-10",
   "explicit_override": false,
   "failure": {
@@ -15,20 +17,24 @@
   "planned_at": "2026-11-02T12:00:00-03:00",
   "priority": 100,
   "publication": {
-    "asset_commit": null,
+    "asset_commit": "3b7816b29082013c7a1004e2967d931f6bb95e0d",
     "media_id": null,
     "published_at": null,
-    "workflow_run_id": null
+    "workflow_run_id": "41516712696"
   },
   "publication_key": "fisioclinex-reabilitacao-tem-dono:c8650dbbb51c077af28af472d64720e6c82cdbfc70f5d54e14d0811bd4d81df3",
+  "publication_run_id": "1c0543e9-b802-4fd8-9ef6-b59321454747",
+  "pushed": true,
   "queued_at": "2026-10-29T13:11:15.589295+00:00",
   "schema_version": 1,
   "short_slug": "reabilitacao-tem-dono",
+  "single_image_container_id": null,
   "slides_count": 5,
   "slot_id": "2026-11-02T12:00-scientific",
   "slot_type": "scientific",
   "slug": "fisioclinex-reabilitacao-tem-dono",
-  "status": "queued",
+  "started_at": "2026-11-02T20:10:53.998074+00:00",
+  "status": "publishing",
   "story": {
     "attempt_count": 0,
     "container_id": null,
@@ -40,5 +46,6 @@
     "published_at": null,
     "status": "pending"
   },
-  "story_plan_version": 1
+  "story_plan_version": 1,
+  "verified": true
 }
