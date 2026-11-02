@@ -1,0 +1,102 @@
+{
+  "schema_version": "2.1",
+  "slug": "fisioclinex-medicamento-prevencao",
+  "post_type": "single_image",
+  "slide_count": 1,
+  "slides": [
+    "fisioclinex-medicamento-prevencao-slide-01.png"
+  ],
+  "story": {
+    "filename": "fisioclinex-medicamento-prevencao-story.png",
+    "dimensions": [
+      1080,
+      1920
+    ],
+    "source_cover": "fisioclinex-medicamento-prevencao-slide-01.png",
+    "source_cover_sha256": "d51ab531f11ef594c3ff61135401194556d547b932a09a9f91df18ab280a21e7",
+    "adapter_version": "cover-recompose-v2",
+    "placement": {
+      "x": 96,
+      "y": 328,
+      "width": 688,
+      "height": 860
+    },
+    "safe_area": {
+      "top": 269,
+      "bottom": 672,
+      "left": 96,
+      "right": 96
+    },
+    "copy_preservation": "whole-cover-proportional",
+    "elements": {
+      "badge": {
+        "text": "NOVO POST",
+        "placement": {
+          "x": 96,
+          "y": 282,
+          "width": 300,
+          "height": 32
+        }
+      },
+      "cta": {
+        "text": "Veja no feed",
+        "placement": {
+          "x": 96,
+          "y": 1208,
+          "width": 280,
+          "height": 40
+        }
+      },
+      "indicator": {
+        "kind": "right-arrow",
+        "placement": {
+          "x": 400,
+          "y": 1216,
+          "width": 32,
+          "height": 24
+        }
+      },
+      "logo": {
+        "variant": "color",
+        "asset": "ID_logos/logo_colorida.png",
+        "sha256": "00e1938640efa577a42c03f957c84aad5e33619e319b43d490c38d5a5b534957",
+        "placement": {
+          "x": 844,
+          "y": 352,
+          "width": 112,
+          "height": 148
+        }
+      }
+    }
+  },
+  "caption_file": "legenda.txt",
+  "approval": {
+    "status": "approved",
+    "copy_sha256": "3863c7261aa381dd544b0bc146d3f67d7761dd41e14d4554265c865ced722b01",
+    "copy_approved_at": "2026-11-02T18:06:53.466649Z",
+    "final_approved_at": "2026-11-02T18:13:21.655580Z"
+  },
+  "publicable": true,
+  "files": [
+    {
+      "path": "fisioclinex-medicamento-prevencao-slide-01.png",
+      "role": "slide",
+      "size_bytes": 2089963,
+      "sha256": "d51ab531f11ef594c3ff61135401194556d547b932a09a9f91df18ab280a21e7"
+    },
+    {
+      "path": "fisioclinex-medicamento-prevencao-story.png",
+      "role": "story",
+      "size_bytes": 934791,
+      "sha256": "09e1c0226743d44e53e3d679b285034f27d4162b39b77644bff2f14ed2457efd"
+    },
+    {
+      "path": "legenda.txt",
+      "role": "caption",
+      "size_bytes": 1139,
+      "sha256": "b9101a128de97c9e6a92f589e6a6e335948404f558b7f7884038d47207c048e5"
+    }
+  ],
+  "created_at": "2026-11-02T18:14:05Z",
+  "builder_version": "2.1.0"
+}
