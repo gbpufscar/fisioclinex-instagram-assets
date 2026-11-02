@@ -1,0 +1,102 @@
+{
+  "schema_version": "2.1",
+  "slug": "fisioclinex-exercicio-perguntas-beneficios",
+  "post_type": "single_image",
+  "slide_count": 1,
+  "slides": [
+    "fisioclinex-exercicio-perguntas-beneficios-slide-01.png"
+  ],
+  "story": {
+    "filename": "fisioclinex-exercicio-perguntas-beneficios-story.png",
+    "dimensions": [
+      1080,
+      1920
+    ],
+    "source_cover": "fisioclinex-exercicio-perguntas-beneficios-slide-01.png",
+    "source_cover_sha256": "11d313971e9d82c0019aa7c593b0bf32e345debd0429eb989e3b94a96da89b26",
+    "adapter_version": "cover-recompose-v2",
+    "placement": {
+      "x": 96,
+      "y": 328,
+      "width": 688,
+      "height": 860
+    },
+    "safe_area": {
+      "top": 269,
+      "bottom": 672,
+      "left": 96,
+      "right": 96
+    },
+    "copy_preservation": "whole-cover-proportional",
+    "elements": {
+      "badge": {
+        "text": "NOVO POST",
+        "placement": {
+          "x": 96,
+          "y": 282,
+          "width": 300,
+          "height": 32
+        }
+      },
+      "cta": {
+        "text": "Veja no feed",
+        "placement": {
+          "x": 96,
+          "y": 1208,
+          "width": 280,
+          "height": 40
+        }
+      },
+      "indicator": {
+        "kind": "right-arrow",
+        "placement": {
+          "x": 400,
+          "y": 1216,
+          "width": 32,
+          "height": 24
+        }
+      },
+      "logo": {
+        "variant": "color",
+        "asset": "ID_logos/logo_colorida.png",
+        "sha256": "00e1938640efa577a42c03f957c84aad5e33619e319b43d490c38d5a5b534957",
+        "placement": {
+          "x": 844,
+          "y": 352,
+          "width": 112,
+          "height": 148
+        }
+      }
+    }
+  },
+  "caption_file": "legenda.txt",
+  "approval": {
+    "status": "approved",
+    "copy_sha256": "527664d18d5c13a8c4623a6de3cc49f87d6a17aef75e7e3172b2ba6563d98910",
+    "copy_approved_at": "2026-11-02T17:46:31.150100Z",
+    "final_approved_at": "2026-11-02T18:04:55.887568Z"
+  },
+  "publicable": true,
+  "files": [
+    {
+      "path": "fisioclinex-exercicio-perguntas-beneficios-slide-01.png",
+      "role": "slide",
+      "size_bytes": 1667915,
+      "sha256": "11d313971e9d82c0019aa7c593b0bf32e345debd0429eb989e3b94a96da89b26"
+    },
+    {
+      "path": "fisioclinex-exercicio-perguntas-beneficios-story.png",
+      "role": "story",
+      "size_bytes": 788868,
+      "sha256": "50a3e750cfb1a2a0ccc8e9ca337d76f521f2426f54473504ae88920c4d0a30de"
+    },
+    {
+      "path": "legenda.txt",
+      "role": "caption",
+      "size_bytes": 1205,
+      "sha256": "3d4cf0a8adaa34678659cdf876c636f91321c55a125d94b412abbd6203f60ee1"
+    }
+  ],
+  "created_at": "2026-11-02T18:05:29Z",
+  "builder_version": "2.1.0"
+}
