@@ -1,0 +1,102 @@
+{
+  "schema_version": "2.1",
+  "slug": "fisioclinex-graduacao-glut4",
+  "post_type": "single_image",
+  "slide_count": 1,
+  "slides": [
+    "fisioclinex-graduacao-glut4-slide-01.png"
+  ],
+  "story": {
+    "filename": "fisioclinex-graduacao-glut4-story.png",
+    "dimensions": [
+      1080,
+      1920
+    ],
+    "source_cover": "fisioclinex-graduacao-glut4-slide-01.png",
+    "source_cover_sha256": "af23969f0f5084ba19c07b461e7f1e02d393b3547a19ef4fcc30ef17bd7a8572",
+    "adapter_version": "cover-recompose-v2",
+    "placement": {
+      "x": 96,
+      "y": 328,
+      "width": 688,
+      "height": 860
+    },
+    "safe_area": {
+      "top": 269,
+      "bottom": 672,
+      "left": 96,
+      "right": 96
+    },
+    "copy_preservation": "whole-cover-proportional",
+    "elements": {
+      "badge": {
+        "text": "NOVO POST",
+        "placement": {
+          "x": 96,
+          "y": 282,
+          "width": 300,
+          "height": 32
+        }
+      },
+      "cta": {
+        "text": "Veja no feed",
+        "placement": {
+          "x": 96,
+          "y": 1208,
+          "width": 280,
+          "height": 40
+        }
+      },
+      "indicator": {
+        "kind": "right-arrow",
+        "placement": {
+          "x": 400,
+          "y": 1216,
+          "width": 32,
+          "height": 24
+        }
+      },
+      "logo": {
+        "variant": "color",
+        "asset": "ID_logos/logo_colorida.png",
+        "sha256": "00e1938640efa577a42c03f957c84aad5e33619e319b43d490c38d5a5b534957",
+        "placement": {
+          "x": 844,
+          "y": 352,
+          "width": 112,
+          "height": 148
+        }
+      }
+    }
+  },
+  "caption_file": "legenda.txt",
+  "approval": {
+    "status": "approved",
+    "copy_sha256": "b7aa19f7464f135ad73fa872cfd621baee0f68f6dea120b2de34df9c481d6e8e",
+    "copy_approved_at": "2026-11-02T18:01:26.589944Z",
+    "final_approved_at": "2026-11-02T18:12:14.542465Z"
+  },
+  "publicable": true,
+  "files": [
+    {
+      "path": "fisioclinex-graduacao-glut4-slide-01.png",
+      "role": "slide",
+      "size_bytes": 1400699,
+      "sha256": "af23969f0f5084ba19c07b461e7f1e02d393b3547a19ef4fcc30ef17bd7a8572"
+    },
+    {
+      "path": "fisioclinex-graduacao-glut4-story.png",
+      "role": "story",
+      "size_bytes": 671870,
+      "sha256": "1678f3bcec84588cbc8d68a00f40a1f58557e45e2a6b3d43c10c7932d8f02542"
+    },
+    {
+      "path": "legenda.txt",
+      "role": "caption",
+      "size_bytes": 1441,
+      "sha256": "945988f47f7a59483865ab57d8348b060f4281ad2a65c737a225d379b299af5d"
+    }
+  ],
+  "created_at": "2026-11-02T18:13:08Z",
+  "builder_version": "2.1.0"
+}
