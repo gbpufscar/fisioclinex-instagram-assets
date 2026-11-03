@@ -1,0 +1,102 @@
+{
+  "schema_version": "2.1",
+  "slug": "fisioclinex-pergunta-aula-pos",
+  "post_type": "single_image",
+  "slide_count": 1,
+  "slides": [
+    "fisioclinex-pergunta-aula-pos-slide-01.png"
+  ],
+  "story": {
+    "filename": "fisioclinex-pergunta-aula-pos-story.png",
+    "dimensions": [
+      1080,
+      1920
+    ],
+    "source_cover": "fisioclinex-pergunta-aula-pos-slide-01.png",
+    "source_cover_sha256": "c11e6c4aa26b161c509efe093482960e3745ae078b009bbc22b506e08009b34b",
+    "adapter_version": "cover-recompose-v2",
+    "placement": {
+      "x": 96,
+      "y": 328,
+      "width": 688,
+      "height": 860
+    },
+    "safe_area": {
+      "top": 269,
+      "bottom": 672,
+      "left": 96,
+      "right": 96
+    },
+    "copy_preservation": "whole-cover-proportional",
+    "elements": {
+      "badge": {
+        "text": "NOVO POST",
+        "placement": {
+          "x": 96,
+          "y": 282,
+          "width": 300,
+          "height": 32
+        }
+      },
+      "cta": {
+        "text": "Veja no feed",
+        "placement": {
+          "x": 96,
+          "y": 1208,
+          "width": 280,
+          "height": 40
+        }
+      },
+      "indicator": {
+        "kind": "right-arrow",
+        "placement": {
+          "x": 400,
+          "y": 1216,
+          "width": 32,
+          "height": 24
+        }
+      },
+      "logo": {
+        "variant": "color",
+        "asset": "ID_logos/logo_colorida.png",
+        "sha256": "00e1938640efa577a42c03f957c84aad5e33619e319b43d490c38d5a5b534957",
+        "placement": {
+          "x": 844,
+          "y": 352,
+          "width": 112,
+          "height": 148
+        }
+      }
+    }
+  },
+  "caption_file": "legenda.txt",
+  "approval": {
+    "status": "approved",
+    "copy_sha256": "cc27794049cfbc4552933879a1f246d54b689232c58f48e595ce955ee04a4755",
+    "copy_approved_at": "2026-11-03T12:40:29.555726Z",
+    "final_approved_at": "2026-11-03T12:49:35.683579Z"
+  },
+  "publicable": true,
+  "files": [
+    {
+      "path": "fisioclinex-pergunta-aula-pos-slide-01.png",
+      "role": "slide",
+      "size_bytes": 2368128,
+      "sha256": "c11e6c4aa26b161c509efe093482960e3745ae078b009bbc22b506e08009b34b"
+    },
+    {
+      "path": "fisioclinex-pergunta-aula-pos-story.png",
+      "role": "story",
+      "size_bytes": 867538,
+      "sha256": "51f5224c30f8d246325ca3419867a1345e5c2fdb70a85f46ee62dc9a377297d5"
+    },
+    {
+      "path": "legenda.txt",
+      "role": "caption",
+      "size_bytes": 1166,
+      "sha256": "525c3e313e35406bfa788f91ec70419de1febfb5cc60545a83e7f5d498dd6977"
+    }
+  ],
+  "created_at": "2026-11-03T12:50:55Z",
+  "builder_version": "2.1.0"
+}

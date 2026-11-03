@@ -1,0 +1,44 @@
+{
+  "artifact_status": "active",
+  "attempts": 0,
+  "caption_file": "legenda.txt",
+  "content_policy_version": "editorial-v3-1-to-10",
+  "explicit_override": false,
+  "failure": {
+    "occurred_at": null,
+    "phase": null,
+    "requires_human_review": false
+  },
+  "not_before": "2026-11-17T12:00:00-03:00",
+  "override_reason": null,
+  "package_sha256": "7cfecef972070a105eed4504f72880664af1e7888daa835ddd962417c492f587",
+  "planned_at": "2026-11-17T12:00:00-03:00",
+  "priority": 100,
+  "publication": {
+    "asset_commit": null,
+    "media_id": null,
+    "published_at": null,
+    "workflow_run_id": null
+  },
+  "publication_key": "fisioclinex-pergunta-aula-pos:7cfecef972070a105eed4504f72880664af1e7888daa835ddd962417c492f587",
+  "queued_at": "2026-11-03T12:51:48.734121+00:00",
+  "schema_version": 1,
+  "short_slug": "pergunta-aula-pos",
+  "slides_count": 1,
+  "slot_id": "2026-11-17T12:00-other",
+  "slot_type": "other",
+  "slug": "fisioclinex-pergunta-aula-pos",
+  "status": "queued",
+  "story": {
+    "attempt_count": 0,
+    "container_id": null,
+    "last_attempt_at": null,
+    "last_error": null,
+    "media_id": null,
+    "not_before": "2026-11-17T18:00:00-03:00",
+    "publication_key": "fisioclinex-pergunta-aula-pos:e11b862600efe98e0dc76eb455a51cdcdd205b7668b58b4dea6400b965744134",
+    "published_at": null,
+    "status": "pending"
+  },
+  "story_plan_version": 1
+}
