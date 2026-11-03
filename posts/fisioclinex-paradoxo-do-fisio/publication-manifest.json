@@ -1,0 +1,137 @@
+{
+  "schema_version": "2.1",
+  "slug": "fisioclinex-paradoxo-do-fisio",
+  "post_type": "carousel",
+  "slide_count": 6,
+  "slides": [
+    "fisioclinex-paradoxo-do-fisio-slide-01.png",
+    "fisioclinex-paradoxo-do-fisio-slide-02.png",
+    "fisioclinex-paradoxo-do-fisio-slide-03.png",
+    "fisioclinex-paradoxo-do-fisio-slide-04.png",
+    "fisioclinex-paradoxo-do-fisio-slide-05.png",
+    "fisioclinex-paradoxo-do-fisio-slide-06.png"
+  ],
+  "story": {
+    "filename": "fisioclinex-paradoxo-do-fisio-story.png",
+    "dimensions": [
+      1080,
+      1920
+    ],
+    "source_cover": "fisioclinex-paradoxo-do-fisio-slide-01.png",
+    "source_cover_sha256": "5af7ce71dded57ccd1db9a26f282983b4c6075455dbb13a49dbbfe14ca33036b",
+    "adapter_version": "cover-recompose-v2",
+    "placement": {
+      "x": 96,
+      "y": 328,
+      "width": 688,
+      "height": 860
+    },
+    "safe_area": {
+      "top": 269,
+      "bottom": 672,
+      "left": 96,
+      "right": 96
+    },
+    "copy_preservation": "whole-cover-proportional",
+    "elements": {
+      "badge": {
+        "text": "NOVO POST",
+        "placement": {
+          "x": 96,
+          "y": 282,
+          "width": 300,
+          "height": 32
+        }
+      },
+      "cta": {
+        "text": "Veja no feed",
+        "placement": {
+          "x": 96,
+          "y": 1208,
+          "width": 280,
+          "height": 40
+        }
+      },
+      "indicator": {
+        "kind": "right-arrow",
+        "placement": {
+          "x": 400,
+          "y": 1216,
+          "width": 32,
+          "height": 24
+        }
+      },
+      "logo": {
+        "variant": "white",
+        "asset": "ID_logos/logo_branca.png",
+        "sha256": "b50d37d2b5ea81465625b374fbff24dd921fbb5fc644510a759589ff7f75ec40",
+        "placement": {
+          "x": 844,
+          "y": 352,
+          "width": 112,
+          "height": 160
+        }
+      }
+    }
+  },
+  "caption_file": "legenda.txt",
+  "approval": {
+    "status": "approved",
+    "copy_sha256": "45f4a753740a663b73e9913a7c070fc4679c435e0f06350306d18cb4e3dedf04",
+    "copy_approved_at": "2026-11-02T18:27:50.535531Z",
+    "final_approved_at": "2026-11-03T11:18:43.430743Z"
+  },
+  "publicable": true,
+  "files": [
+    {
+      "path": "fisioclinex-paradoxo-do-fisio-slide-01.png",
+      "role": "slide",
+      "size_bytes": 1558181,
+      "sha256": "5af7ce71dded57ccd1db9a26f282983b4c6075455dbb13a49dbbfe14ca33036b"
+    },
+    {
+      "path": "fisioclinex-paradoxo-do-fisio-slide-02.png",
+      "role": "slide",
+      "size_bytes": 1703427,
+      "sha256": "fab6cb31fddda56b3fb193ac23cc035b3e8ad062a854068a51d6d1774a630232"
+    },
+    {
+      "path": "fisioclinex-paradoxo-do-fisio-slide-03.png",
+      "role": "slide",
+      "size_bytes": 1664551,
+      "sha256": "24bafebcd340230e1fbed2442661ae81f3e7698b8fc91353ff023a602d74ae32"
+    },
+    {
+      "path": "fisioclinex-paradoxo-do-fisio-slide-04.png",
+      "role": "slide",
+      "size_bytes": 1615904,
+      "sha256": "f627e48af960078cb4f99139e913d56c81c028d92bc4bc7fc4d0d18fba234251"
+    },
+    {
+      "path": "fisioclinex-paradoxo-do-fisio-slide-05.png",
+      "role": "slide",
+      "size_bytes": 1638778,
+      "sha256": "0039a81004cf775a70ec83980f46e6a95a717be08e651c8f894115fa8c68f20d"
+    },
+    {
+      "path": "fisioclinex-paradoxo-do-fisio-slide-06.png",
+      "role": "slide",
+      "size_bytes": 1710059,
+      "sha256": "946fec2a0aa17b0501f247a2ed05b0f6a916f2ab41c0b5d6d37d443a5bf79149"
+    },
+    {
+      "path": "fisioclinex-paradoxo-do-fisio-story.png",
+      "role": "story",
+      "size_bytes": 750651,
+      "sha256": "391a51700eddd5734a65f040740e5a979fe74af10ca4cdb3471b7918567badbd"
+    },
+    {
+      "path": "legenda.txt",
+      "role": "caption",
+      "size_bytes": 1034,
+      "sha256": "0381d3709e1751bd0fef2176effe364088098b67fcb7cfbf5a667b9280ad6a49"
+    }
+  ],
+  "created_at": "2026-11-03T11:20:23Z",
+  "builder_version": "2.1.0"
+}
