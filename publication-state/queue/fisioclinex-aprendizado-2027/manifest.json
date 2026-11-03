@@ -36,15 +36,16 @@
   "started_at": "2026-11-03T17:35:54.395740+00:00",
   "status": "published",
   "story": {
-    "attempt_count": 0,
+    "attempt_count": 1,
+    "attempt_stage": "started",
     "container_id": null,
-    "last_attempt_at": null,
+    "last_attempt_at": "2026-11-03T22:31:19.756998+00:00",
     "last_error": null,
     "media_id": null,
     "not_before": "2026-11-03T18:00:00-03:00",
     "publication_key": "fisioclinex-aprendizado-2027:fd580beb76f6b0bce2a97fafe5145b964e7b2e0008aa873bf1cceb2192e0467d",
     "published_at": null,
-    "status": "eligible"
+    "status": "publishing"
   },
   "story_plan_version": 1,
   "verified": true
