@@ -18,8 +18,8 @@
   "priority": 100,
   "publication": {
     "asset_commit": "a1036a287edf8dda88999fd738b45f78d100d581",
-    "media_id": null,
-    "published_at": null,
+    "media_id": "18093520682281085",
+    "published_at": "2026-11-03T17:36:17.200462+00:00",
     "workflow_run_id": "41685255750"
   },
   "publication_key": "fisioclinex-aprendizado-2027:bf70785811d761da14ca505ff1dae1f9c55d8ce56d6db7ef3bd99f5a35abffa3",
@@ -34,7 +34,7 @@
   "slot_type": "other",
   "slug": "fisioclinex-aprendizado-2027",
   "started_at": "2026-11-03T17:35:54.395740+00:00",
-  "status": "publishing",
+  "status": "published",
   "story": {
     "attempt_count": 0,
     "container_id": null,
