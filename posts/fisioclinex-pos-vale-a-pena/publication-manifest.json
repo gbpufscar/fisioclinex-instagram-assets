@@ -1,0 +1,123 @@
+{
+  "schema_version": "2.1",
+  "slug": "fisioclinex-pos-vale-a-pena",
+  "post_type": "carousel",
+  "slide_count": 4,
+  "slides": [
+    "fisioclinex-pos-vale-a-pena-slide-01.png",
+    "fisioclinex-pos-vale-a-pena-slide-02.png",
+    "fisioclinex-pos-vale-a-pena-slide-03.png",
+    "fisioclinex-pos-vale-a-pena-slide-04.png"
+  ],
+  "story": {
+    "filename": "fisioclinex-pos-vale-a-pena-story.png",
+    "dimensions": [
+      1080,
+      1920
+    ],
+    "source_cover": "fisioclinex-pos-vale-a-pena-slide-01.png",
+    "source_cover_sha256": "f80e38add27b15beab79fbacff701f7bae667c100352171b0f7774b7764027ba",
+    "adapter_version": "cover-recompose-v2",
+    "placement": {
+      "x": 96,
+      "y": 328,
+      "width": 688,
+      "height": 860
+    },
+    "safe_area": {
+      "top": 269,
+      "bottom": 672,
+      "left": 96,
+      "right": 96
+    },
+    "copy_preservation": "whole-cover-proportional",
+    "elements": {
+      "badge": {
+        "text": "NOVO POST",
+        "placement": {
+          "x": 96,
+          "y": 282,
+          "width": 300,
+          "height": 32
+        }
+      },
+      "cta": {
+        "text": "Veja no feed",
+        "placement": {
+          "x": 96,
+          "y": 1208,
+          "width": 280,
+          "height": 40
+        }
+      },
+      "indicator": {
+        "kind": "right-arrow",
+        "placement": {
+          "x": 400,
+          "y": 1216,
+          "width": 32,
+          "height": 24
+        }
+      },
+      "logo": {
+        "variant": "color",
+        "asset": "ID_logos/logo_colorida.png",
+        "sha256": "00e1938640efa577a42c03f957c84aad5e33619e319b43d490c38d5a5b534957",
+        "placement": {
+          "x": 844,
+          "y": 352,
+          "width": 112,
+          "height": 148
+        }
+      }
+    }
+  },
+  "caption_file": "legenda.txt",
+  "approval": {
+    "status": "approved",
+    "copy_sha256": "6be4a50a1382d1b420ed428f5abecac6d3990ee31d43a7a49390142ff91f2239",
+    "copy_approved_at": "2026-11-03T17:44:28.837416Z",
+    "final_approved_at": "2026-11-03T18:05:38.790186Z"
+  },
+  "publicable": true,
+  "files": [
+    {
+      "path": "fisioclinex-pos-vale-a-pena-slide-01.png",
+      "role": "slide",
+      "size_bytes": 2217458,
+      "sha256": "f80e38add27b15beab79fbacff701f7bae667c100352171b0f7774b7764027ba"
+    },
+    {
+      "path": "fisioclinex-pos-vale-a-pena-slide-02.png",
+      "role": "slide",
+      "size_bytes": 1865172,
+      "sha256": "520ab3b375b35f3322f2c431ca28e15abf37e3e5e68e90d075fbbbb6a904845f"
+    },
+    {
+      "path": "fisioclinex-pos-vale-a-pena-slide-03.png",
+      "role": "slide",
+      "size_bytes": 1765031,
+      "sha256": "c07f7661d7a8a9fb1798f6815943be0bb4789ec054b0018a9b74f3c4d20a2b0f"
+    },
+    {
+      "path": "fisioclinex-pos-vale-a-pena-slide-04.png",
+      "role": "slide",
+      "size_bytes": 1835054,
+      "sha256": "f5afd08ac2daa92a126b80402cccd4ccd20a63e16b06b5fcee66bc76ce2eac77"
+    },
+    {
+      "path": "fisioclinex-pos-vale-a-pena-story.png",
+      "role": "story",
+      "size_bytes": 833476,
+      "sha256": "552dc87af09b8b1335fe79029348a6e29e82a29a69610772b66198beff658c05"
+    },
+    {
+      "path": "legenda.txt",
+      "role": "caption",
+      "size_bytes": 912,
+      "sha256": "25b22a92996ab4a900fd00d21a68bb81f88a2f5ce37b52a636268f2913e1bda8"
+    }
+  ],
+  "created_at": "2026-11-03T18:05:39Z",
+  "builder_version": "2.1.0"
+}
