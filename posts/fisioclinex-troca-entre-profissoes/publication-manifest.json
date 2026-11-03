@@ -1,0 +1,116 @@
+{
+  "schema_version": "2.1",
+  "slug": "fisioclinex-troca-entre-profissoes",
+  "post_type": "carousel",
+  "slide_count": 3,
+  "slides": [
+    "fisioclinex-troca-entre-profissoes-slide-01.png",
+    "fisioclinex-troca-entre-profissoes-slide-02.png",
+    "fisioclinex-troca-entre-profissoes-slide-03.png"
+  ],
+  "story": {
+    "filename": "fisioclinex-troca-entre-profissoes-story.png",
+    "dimensions": [
+      1080,
+      1920
+    ],
+    "source_cover": "fisioclinex-troca-entre-profissoes-slide-01.png",
+    "source_cover_sha256": "dac586a12d4afcce8d65e1112c5c583e722d4b9c1219a79081b7104d5d0ecca5",
+    "adapter_version": "cover-recompose-v2",
+    "placement": {
+      "x": 96,
+      "y": 328,
+      "width": 688,
+      "height": 860
+    },
+    "safe_area": {
+      "top": 269,
+      "bottom": 672,
+      "left": 96,
+      "right": 96
+    },
+    "copy_preservation": "whole-cover-proportional",
+    "elements": {
+      "badge": {
+        "text": "NOVO POST",
+        "placement": {
+          "x": 96,
+          "y": 282,
+          "width": 300,
+          "height": 32
+        }
+      },
+      "cta": {
+        "text": "Veja no feed",
+        "placement": {
+          "x": 96,
+          "y": 1208,
+          "width": 280,
+          "height": 40
+        }
+      },
+      "indicator": {
+        "kind": "right-arrow",
+        "placement": {
+          "x": 400,
+          "y": 1216,
+          "width": 32,
+          "height": 24
+        }
+      },
+      "logo": {
+        "variant": "color",
+        "asset": "ID_logos/logo_colorida.png",
+        "sha256": "00e1938640efa577a42c03f957c84aad5e33619e319b43d490c38d5a5b534957",
+        "placement": {
+          "x": 844,
+          "y": 352,
+          "width": 112,
+          "height": 148
+        }
+      }
+    }
+  },
+  "caption_file": "legenda.txt",
+  "approval": {
+    "status": "approved",
+    "copy_sha256": "e53d2b43dd1448c4ca5a582d80a03e277d0e086fc8a5bffc7511694791af8ec2",
+    "copy_approved_at": "2026-11-03T13:08:47.674215Z",
+    "final_approved_at": "2026-11-03T13:36:53.546957Z"
+  },
+  "publicable": true,
+  "files": [
+    {
+      "path": "fisioclinex-troca-entre-profissoes-slide-01.png",
+      "role": "slide",
+      "size_bytes": 2246682,
+      "sha256": "dac586a12d4afcce8d65e1112c5c583e722d4b9c1219a79081b7104d5d0ecca5"
+    },
+    {
+      "path": "fisioclinex-troca-entre-profissoes-slide-02.png",
+      "role": "slide",
+      "size_bytes": 1808745,
+      "sha256": "90d642c6392c89d3db8a590d63d6bc05bf8dabe30f929db2a1baa09d789440a8"
+    },
+    {
+      "path": "fisioclinex-troca-entre-profissoes-slide-03.png",
+      "role": "slide",
+      "size_bytes": 1844787,
+      "sha256": "015e767db73788b2cca2c10d987d933404ba85e03b845ab692046bd3de0fa59e"
+    },
+    {
+      "path": "fisioclinex-troca-entre-profissoes-story.png",
+      "role": "story",
+      "size_bytes": 862111,
+      "sha256": "fe529d5b1f06b6c711e43152297367c299ee66bc50f1be0214ec185e516e312b"
+    },
+    {
+      "path": "legenda.txt",
+      "role": "caption",
+      "size_bytes": 1105,
+      "sha256": "639c98a93f36898f61caac8d04d7ec13d3b68a1f0001289c526e881034ad36ff"
+    }
+  ],
+  "created_at": "2026-11-03T13:36:54Z",
+  "builder_version": "2.1.0"
+}
