@@ -36,15 +36,16 @@
   "started_at": "2026-11-02T20:10:53.998074+00:00",
   "status": "published",
   "story": {
-    "attempt_count": 0,
+    "attempt_count": 1,
+    "attempt_stage": "started",
     "container_id": null,
-    "last_attempt_at": null,
+    "last_attempt_at": "2026-11-03T02:22:21.165948+00:00",
     "last_error": null,
     "media_id": null,
     "not_before": "2026-11-02T18:00:00-03:00",
     "publication_key": "fisioclinex-reabilitacao-tem-dono:069b5812ba7b646a88ddeb1ce411c17ecfc281943ee642fe7cfb0e98667d23df",
     "published_at": null,
-    "status": "eligible"
+    "status": "publishing"
   },
   "story_plan_version": 1,
   "verified": true
