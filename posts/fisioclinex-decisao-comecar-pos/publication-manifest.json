@@ -1,0 +1,102 @@
+{
+  "schema_version": "2.1",
+  "slug": "fisioclinex-decisao-comecar-pos",
+  "post_type": "single_image",
+  "slide_count": 1,
+  "slides": [
+    "fisioclinex-decisao-comecar-pos-slide-01.png"
+  ],
+  "story": {
+    "filename": "fisioclinex-decisao-comecar-pos-story.png",
+    "dimensions": [
+      1080,
+      1920
+    ],
+    "source_cover": "fisioclinex-decisao-comecar-pos-slide-01.png",
+    "source_cover_sha256": "c62ec01540b93f1214ff73df1d2f95bb57c89ce021f3b0566b55c93baff1f0a8",
+    "adapter_version": "cover-recompose-v2",
+    "placement": {
+      "x": 96,
+      "y": 328,
+      "width": 688,
+      "height": 860
+    },
+    "safe_area": {
+      "top": 269,
+      "bottom": 672,
+      "left": 96,
+      "right": 96
+    },
+    "copy_preservation": "whole-cover-proportional",
+    "elements": {
+      "badge": {
+        "text": "NOVO POST",
+        "placement": {
+          "x": 96,
+          "y": 282,
+          "width": 300,
+          "height": 32
+        }
+      },
+      "cta": {
+        "text": "Veja no feed",
+        "placement": {
+          "x": 96,
+          "y": 1208,
+          "width": 280,
+          "height": 40
+        }
+      },
+      "indicator": {
+        "kind": "right-arrow",
+        "placement": {
+          "x": 400,
+          "y": 1216,
+          "width": 32,
+          "height": 24
+        }
+      },
+      "logo": {
+        "variant": "color",
+        "asset": "ID_logos/logo_colorida.png",
+        "sha256": "00e1938640efa577a42c03f957c84aad5e33619e319b43d490c38d5a5b534957",
+        "placement": {
+          "x": 844,
+          "y": 352,
+          "width": 112,
+          "height": 148
+        }
+      }
+    }
+  },
+  "caption_file": "legenda.txt",
+  "approval": {
+    "status": "approved",
+    "copy_sha256": "a71d9dbcb46a35c9b03199ed91fd3e63d0e35ee75a3a1dd953f9da1290410b53",
+    "copy_approved_at": "2026-11-03T19:06:36.978276Z",
+    "final_approved_at": "2026-11-03T19:14:18.175956Z"
+  },
+  "publicable": true,
+  "files": [
+    {
+      "path": "fisioclinex-decisao-comecar-pos-slide-01.png",
+      "role": "slide",
+      "size_bytes": 1707354,
+      "sha256": "c62ec01540b93f1214ff73df1d2f95bb57c89ce021f3b0566b55c93baff1f0a8"
+    },
+    {
+      "path": "fisioclinex-decisao-comecar-pos-story.png",
+      "role": "story",
+      "size_bytes": 662945,
+      "sha256": "6a2322d959f14e0b2b068424543eb29264a89c4e19671761d8f856ea6828b1e5"
+    },
+    {
+      "path": "legenda.txt",
+      "role": "caption",
+      "size_bytes": 969,
+      "sha256": "a4c234909cbcabd824dcb39f7cf8bc4358aeece3e7047f8f64c97d9462d79cdb"
+    }
+  ],
+  "created_at": "2026-11-03T19:14:19Z",
+  "builder_version": "2.1.0"
+}
