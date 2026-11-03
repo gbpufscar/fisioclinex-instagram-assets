@@ -1,0 +1,116 @@
+{
+  "schema_version": "2.1",
+  "slug": "fisioclinex-duvidas-turma-2027",
+  "post_type": "carousel",
+  "slide_count": 3,
+  "slides": [
+    "fisioclinex-duvidas-turma-2027-slide-01.png",
+    "fisioclinex-duvidas-turma-2027-slide-02.png",
+    "fisioclinex-duvidas-turma-2027-slide-03.png"
+  ],
+  "story": {
+    "filename": "fisioclinex-duvidas-turma-2027-story.png",
+    "dimensions": [
+      1080,
+      1920
+    ],
+    "source_cover": "fisioclinex-duvidas-turma-2027-slide-01.png",
+    "source_cover_sha256": "a17f6e16d8015f7ad68cbad9e07a19b6c03d316789d8de9b992da7bf77a20e25",
+    "adapter_version": "cover-recompose-v2",
+    "placement": {
+      "x": 96,
+      "y": 328,
+      "width": 688,
+      "height": 860
+    },
+    "safe_area": {
+      "top": 269,
+      "bottom": 672,
+      "left": 96,
+      "right": 96
+    },
+    "copy_preservation": "whole-cover-proportional",
+    "elements": {
+      "badge": {
+        "text": "NOVO POST",
+        "placement": {
+          "x": 96,
+          "y": 282,
+          "width": 300,
+          "height": 32
+        }
+      },
+      "cta": {
+        "text": "Veja no feed",
+        "placement": {
+          "x": 96,
+          "y": 1208,
+          "width": 280,
+          "height": 40
+        }
+      },
+      "indicator": {
+        "kind": "right-arrow",
+        "placement": {
+          "x": 400,
+          "y": 1216,
+          "width": 32,
+          "height": 24
+        }
+      },
+      "logo": {
+        "variant": "color",
+        "asset": "ID_logos/logo_colorida.png",
+        "sha256": "00e1938640efa577a42c03f957c84aad5e33619e319b43d490c38d5a5b534957",
+        "placement": {
+          "x": 844,
+          "y": 352,
+          "width": 112,
+          "height": 148
+        }
+      }
+    }
+  },
+  "caption_file": "legenda.txt",
+  "approval": {
+    "status": "approved",
+    "copy_sha256": "e11bd31beae0f8e7a58fb9c0df470ebc273e5156d16f4c8635c666a66528014d",
+    "copy_approved_at": "2026-11-03T18:44:36.169580Z",
+    "final_approved_at": "2026-11-03T18:53:40.615324Z"
+  },
+  "publicable": true,
+  "files": [
+    {
+      "path": "fisioclinex-duvidas-turma-2027-slide-01.png",
+      "role": "slide",
+      "size_bytes": 2277724,
+      "sha256": "a17f6e16d8015f7ad68cbad9e07a19b6c03d316789d8de9b992da7bf77a20e25"
+    },
+    {
+      "path": "fisioclinex-duvidas-turma-2027-slide-02.png",
+      "role": "slide",
+      "size_bytes": 1565818,
+      "sha256": "0ef47626cb150e3e8ce974808c84c3d37fbcc56cfb6d650660dde8d20c0c26ba"
+    },
+    {
+      "path": "fisioclinex-duvidas-turma-2027-slide-03.png",
+      "role": "slide",
+      "size_bytes": 1697040,
+      "sha256": "d8579f5021f8eb85e6f33813d5fdc56945fac6eda605da7be5f172e43eaf6db1"
+    },
+    {
+      "path": "fisioclinex-duvidas-turma-2027-story.png",
+      "role": "story",
+      "size_bytes": 853367,
+      "sha256": "542973dc6586c9c0c4f4629f8137d3ef2ca27a4b3764764f6a79c7a04d6fa84c"
+    },
+    {
+      "path": "legenda.txt",
+      "role": "caption",
+      "size_bytes": 985,
+      "sha256": "136418886b2babf4b057173ea7fb44cc41c884344ffb8596b460740d9b8b7781"
+    }
+  ],
+  "created_at": "2026-11-03T18:53:41Z",
+  "builder_version": "2.1.0"
+}
