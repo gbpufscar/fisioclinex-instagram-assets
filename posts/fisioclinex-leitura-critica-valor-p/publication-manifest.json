@@ -1,0 +1,151 @@
+{
+  "schema_version": "2.1",
+  "slug": "fisioclinex-leitura-critica-valor-p",
+  "post_type": "carousel",
+  "slide_count": 8,
+  "slides": [
+    "fisioclinex-leitura-critica-valor-p-slide-01.png",
+    "fisioclinex-leitura-critica-valor-p-slide-02.png",
+    "fisioclinex-leitura-critica-valor-p-slide-03.png",
+    "fisioclinex-leitura-critica-valor-p-slide-04.png",
+    "fisioclinex-leitura-critica-valor-p-slide-05.png",
+    "fisioclinex-leitura-critica-valor-p-slide-06.png",
+    "fisioclinex-leitura-critica-valor-p-slide-07.png",
+    "fisioclinex-leitura-critica-valor-p-slide-08.png"
+  ],
+  "story": {
+    "filename": "fisioclinex-leitura-critica-valor-p-story.png",
+    "dimensions": [
+      1080,
+      1920
+    ],
+    "source_cover": "fisioclinex-leitura-critica-valor-p-slide-01.png",
+    "source_cover_sha256": "d109a40b5c083c04ca9d14d1db22b87d3042dba02515703d77f3f340b2c53305",
+    "adapter_version": "cover-recompose-v2",
+    "placement": {
+      "x": 96,
+      "y": 328,
+      "width": 688,
+      "height": 860
+    },
+    "safe_area": {
+      "top": 269,
+      "bottom": 672,
+      "left": 96,
+      "right": 96
+    },
+    "copy_preservation": "whole-cover-proportional",
+    "elements": {
+      "badge": {
+        "text": "NOVO POST",
+        "placement": {
+          "x": 96,
+          "y": 282,
+          "width": 300,
+          "height": 32
+        }
+      },
+      "cta": {
+        "text": "Veja no feed",
+        "placement": {
+          "x": 96,
+          "y": 1208,
+          "width": 280,
+          "height": 40
+        }
+      },
+      "indicator": {
+        "kind": "right-arrow",
+        "placement": {
+          "x": 400,
+          "y": 1216,
+          "width": 32,
+          "height": 24
+        }
+      },
+      "logo": {
+        "variant": "color",
+        "asset": "ID_logos/logo_colorida.png",
+        "sha256": "00e1938640efa577a42c03f957c84aad5e33619e319b43d490c38d5a5b534957",
+        "placement": {
+          "x": 844,
+          "y": 352,
+          "width": 112,
+          "height": 148
+        }
+      }
+    }
+  },
+  "caption_file": "legenda.txt",
+  "approval": {
+    "status": "approved",
+    "copy_sha256": "f37fac90bc9325260550543114e4c534b560ef70412dabd5ebedf63966aa5d52",
+    "copy_approved_at": "2026-11-04T12:09:38.670319Z",
+    "final_approved_at": "2026-11-04T17:08:32.925432Z"
+  },
+  "publicable": true,
+  "files": [
+    {
+      "path": "fisioclinex-leitura-critica-valor-p-slide-01.png",
+      "role": "slide",
+      "size_bytes": 1094394,
+      "sha256": "d109a40b5c083c04ca9d14d1db22b87d3042dba02515703d77f3f340b2c53305"
+    },
+    {
+      "path": "fisioclinex-leitura-critica-valor-p-slide-02.png",
+      "role": "slide",
+      "size_bytes": 1251083,
+      "sha256": "e00aaa72d46823ead5496472bc2e43b7d7e23924f63a1db58a81422a3718ecde"
+    },
+    {
+      "path": "fisioclinex-leitura-critica-valor-p-slide-03.png",
+      "role": "slide",
+      "size_bytes": 1205728,
+      "sha256": "91f64e83d9abc356c03667fe4c104401449606620ae1277623c92b413afd7727"
+    },
+    {
+      "path": "fisioclinex-leitura-critica-valor-p-slide-04.png",
+      "role": "slide",
+      "size_bytes": 1389616,
+      "sha256": "a3e9ea53ec860940cf5cf5496a5bf6fc1c2bf795978faf18abd10dc4c6d0b93a"
+    },
+    {
+      "path": "fisioclinex-leitura-critica-valor-p-slide-05.png",
+      "role": "slide",
+      "size_bytes": 708796,
+      "sha256": "d3d0ad400d176c111b2a244dd0f43a536cf94c968e2f094e157ad6bd86a4f4d0"
+    },
+    {
+      "path": "fisioclinex-leitura-critica-valor-p-slide-06.png",
+      "role": "slide",
+      "size_bytes": 148621,
+      "sha256": "83dd21b1a6a4b8174347c23026307aeee5ed2313c0179621e10c06402e355b56"
+    },
+    {
+      "path": "fisioclinex-leitura-critica-valor-p-slide-07.png",
+      "role": "slide",
+      "size_bytes": 1399295,
+      "sha256": "8ec4565c58ae5826cdb40a47da30da919658b12ff884d54f6cfe317dbc6eb3c0"
+    },
+    {
+      "path": "fisioclinex-leitura-critica-valor-p-slide-08.png",
+      "role": "slide",
+      "size_bytes": 1094244,
+      "sha256": "14e6d4553bd7928528ec0cb29424f2b4ba35f9e91ec620daf4fe701fcac3c7ca"
+    },
+    {
+      "path": "fisioclinex-leitura-critica-valor-p-story.png",
+      "role": "story",
+      "size_bytes": 575745,
+      "sha256": "98ae795b17acbf8147e91cc828552d05443c2548c44375e70d022308ab9d04a2"
+    },
+    {
+      "path": "legenda.txt",
+      "role": "caption",
+      "size_bytes": 1175,
+      "sha256": "82d77f041d8a6991ae469552438e6c7200b85216b0768b566c126e64465ff874"
+    }
+  ],
+  "created_at": "2026-11-04T17:09:16Z",
+  "builder_version": "2.1.0"
+}

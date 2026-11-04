@@ -1,0 +1,18 @@
+“Deu significativo” ainda deixa perguntas importantes em aberto.
+
+O valor de p não mede o tamanho do benefício. O tamanho do efeito descreve a magnitude, e o intervalo de confiança ajuda a interpretar a incerteza.
+
+O carrossel acompanha uma comparação real entre treinamentos. Na revisão de Blackwell et al., a certeza da evidência para HIIT versus contínuo moderado foi classificada como baixa, por risco de viés e heterogeneidade.
+
+O exemplo serve para ensinar interpretação. Não estabelece uma recomendação atual de modalidade nem um limiar universal de importância para o VO₂pico.
+
+Na prática, pergunte se a população, o comparador, a duração e o desfecho correspondem à sua decisão. Considere também benefícios, danos, viabilidade e preferências.
+
+E lembre: uma diferença média entre grupos não descreve, sozinha, a resposta de cada pessoa.
+
+Salve para consultar na próxima leitura de artigo.
+
+Série Leitura crítica • Parte 1
+Inspiração editorial: Eduardo Oliveira De Souza (@dr.desouzaeo).
+
+Fontes: Blackwell et al., 2018, PMC6133203; ASA, 2016, DOI: 10.1080/00031305.2016.1154108; Cochrane Handbook, cap. 15, versão 6.5, 2024.

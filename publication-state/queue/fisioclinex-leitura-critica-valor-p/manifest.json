@@ -1,0 +1,44 @@
+{
+  "artifact_status": "active",
+  "attempts": 0,
+  "caption_file": "legenda.txt",
+  "content_policy_version": "editorial-v3-1-to-10",
+  "explicit_override": false,
+  "failure": {
+    "occurred_at": null,
+    "phase": null,
+    "requires_human_review": false
+  },
+  "not_before": "2026-11-23T12:00:00-03:00",
+  "override_reason": null,
+  "package_sha256": "d0af5f386c8248a1705505fc96b41de98ef164c8ba4f8c1982d7a624c34e47b7",
+  "planned_at": "2026-11-23T12:00:00-03:00",
+  "priority": 100,
+  "publication": {
+    "asset_commit": null,
+    "media_id": null,
+    "published_at": null,
+    "workflow_run_id": null
+  },
+  "publication_key": "fisioclinex-leitura-critica-valor-p:d0af5f386c8248a1705505fc96b41de98ef164c8ba4f8c1982d7a624c34e47b7",
+  "queued_at": "2026-11-04T17:10:18.715302+00:00",
+  "schema_version": 1,
+  "short_slug": "leitura-critica-valor-p",
+  "slides_count": 8,
+  "slot_id": "2026-11-23T12:00-scientific",
+  "slot_type": "scientific",
+  "slug": "fisioclinex-leitura-critica-valor-p",
+  "status": "queued",
+  "story": {
+    "attempt_count": 0,
+    "container_id": null,
+    "last_attempt_at": null,
+    "last_error": null,
+    "media_id": null,
+    "not_before": "2026-11-23T18:00:00-03:00",
+    "publication_key": "fisioclinex-leitura-critica-valor-p:06c865f2d66ef475f7a3259214e435e1c2675a0887b0993f49d4c5204614bff2",
+    "published_at": null,
+    "status": "pending"
+  },
+  "story_plan_version": 1
+}
