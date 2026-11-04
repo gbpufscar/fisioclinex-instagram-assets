@@ -1,0 +1,130 @@
+{
+  "schema_version": "2.1",
+  "slug": "fisioclinex-alongamento-recuperacao",
+  "post_type": "carousel",
+  "slide_count": 5,
+  "slides": [
+    "fisioclinex-alongamento-recuperacao-slide-01.png",
+    "fisioclinex-alongamento-recuperacao-slide-02.png",
+    "fisioclinex-alongamento-recuperacao-slide-03.png",
+    "fisioclinex-alongamento-recuperacao-slide-04.png",
+    "fisioclinex-alongamento-recuperacao-slide-05.png"
+  ],
+  "story": {
+    "filename": "fisioclinex-alongamento-recuperacao-story.png",
+    "dimensions": [
+      1080,
+      1920
+    ],
+    "source_cover": "fisioclinex-alongamento-recuperacao-slide-01.png",
+    "source_cover_sha256": "b2edc4032319ab57782628d2e155c38a86d0509e103d72fdd13795d070fdc2fe",
+    "adapter_version": "cover-recompose-v2",
+    "placement": {
+      "x": 96,
+      "y": 328,
+      "width": 688,
+      "height": 860
+    },
+    "safe_area": {
+      "top": 269,
+      "bottom": 672,
+      "left": 96,
+      "right": 96
+    },
+    "copy_preservation": "whole-cover-proportional",
+    "elements": {
+      "badge": {
+        "text": "NOVO POST",
+        "placement": {
+          "x": 96,
+          "y": 282,
+          "width": 300,
+          "height": 32
+        }
+      },
+      "cta": {
+        "text": "Veja no feed",
+        "placement": {
+          "x": 96,
+          "y": 1208,
+          "width": 280,
+          "height": 40
+        }
+      },
+      "indicator": {
+        "kind": "right-arrow",
+        "placement": {
+          "x": 400,
+          "y": 1216,
+          "width": 32,
+          "height": 24
+        }
+      },
+      "logo": {
+        "variant": "color",
+        "asset": "ID_logos/logo_colorida.png",
+        "sha256": "00e1938640efa577a42c03f957c84aad5e33619e319b43d490c38d5a5b534957",
+        "placement": {
+          "x": 844,
+          "y": 352,
+          "width": 112,
+          "height": 148
+        }
+      }
+    }
+  },
+  "caption_file": "legenda.txt",
+  "approval": {
+    "status": "approved",
+    "copy_sha256": "a7d7392bbc7e39a89f1458247e261d8c1f8d0b9d16eff20d27bb263ac783a9f8",
+    "copy_approved_at": "2026-11-04T11:56:31.907351Z",
+    "final_approved_at": "2026-11-04T12:10:49.978731Z"
+  },
+  "publicable": true,
+  "files": [
+    {
+      "path": "fisioclinex-alongamento-recuperacao-slide-01.png",
+      "role": "slide",
+      "size_bytes": 542892,
+      "sha256": "b2edc4032319ab57782628d2e155c38a86d0509e103d72fdd13795d070fdc2fe"
+    },
+    {
+      "path": "fisioclinex-alongamento-recuperacao-slide-02.png",
+      "role": "slide",
+      "size_bytes": 131836,
+      "sha256": "26ede48ba5753b41d5cdf15029cd7c4f55225ffe69d5b930661dab25b547bd4a"
+    },
+    {
+      "path": "fisioclinex-alongamento-recuperacao-slide-03.png",
+      "role": "slide",
+      "size_bytes": 102067,
+      "sha256": "c959c46be224a05e9dcb6b355592ffdc18b6a27f1227d8babfb5fa998b8f0fdf"
+    },
+    {
+      "path": "fisioclinex-alongamento-recuperacao-slide-04.png",
+      "role": "slide",
+      "size_bytes": 155240,
+      "sha256": "8eecc285625f9ed9b690014a39b97c993e1f8c43569f8fca480d691246ea1ab0"
+    },
+    {
+      "path": "fisioclinex-alongamento-recuperacao-slide-05.png",
+      "role": "slide",
+      "size_bytes": 128607,
+      "sha256": "6bbb48fd33ad7adfa445f97844584a590dc1c04d3f75baa942a149922d652965"
+    },
+    {
+      "path": "fisioclinex-alongamento-recuperacao-story.png",
+      "role": "story",
+      "size_bytes": 308210,
+      "sha256": "1365c014c9764bb611fc84c9655ded49a0f5546a6da1afba7dd1013d51e945ca"
+    },
+    {
+      "path": "legenda.txt",
+      "role": "caption",
+      "size_bytes": 913,
+      "sha256": "7dd15e59319932bc7680f71365108240812a45763679097bbd13a0720d1e31eb"
+    }
+  ],
+  "created_at": "2026-11-04T12:11:49Z",
+  "builder_version": "2.1.0"
+}
