@@ -7,9 +7,9 @@
   "content_policy_version": "editorial-v3-1-to-10",
   "explicit_override": false,
   "failure": {
-    "occurred_at": null,
-    "phase": null,
-    "requires_human_review": false
+    "occurred_at": "2026-11-04T17:50:22.162669+00:00",
+    "phase": "child_container",
+    "requires_human_review": true
   },
   "not_before": "2026-11-04T12:00:00-03:00",
   "override_reason": null,
@@ -34,7 +34,7 @@
   "slot_type": "scientific",
   "slug": "fisioclinex-vo2max-condicionamento-longevidade",
   "started_at": "2026-11-04T17:50:09.744947+00:00",
-  "status": "publishing",
+  "status": "failed_after_meta",
   "story": {
     "attempt_count": 0,
     "container_id": null,
