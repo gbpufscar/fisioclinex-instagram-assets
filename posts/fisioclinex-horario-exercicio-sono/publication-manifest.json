@@ -1,0 +1,137 @@
+{
+  "schema_version": "2.1",
+  "slug": "fisioclinex-horario-exercicio-sono",
+  "post_type": "carousel",
+  "slide_count": 6,
+  "slides": [
+    "fisioclinex-horario-exercicio-sono-slide-01.png",
+    "fisioclinex-horario-exercicio-sono-slide-02.png",
+    "fisioclinex-horario-exercicio-sono-slide-03.png",
+    "fisioclinex-horario-exercicio-sono-slide-04.png",
+    "fisioclinex-horario-exercicio-sono-slide-05.png",
+    "fisioclinex-horario-exercicio-sono-slide-06.png"
+  ],
+  "story": {
+    "filename": "fisioclinex-horario-exercicio-sono-story.png",
+    "dimensions": [
+      1080,
+      1920
+    ],
+    "source_cover": "fisioclinex-horario-exercicio-sono-slide-01.png",
+    "source_cover_sha256": "27397f988f3e0bce6bac9a3a5a35ab7db4041c5fd24ec39279f093d7deab33dc",
+    "adapter_version": "cover-recompose-v2",
+    "placement": {
+      "x": 96,
+      "y": 328,
+      "width": 688,
+      "height": 860
+    },
+    "safe_area": {
+      "top": 269,
+      "bottom": 672,
+      "left": 96,
+      "right": 96
+    },
+    "copy_preservation": "whole-cover-proportional",
+    "elements": {
+      "badge": {
+        "text": "NOVO POST",
+        "placement": {
+          "x": 96,
+          "y": 282,
+          "width": 300,
+          "height": 32
+        }
+      },
+      "cta": {
+        "text": "Veja no feed",
+        "placement": {
+          "x": 96,
+          "y": 1208,
+          "width": 280,
+          "height": 40
+        }
+      },
+      "indicator": {
+        "kind": "right-arrow",
+        "placement": {
+          "x": 400,
+          "y": 1216,
+          "width": 32,
+          "height": 24
+        }
+      },
+      "logo": {
+        "variant": "white",
+        "asset": "ID_logos/logo_branca.png",
+        "sha256": "b50d37d2b5ea81465625b374fbff24dd921fbb5fc644510a759589ff7f75ec40",
+        "placement": {
+          "x": 844,
+          "y": 352,
+          "width": 112,
+          "height": 160
+        }
+      }
+    }
+  },
+  "caption_file": "legenda.txt",
+  "approval": {
+    "status": "approved",
+    "copy_sha256": "85cad19c2e018532268830ca7a35ea35c3df7d0f1d56552b5e51ed7e0b99d2d5",
+    "copy_approved_at": "2026-11-04T11:45:21.152394Z",
+    "final_approved_at": "2026-11-04T11:59:28.197561Z"
+  },
+  "publicable": true,
+  "files": [
+    {
+      "path": "fisioclinex-horario-exercicio-sono-slide-01.png",
+      "role": "slide",
+      "size_bytes": 1835058,
+      "sha256": "27397f988f3e0bce6bac9a3a5a35ab7db4041c5fd24ec39279f093d7deab33dc"
+    },
+    {
+      "path": "fisioclinex-horario-exercicio-sono-slide-02.png",
+      "role": "slide",
+      "size_bytes": 1501940,
+      "sha256": "c7e890260464317f36c14e42e6da355a016a01c748d97899f83a4da4f7208469"
+    },
+    {
+      "path": "fisioclinex-horario-exercicio-sono-slide-03.png",
+      "role": "slide",
+      "size_bytes": 244088,
+      "sha256": "724f2051feb77622ae0a2ed2fadacd479d34390564abe01677f60a2e69d0fc5e"
+    },
+    {
+      "path": "fisioclinex-horario-exercicio-sono-slide-04.png",
+      "role": "slide",
+      "size_bytes": 1115408,
+      "sha256": "3194ed95916866bf2131cc997e13d22958fc44d55784b85dd13232b25bbd0c29"
+    },
+    {
+      "path": "fisioclinex-horario-exercicio-sono-slide-05.png",
+      "role": "slide",
+      "size_bytes": 1174762,
+      "sha256": "c3bf23ccf359c86f3f6e5c05d59d15e4444f2d9f2990c85dddfa16e1a744002c"
+    },
+    {
+      "path": "fisioclinex-horario-exercicio-sono-slide-06.png",
+      "role": "slide",
+      "size_bytes": 1634511,
+      "sha256": "23025222fb04f192ef509daaa318218d596d4e3e002893abc87be71ab04c3f72"
+    },
+    {
+      "path": "fisioclinex-horario-exercicio-sono-story.png",
+      "role": "story",
+      "size_bytes": 845668,
+      "sha256": "b1381a16b6a7bbb7fdac4b11b184507d0c812e7fd449a9724d335805fa1144ed"
+    },
+    {
+      "path": "legenda.txt",
+      "role": "caption",
+      "size_bytes": 1600,
+      "sha256": "0782312054486d5ce0367e4d7a1ec9f3887d5aa2194957f5b5be3c403c467b83"
+    }
+  ],
+  "created_at": "2026-11-04T12:00:32Z",
+  "builder_version": "2.1.0"
+}
