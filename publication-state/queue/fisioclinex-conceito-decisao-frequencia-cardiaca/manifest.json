@@ -18,8 +18,8 @@
   "priority": 100,
   "publication": {
     "asset_commit": "22f426e45fefdc781911af5590850c9ced6a8654",
-    "media_id": null,
-    "published_at": null,
+    "media_id": "18081848774440588",
+    "published_at": "2026-11-05T18:59:58.532506+00:00",
     "workflow_run_id": "42089387922"
   },
   "publication_key": "fisioclinex-conceito-decisao-frequencia-cardiaca:a285314ef364883c5f74357a68c0ae525482315483a18186f49f14a9e5316dc4",
@@ -34,7 +34,7 @@
   "slot_type": "other",
   "slug": "fisioclinex-conceito-decisao-frequencia-cardiaca",
   "started_at": "2026-11-05T18:59:30.483394+00:00",
-  "status": "publishing",
+  "status": "published",
   "story": {
     "attempt_count": 0,
     "container_id": null,
