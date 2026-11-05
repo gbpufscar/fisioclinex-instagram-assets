@@ -2,7 +2,8 @@ name: FisioClinEx — Publicação agendada da fila
 
 on:
   schedule:
-    - cron: "*/15 * * * *"
+    - cron: "0,30 15 * * 1-5"
+    - cron: "0 16 * * 1-5"
 
 concurrency:
   group: fisioclinex-instagram-production
