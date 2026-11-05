@@ -8,7 +8,7 @@ from .manifest import parse_manifest
 from .meta_client import MetaClientError
 from .publication_state import change_story_state
 from .publication_writeback import append_registry, execution_locked, persist, write_manifest
-from .queue_pages import verify_story_path
+from .story_cover_trial import verified_story_source
 from .registry import read_registry, read_story_registry
 from .shadow_runner import _validate_package
 from .story_state import StoryState
@@ -83,8 +83,7 @@ def publish_story(repository_root, *, short_slug, confirmation, fetcher, meta_cl
                 or (story.attempt_count == 0 and now < initial_story_not_before(manifest.publication.published_at))):
             raise StoryPublicationError("story_barrier")
         _validate_package(root, path, manifest)
-        url = verify_story_path(manifest.slug, root / "posts" / manifest.slug / f"{manifest.slug}-story.png",
-                                fetcher=fetcher)
+        url = verified_story_source(root, manifest, now=now, fetcher=fetcher)
         working = change_story_state(data, StoryState.PUBLISHING, now=now)
         working["story"]["attempt_stage"] = "started"
         _persist(root, path, working, git_runner=git_runner)
