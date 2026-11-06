@@ -10,7 +10,10 @@ SLUG_RE = re.compile(r"^fisioclinex-[a-z0-9]+(?:-[a-z0-9]+)*$")
 FORBIDDEN_SLUGS = frozenset({"publication-package", "final", "output", "post", "temp"})
 PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
 REQUIRED_DIMENSIONS = (1080, 1350); REQUIRED_STORY_DIMENSIONS = (1080, 1920)
-BUILDER_VERSION = "2.1.0"
+VISUAL_SCHEMA_VERSION = "2.2"
+BUILDER_VERSION = "2.2.0"
+PLANNED_STORY_VERSIONS = frozenset({"2.1", VISUAL_SCHEMA_VERSION})
+BUILDER_VERSIONS = {"2.0": "2.0.0", "2.1": "2.1.0", VISUAL_SCHEMA_VERSION: BUILDER_VERSION}
 CAPTION_HARD_LIMIT = 2200
 CAPTION_SAFE_LIMIT = 2000
 CAPTION_HASHTAG_LIMIT = 30
@@ -121,7 +124,10 @@ def validate_publication_package(folder: str | Path, *, expected_slug: str | Non
     slug = validate_slug(expected_slug) if expected_slug is not None else validate_slug(root.name)
     manifest = _load_json(root / "publication-manifest.json")
     required = {"schema_version", "slug", "post_type", "slide_count", "slides", "story", "caption_file", "approval", "publicable", "files", "created_at", "builder_version"}
-    if set(manifest) != required or manifest.get("schema_version") not in {"2.0", "2.1"} or manifest.get("slug") != slug: raise PublicationPackageError("publication-manifest.json inválido ou divergente")
+    version = manifest.get("schema_version")
+    if (set(manifest) != required or not isinstance(version, str)
+            or version not in BUILDER_VERSIONS or manifest.get("slug") != slug):
+        raise PublicationPackageError("publication-manifest.json inválido ou divergente")
     if expected_slug is None and root.name != slug: raise PublicationPackageError("basename do pacote diverge da slug")
     count = manifest.get("slide_count")
     if isinstance(count, bool) or not isinstance(count, int) or count not in range(1, 11): raise PublicationPackageError("quantidade de slides deve estar entre 1 e 10")
@@ -133,16 +139,22 @@ def validate_publication_package(folder: str | Path, *, expected_slug: str | Non
     if not re.fullmatch(r"[0-9a-f]{64}", approval.get("copy_sha256", "")): raise PublicationPackageError("hash da copy inválido")
     if not all(_valid_timestamp(approval.get(key)) for key in ("copy_approved_at", "final_approved_at")): raise PublicationPackageError("datas de aprovação inválidas")
     if manifest.get("publicable") is not True: raise PublicationPackageError("pacote não está publicável")
-    if not _valid_timestamp(manifest.get("created_at")) or manifest.get("builder_version") != ({"2.0": "2.0.0", "2.1": BUILDER_VERSION}[manifest["schema_version"]]): raise PublicationPackageError("metadados do builder inválidos")
+    if not _valid_timestamp(manifest.get("created_at")) or manifest.get("builder_version") != BUILDER_VERSIONS[version]: raise PublicationPackageError("metadados do builder inválidos")
     slides = tuple(root / name for name in names)
     for slide in slides:
         if not slide.is_file() or slide.is_symlink() or png_dimensions(slide) != REQUIRED_DIMENSIONS: raise PublicationPackageError(f"slide ausente, inseguro ou com dimensões inválidas: {slide.name}")
     story_name = f"{slug}-story.png"; story_data = manifest.get("story")
     expected_story = {"filename": story_name, "dimensions": [1080, 1920], "source_cover": names[0], "source_cover_sha256": sha256(slides[0]), "adapter_version": "cover-contain-v1", "placement": {"x": 0, "y": 285, "width": 1080, "height": 1350}}
-    if manifest["schema_version"] == "2.0":
+    if version == "2.0":
         if story_data != expected_story: raise PublicationPackageError("integridade do contrato do Story é inválida")
-    else:
+    elif version == "2.1":
         _validate_recomposed_story(story_data, story_name, names[0], sha256(slides[0]))
+    elif story_data != {
+        "filename": story_name, "dimensions": [1080, 1920],
+        "source_cover": names[0], "source_cover_sha256": sha256(slides[0]),
+        "adapter_version": "approved-story-v1",
+    }:
+        raise PublicationPackageError("contrato do Story aprovado inválido")
     story = root / story_name
     if not story.is_file() or story.is_symlink() or png_dimensions(story) != REQUIRED_STORY_DIMENSIONS: raise PublicationPackageError("asset do Story ausente, inseguro ou com dimensões inválidas")
     caption = root / "legenda.txt"
@@ -160,6 +172,6 @@ def validate_publication_package(folder: str | Path, *, expected_slug: str | Non
         if len(relative.parts) != 1 or relative.is_absolute() or ".." in relative.parts: raise PublicationPackageError("caminho inseguro no manifesto")
         path = root / item["path"]
         if not path.is_file() or path.is_symlink() or path.stat().st_size != item["size_bytes"] or sha256(path) != item["sha256"]: raise PublicationPackageError(f"integridade divergente: {item['path']}")
-    if new_publication and (manifest['schema_version'] != '2.1' or story_data.get('adapter_version') != 'cover-recompose-v2'):
-        raise PublicationPackageError("new publication packages require visual contract 2.1 / cover-recompose-v2")
+    if new_publication and version != VISUAL_SCHEMA_VERSION:
+        raise PublicationPackageError("new publication packages require visual contract 2.2 / approved-story-v1")
     return ValidatedPublicationPackage(root, slug, slides, caption, story, manifest)

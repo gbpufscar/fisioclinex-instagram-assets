@@ -3,14 +3,14 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 import shutil
 
-from publication_package import PublicationPackageError, validate_publication_package
+from publication_package import PLANNED_STORY_VERSIONS, PublicationPackageError, validate_publication_package
 from .fingerprint import fingerprint_package
 
 VISUAL_MANIFEST = 'publication-manifest.json'
 
 
 def requires_visual_manifest(manifest):
-    # S4 planning is emitted only for new visual 2.1 packages. Historical optional
+    # S4 planning is emitted for visual packages with a planned Story. Historical optional
     # S5 Story state does not retroactively acquire this requirement.
     return manifest.story_plan_version == 1
 
@@ -37,7 +37,9 @@ def validate_visual_provenance(root, manifest):
         if caption.is_symlink():
             raise PublicationPackageError('unsafe remote caption')
         shutil.copyfile(caption, package/'legenda.txt')
-        validated = validate_publication_package(package, new_publication=required)
+        validated = validate_publication_package(package)
+        if required and validated.manifest["schema_version"] not in PLANNED_STORY_VERSIONS:
+            raise PublicationPackageError("planned Story requires a compatible visual manifest")
         names = ['legenda.txt', *(p.name for p in validated.slides), validated.story.name]
         if (len(validated.slides) != manifest.slides_count or
                 fingerprint_package(package, names) != manifest.package_sha256):

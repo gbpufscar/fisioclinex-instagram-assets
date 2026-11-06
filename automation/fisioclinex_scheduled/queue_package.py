@@ -16,7 +16,7 @@ from content_policy import (
     ContentPolicyError,
     reject_local_validation_package,
 )
-from publication_package import PublicationPackageError, validate_publication_package
+from publication_package import PLANNED_STORY_VERSIONS, PublicationPackageError, validate_publication_package
 
 
 class QueuePackageError(ValueError):
@@ -120,8 +120,8 @@ def build_manifest(
             }
         )
     if include_story_state is None:
-        include_story_state = package.visual_schema_version == "2.1" and slot is not None
-    if package.visual_schema_version == "2.1" and slot is not None and not include_story_state:
+        include_story_state = package.visual_schema_version in PLANNED_STORY_VERSIONS and slot is not None
+    if package.visual_schema_version in PLANNED_STORY_VERSIONS and slot is not None and not include_story_state:
         raise QueuePackageError("new planned packages require their Story child")
     if include_story_state:
         data["story"] = story_json(StoryPublication(
