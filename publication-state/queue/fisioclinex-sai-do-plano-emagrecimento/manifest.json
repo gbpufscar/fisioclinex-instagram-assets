@@ -18,8 +18,8 @@
   "priority": 100,
   "publication": {
     "asset_commit": "bb98525219eb8414909fd6cf819a443e905fb360",
-    "media_id": null,
-    "published_at": null,
+    "media_id": "17914902660559742",
+    "published_at": "2026-11-06T20:47:56.440129+00:00",
     "workflow_run_id": "42291289681"
   },
   "publication_key": "fisioclinex-sai-do-plano-emagrecimento:a4267517812033435c04431b616e533362a283bfc54ba08afd3265ba74a17719",
@@ -34,7 +34,7 @@
   "slot_type": "scientific",
   "slug": "fisioclinex-sai-do-plano-emagrecimento",
   "started_at": "2026-11-06T20:47:41.832954+00:00",
-  "status": "publishing",
+  "status": "published",
   "story": {
     "attempt_count": 0,
     "container_id": null,
