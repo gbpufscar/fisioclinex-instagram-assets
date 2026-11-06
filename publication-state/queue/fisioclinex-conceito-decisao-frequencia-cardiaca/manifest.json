@@ -37,15 +37,15 @@
   "status": "published",
   "story": {
     "attempt_count": 1,
-    "attempt_stage": "publish_requested",
+    "attempt_stage": "publish_confirmed",
     "container_id": "18139781362653586",
     "last_attempt_at": "2026-11-06T01:17:20.175291+00:00",
     "last_error": null,
-    "media_id": null,
+    "media_id": "18167898055511647",
     "not_before": "2026-11-05T18:00:00-03:00",
     "publication_key": "fisioclinex-conceito-decisao-frequencia-cardiaca:ad87b76a1d1bb42f0fc1f92bbc16eeefa13bf3bad32d73ff2c9f46773f17f417",
-    "published_at": null,
-    "status": "publishing"
+    "published_at": "2026-11-06T01:17:33.434733+00:00",
+    "status": "published"
   },
   "story_plan_version": 1,
   "verified": true
