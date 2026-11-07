@@ -37,15 +37,15 @@
   "status": "published",
   "story": {
     "attempt_count": 1,
-    "attempt_stage": "publish_requested",
+    "attempt_stage": "publish_confirmed",
     "container_id": "18139876489653586",
     "last_attempt_at": "2026-11-07T00:31:59.405217+00:00",
     "last_error": null,
-    "media_id": null,
+    "media_id": "18038687891895009",
     "not_before": "2026-11-06T18:00:00-03:00",
     "publication_key": "fisioclinex-sai-do-plano-emagrecimento:af4a118dcd79a6258fcbf19b0415bedd1b57da9289301f589646c9b9d4cc1db6",
-    "published_at": null,
-    "status": "publishing"
+    "published_at": "2026-11-07T00:32:14.278937+00:00",
+    "status": "published"
   },
   "story_plan_version": 1,
   "verified": true
