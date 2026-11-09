@@ -18,8 +18,8 @@
   "priority": 100,
   "publication": {
     "asset_commit": "c815adddbaf302dac15ed7841f2dde474f3b6043",
-    "media_id": null,
-    "published_at": null,
+    "media_id": "18002881287009822",
+    "published_at": "2026-11-09T23:45:27.352851+00:00",
     "workflow_run_id": "42722876925"
   },
   "publication_key": "fisioclinex-caminhada-novas-ideias:9f8a46d14fefdbdf5fad2998fc3c1bd3fd2abe0793dc52aef06dceeb2aed0ec2",
@@ -34,14 +34,14 @@
   "slot_type": "scientific",
   "slug": "fisioclinex-caminhada-novas-ideias",
   "started_at": "2026-11-09T23:44:55.261686+00:00",
-  "status": "publishing",
+  "status": "published",
   "story": {
     "attempt_count": 0,
     "container_id": null,
     "last_attempt_at": null,
     "last_error": null,
     "media_id": null,
-    "not_before": "2026-11-09T18:00:00-03:00",
+    "not_before": "2026-11-10T02:45:27.352851-03:00",
     "publication_key": "fisioclinex-caminhada-novas-ideias:39d6524170e6ff7fb5cfe6f5255d1051ea0fc9f69799d198cd5d8841049274c2",
     "published_at": null,
     "status": "pending"
