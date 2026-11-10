@@ -18,8 +18,8 @@
   "priority": 100,
   "publication": {
     "asset_commit": "dd92642adc1a0f5de2d514ad0eb8dcb1b0d8d388",
-    "media_id": null,
-    "published_at": null,
+    "media_id": "17946330870366832",
+    "published_at": "2026-11-10T21:15:19.158377+00:00",
     "workflow_run_id": "42903120283"
   },
   "publication_key": "fisioclinex-graduacao-glut4:46cb199a0a5c2ba85559c5dcce841de6feaec7accf6f2304a8820cd42a7c6b6b",
@@ -34,14 +34,14 @@
   "slot_type": "other",
   "slug": "fisioclinex-graduacao-glut4",
   "started_at": "2026-11-10T21:15:06.856090+00:00",
-  "status": "publishing",
+  "status": "published",
   "story": {
     "attempt_count": 0,
     "container_id": null,
     "last_attempt_at": null,
     "last_error": null,
     "media_id": null,
-    "not_before": "2026-11-10T18:00:00-03:00",
+    "not_before": "2026-11-11T00:15:19.158377-03:00",
     "publication_key": "fisioclinex-graduacao-glut4:b1e8a1c47eee63db2f512f52523dcd94b4ca578eb167b02c8bad595e4f039190",
     "published_at": null,
     "status": "pending"
