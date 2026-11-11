@@ -1,7 +1,9 @@
 {
   "artifact_status": "active",
-  "attempts": 0,
+  "attempts": 1,
   "caption_file": "legenda.txt",
+  "carousel_container_id": null,
+  "child_container_ids": [],
   "content_policy_version": "editorial-v3-1-to-10",
   "explicit_override": false,
   "failure": {
@@ -15,20 +17,24 @@
   "planned_at": "2026-11-11T12:00:00-03:00",
   "priority": 100,
   "publication": {
-    "asset_commit": null,
+    "asset_commit": "bbe23980db28629d0eb654f7b9176b6ab2261dae",
     "media_id": null,
     "published_at": null,
-    "workflow_run_id": null
+    "workflow_run_id": "43106363228"
   },
   "publication_key": "fisioclinex-desinformacao-saude-lupa:292780b0193a7d82380521df6f8a2310527207fd7228b2e9c954d92c1404752d",
+  "publication_run_id": "df26492b-a979-468c-93d8-aeb239d9d94d",
+  "pushed": true,
   "queued_at": "2026-11-02T17:39:44.750463+00:00",
   "schema_version": 1,
   "short_slug": "desinformacao-saude-lupa",
+  "single_image_container_id": null,
   "slides_count": 6,
   "slot_id": "2026-11-11T12:00-scientific",
   "slot_type": "scientific",
   "slug": "fisioclinex-desinformacao-saude-lupa",
-  "status": "queued",
+  "started_at": "2026-11-11T21:49:27.797857+00:00",
+  "status": "publishing",
   "story": {
     "attempt_count": 0,
     "container_id": null,
@@ -40,5 +46,6 @@
     "published_at": null,
     "status": "pending"
   },
-  "story_plan_version": 1
+  "story_plan_version": 1,
+  "verified": true
 }
