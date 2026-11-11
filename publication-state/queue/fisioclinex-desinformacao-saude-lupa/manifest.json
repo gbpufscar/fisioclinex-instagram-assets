@@ -18,8 +18,8 @@
   "priority": 100,
   "publication": {
     "asset_commit": "bbe23980db28629d0eb654f7b9176b6ab2261dae",
-    "media_id": null,
-    "published_at": null,
+    "media_id": "17883021015627939",
+    "published_at": "2026-11-11T21:50:39.820951+00:00",
     "workflow_run_id": "43106363228"
   },
   "publication_key": "fisioclinex-desinformacao-saude-lupa:292780b0193a7d82380521df6f8a2310527207fd7228b2e9c954d92c1404752d",
@@ -34,14 +34,14 @@
   "slot_type": "scientific",
   "slug": "fisioclinex-desinformacao-saude-lupa",
   "started_at": "2026-11-11T21:49:27.797857+00:00",
-  "status": "publishing",
+  "status": "published",
   "story": {
     "attempt_count": 0,
     "container_id": null,
     "last_attempt_at": null,
     "last_error": null,
     "media_id": null,
-    "not_before": "2026-11-11T18:00:00-03:00",
+    "not_before": "2026-11-12T00:50:39.820951-03:00",
     "publication_key": "fisioclinex-desinformacao-saude-lupa:57aa1bdca0312691ea9bf492c9defd8da71de03705f53c49dd7955b1b074b1b1",
     "published_at": null,
     "status": "pending"
