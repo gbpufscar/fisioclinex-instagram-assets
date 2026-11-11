@@ -36,15 +36,16 @@
   "started_at": "2026-11-09T23:44:55.261686+00:00",
   "status": "published",
   "story": {
-    "attempt_count": 0,
+    "attempt_count": 1,
+    "attempt_stage": "started",
     "container_id": null,
-    "last_attempt_at": null,
+    "last_attempt_at": "2026-11-11T00:57:26.843461+00:00",
     "last_error": null,
     "media_id": null,
     "not_before": "2026-11-10T02:45:27.352851-03:00",
     "publication_key": "fisioclinex-caminhada-novas-ideias:39d6524170e6ff7fb5cfe6f5255d1051ea0fc9f69799d198cd5d8841049274c2",
     "published_at": null,
-    "status": "eligible"
+    "status": "publishing"
   },
   "story_plan_version": 1,
   "verified": true
