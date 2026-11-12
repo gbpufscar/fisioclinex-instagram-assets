@@ -37,15 +37,15 @@
   "status": "published",
   "story": {
     "attempt_count": 1,
-    "attempt_stage": "publish_requested",
+    "attempt_stage": "publish_confirmed",
     "container_id": "18140394235653586",
     "last_attempt_at": "2026-11-12T02:04:25.345251+00:00",
     "last_error": null,
-    "media_id": null,
+    "media_id": "18101265191543319",
     "not_before": "2026-11-11T00:15:19.158377-03:00",
     "publication_key": "fisioclinex-graduacao-glut4:b1e8a1c47eee63db2f512f52523dcd94b4ca578eb167b02c8bad595e4f039190",
-    "published_at": null,
-    "status": "publishing"
+    "published_at": "2026-11-12T02:04:37.638206+00:00",
+    "status": "published"
   },
   "story_plan_version": 1,
   "verified": true
