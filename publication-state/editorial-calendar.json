@@ -395,10 +395,10 @@
       "planned_at": "2026-11-12T12:00:00-03:00",
       "timezone": "America/Sao_Paulo",
       "slot_type": "other",
-      "status": "queued",
+      "status": "published",
       "assigned_slug": "fisioclinex-paradoxo-do-fisio",
       "queued_at": "2026-11-03T11:21:37.868522+00:00",
-      "actual_published_at": null,
+      "actual_published_at": "2026-11-12T21:48:41.951564+00:00",
       "explicit_override": false,
       "override_reason": null,
       "derived_story": true

@@ -18,8 +18,8 @@
   "priority": 100,
   "publication": {
     "asset_commit": "997447025e12ebf86c6423182a07d51f60ce23fa",
-    "media_id": null,
-    "published_at": null,
+    "media_id": "18178373116454909",
+    "published_at": "2026-11-12T21:48:41.951564+00:00",
     "workflow_run_id": "43313616239"
   },
   "publication_key": "fisioclinex-paradoxo-do-fisio:99371ae9f0ba06d2162b0ad712d2794d4b7604db78fa5fb81c8881ec06261e95",
@@ -34,14 +34,14 @@
   "slot_type": "other",
   "slug": "fisioclinex-paradoxo-do-fisio",
   "started_at": "2026-11-12T21:47:29.708072+00:00",
-  "status": "publishing",
+  "status": "published",
   "story": {
     "attempt_count": 0,
     "container_id": null,
     "last_attempt_at": null,
     "last_error": null,
     "media_id": null,
-    "not_before": "2026-11-12T18:00:00-03:00",
+    "not_before": "2026-11-13T00:48:41.951564-03:00",
     "publication_key": "fisioclinex-paradoxo-do-fisio:2592ba5a229b0d1d0e7f28f99c8a8a0c48c77fdcc91bbb9672e529cc0787efac",
     "published_at": null,
     "status": "pending"
