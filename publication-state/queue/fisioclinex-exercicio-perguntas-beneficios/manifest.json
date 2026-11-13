@@ -18,8 +18,8 @@
   "priority": 100,
   "publication": {
     "asset_commit": "a5ced4ffab4435ac147bcd90bd39fd39f55da401",
-    "media_id": null,
-    "published_at": null,
+    "media_id": "18108582206279100",
+    "published_at": "2026-11-13T21:21:30.073878+00:00",
     "workflow_run_id": "43509863010"
   },
   "publication_key": "fisioclinex-exercicio-perguntas-beneficios:928d7aff5f7c8f239d2c47164b8f76a8442e30f91f9f655bafc64bc4297823e1",
@@ -34,14 +34,14 @@
   "slot_type": "scientific",
   "slug": "fisioclinex-exercicio-perguntas-beneficios",
   "started_at": "2026-11-13T21:21:12.770377+00:00",
-  "status": "publishing",
+  "status": "published",
   "story": {
     "attempt_count": 0,
     "container_id": null,
     "last_attempt_at": null,
     "last_error": null,
     "media_id": null,
-    "not_before": "2026-11-13T18:00:00-03:00",
+    "not_before": "2026-11-14T00:21:30.073878-03:00",
     "publication_key": "fisioclinex-exercicio-perguntas-beneficios:97d87fc65733f5b9e634ce45240dd71c9bd45af3f457ef50168d865ca68b64cb",
     "published_at": null,
     "status": "pending"
