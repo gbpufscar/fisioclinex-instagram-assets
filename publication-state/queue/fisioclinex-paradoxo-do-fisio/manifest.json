@@ -37,15 +37,15 @@
   "status": "published",
   "story": {
     "attempt_count": 1,
-    "attempt_stage": "publish_requested",
+    "attempt_stage": "publish_confirmed",
     "container_id": "18140593858653586",
     "last_attempt_at": "2026-11-14T01:09:04.403590+00:00",
     "last_error": null,
-    "media_id": null,
+    "media_id": "18085528433719925",
     "not_before": "2026-11-13T00:48:41.951564-03:00",
     "publication_key": "fisioclinex-paradoxo-do-fisio:2592ba5a229b0d1d0e7f28f99c8a8a0c48c77fdcc91bbb9672e529cc0787efac",
-    "published_at": null,
-    "status": "publishing"
+    "published_at": "2026-11-14T01:09:17.159104+00:00",
+    "status": "published"
   },
   "story_plan_version": 1,
   "verified": true
