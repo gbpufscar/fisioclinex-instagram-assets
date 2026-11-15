@@ -36,15 +36,16 @@
   "started_at": "2026-11-13T21:21:12.770377+00:00",
   "status": "published",
   "story": {
-    "attempt_count": 0,
+    "attempt_count": 1,
+    "attempt_stage": "started",
     "container_id": null,
-    "last_attempt_at": null,
+    "last_attempt_at": "2026-11-15T00:34:12.325590+00:00",
     "last_error": null,
     "media_id": null,
     "not_before": "2026-11-14T00:21:30.073878-03:00",
     "publication_key": "fisioclinex-exercicio-perguntas-beneficios:97d87fc65733f5b9e634ce45240dd71c9bd45af3f457ef50168d865ca68b64cb",
     "published_at": null,
-    "status": "eligible"
+    "status": "publishing"
   },
   "story_plan_version": 1,
   "verified": true
