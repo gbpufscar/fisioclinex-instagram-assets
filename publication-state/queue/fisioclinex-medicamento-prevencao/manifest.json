@@ -1,7 +1,9 @@
 {
   "artifact_status": "active",
-  "attempts": 0,
+  "attempts": 1,
   "caption_file": "legenda.txt",
+  "carousel_container_id": null,
+  "child_container_ids": [],
   "content_policy_version": "editorial-v3-1-to-10",
   "explicit_override": false,
   "failure": {
@@ -15,20 +17,24 @@
   "planned_at": "2026-11-16T12:00:00-03:00",
   "priority": 100,
   "publication": {
-    "asset_commit": null,
+    "asset_commit": "170523eb9f6fa24e84f68670504fcf7c7d2a3046",
     "media_id": null,
     "published_at": null,
-    "workflow_run_id": null
+    "workflow_run_id": "43981446251"
   },
   "publication_key": "fisioclinex-medicamento-prevencao:251935e6e0730a0b387f5867a896c5457e27d48ee7ed8e2e31219be9d9e7fcc1",
+  "publication_run_id": "580d63ba-2b4b-4cd7-a05f-55dd8c0bba75",
+  "pushed": true,
   "queued_at": "2026-11-02T18:15:13.264398+00:00",
   "schema_version": 1,
   "short_slug": "medicamento-prevencao",
+  "single_image_container_id": null,
   "slides_count": 1,
   "slot_id": "2026-11-16T12:00-scientific",
   "slot_type": "scientific",
   "slug": "fisioclinex-medicamento-prevencao",
-  "status": "queued",
+  "started_at": "2026-11-16T23:41:51.552618+00:00",
+  "status": "publishing",
   "story": {
     "attempt_count": 0,
     "container_id": null,
@@ -40,5 +46,6 @@
     "published_at": null,
     "status": "pending"
   },
-  "story_plan_version": 1
+  "story_plan_version": 1,
+  "verified": true
 }
