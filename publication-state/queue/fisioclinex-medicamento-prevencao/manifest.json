@@ -18,8 +18,8 @@
   "priority": 100,
   "publication": {
     "asset_commit": "170523eb9f6fa24e84f68670504fcf7c7d2a3046",
-    "media_id": null,
-    "published_at": null,
+    "media_id": "18039625064656019",
+    "published_at": "2026-11-16T23:42:07.336063+00:00",
     "workflow_run_id": "43981446251"
   },
   "publication_key": "fisioclinex-medicamento-prevencao:251935e6e0730a0b387f5867a896c5457e27d48ee7ed8e2e31219be9d9e7fcc1",
@@ -34,14 +34,14 @@
   "slot_type": "scientific",
   "slug": "fisioclinex-medicamento-prevencao",
   "started_at": "2026-11-16T23:41:51.552618+00:00",
-  "status": "publishing",
+  "status": "published",
   "story": {
     "attempt_count": 0,
     "container_id": null,
     "last_attempt_at": null,
     "last_error": null,
     "media_id": null,
-    "not_before": "2026-11-16T18:00:00-03:00",
+    "not_before": "2026-11-17T02:42:07.336063-03:00",
     "publication_key": "fisioclinex-medicamento-prevencao:e694e2126a4b9ae0ee31f16377f5c7e4fb963168d4418be47616d3ee5b27bc81",
     "published_at": null,
     "status": "pending"
