@@ -18,8 +18,8 @@
   "priority": 100,
   "publication": {
     "asset_commit": "acc9c5d41f0c3e39e9a07c4e186a5534ef4ff706",
-    "media_id": null,
-    "published_at": null,
+    "media_id": "18108646901196498",
+    "published_at": "2026-11-17T22:50:01.194884+00:00",
     "workflow_run_id": "44193715775"
   },
   "publication_key": "fisioclinex-pergunta-aula-pos:7cfecef972070a105eed4504f72880664af1e7888daa835ddd962417c492f587",
@@ -34,14 +34,14 @@
   "slot_type": "other",
   "slug": "fisioclinex-pergunta-aula-pos",
   "started_at": "2026-11-17T22:49:42.860272+00:00",
-  "status": "publishing",
+  "status": "published",
   "story": {
     "attempt_count": 0,
     "container_id": null,
     "last_attempt_at": null,
     "last_error": null,
     "media_id": null,
-    "not_before": "2026-11-17T18:00:00-03:00",
+    "not_before": "2026-11-18T01:50:01.194884-03:00",
     "publication_key": "fisioclinex-pergunta-aula-pos:e11b862600efe98e0dc76eb455a51cdcdd205b7668b58b4dea6400b965744134",
     "published_at": null,
     "status": "pending"
