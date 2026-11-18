@@ -100,7 +100,7 @@ def _required(name: str) -> str:
 def _validate_github_context() -> None:
     if (
         _required("GITHUB_REPOSITORY") != "gbpufscar/fisioclinex-instagram-assets"
-        or _required("GITHUB_EVENT_NAME") != "schedule"
+        or _required("GITHUB_EVENT_NAME") not in {"schedule", "workflow_dispatch"}
         or _required("GITHUB_REF") != "refs/heads/main"
         or not re.fullmatch(r"[0-9a-f]{40}", _required("GITHUB_SHA"))
         or not _required("GITHUB_RUN_ID").isdigit()
