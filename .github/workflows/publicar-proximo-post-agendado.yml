@@ -1,14 +1,11 @@
 name: FisioClinEx — Publicação agendada da fila
-
 on:
   schedule:
-    - cron: "0,30 15 * * 1-5"
-    - cron: "0 16 * * 1-5"
-
+    - cron: "3,13,23 15 * * 1-5"
+  workflow_dispatch:
 concurrency:
   group: fisioclinex-instagram-production
   cancel-in-progress: false
-
 jobs:
   prepare:
     permissions:
@@ -30,7 +27,6 @@ jobs:
         env:
           PYTHONDONTWRITEBYTECODE: "1"
         run: python automation/run_scheduled_publication.py --prepare
-
   publish:
     needs: prepare
     if: needs.prepare.outputs.selected == 'true'
