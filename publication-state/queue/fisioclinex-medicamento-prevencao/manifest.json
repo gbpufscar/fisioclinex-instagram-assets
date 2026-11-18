@@ -36,15 +36,16 @@
   "started_at": "2026-11-16T23:41:51.552618+00:00",
   "status": "published",
   "story": {
-    "attempt_count": 0,
+    "attempt_count": 1,
+    "attempt_stage": "started",
     "container_id": null,
-    "last_attempt_at": null,
+    "last_attempt_at": "2026-11-18T02:40:34.172264+00:00",
     "last_error": null,
     "media_id": null,
     "not_before": "2026-11-17T02:42:07.336063-03:00",
     "publication_key": "fisioclinex-medicamento-prevencao:e694e2126a4b9ae0ee31f16377f5c7e4fb963168d4418be47616d3ee5b27bc81",
     "published_at": null,
-    "status": "eligible"
+    "status": "publishing"
   },
   "story_plan_version": 1,
   "verified": true
