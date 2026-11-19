@@ -36,15 +36,16 @@
   "started_at": "2026-11-17T22:49:42.860272+00:00",
   "status": "published",
   "story": {
-    "attempt_count": 0,
+    "attempt_count": 1,
+    "attempt_stage": "started",
     "container_id": null,
-    "last_attempt_at": null,
+    "last_attempt_at": "2026-11-19T02:09:09.833170+00:00",
     "last_error": null,
     "media_id": null,
     "not_before": "2026-11-18T01:50:01.194884-03:00",
     "publication_key": "fisioclinex-pergunta-aula-pos:e11b862600efe98e0dc76eb455a51cdcdd205b7668b58b4dea6400b965744134",
     "published_at": null,
-    "status": "eligible"
+    "status": "publishing"
   },
   "story_plan_version": 1,
   "verified": true
