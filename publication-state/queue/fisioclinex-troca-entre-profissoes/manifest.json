@@ -18,8 +18,8 @@
   "priority": 100,
   "publication": {
     "asset_commit": "862da6075e6249f55fda9bfbddfb895e195ddd0d",
-    "media_id": null,
-    "published_at": null,
+    "media_id": "18132463495877453",
+    "published_at": "2026-11-19T22:39:09.975831+00:00",
     "workflow_run_id": "44630483461"
   },
   "publication_key": "fisioclinex-troca-entre-profissoes:3883c397b2e6a85281f9622eb441111aae55bcc5ac7019cb5aaaba153dc07005",
@@ -34,14 +34,14 @@
   "slot_type": "other",
   "slug": "fisioclinex-troca-entre-profissoes",
   "started_at": "2026-11-19T22:38:38.826493+00:00",
-  "status": "publishing",
+  "status": "published",
   "story": {
     "attempt_count": 0,
     "container_id": null,
     "last_attempt_at": null,
     "last_error": null,
     "media_id": null,
-    "not_before": "2026-11-19T18:00:00-03:00",
+    "not_before": "2026-11-20T01:39:09.975831-03:00",
     "publication_key": "fisioclinex-troca-entre-profissoes:1c5ef65add8b61e67e37ea97c1a85c69fa7e87f2ba00ddbc1c6b1348a1a95404",
     "published_at": null,
     "status": "pending"
