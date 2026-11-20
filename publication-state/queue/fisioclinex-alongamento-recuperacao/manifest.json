@@ -1,7 +1,9 @@
 {
   "artifact_status": "active",
-  "attempts": 0,
+  "attempts": 1,
   "caption_file": "legenda.txt",
+  "carousel_container_id": null,
+  "child_container_ids": [],
   "content_policy_version": "editorial-v3-1-to-10",
   "explicit_override": false,
   "failure": {
@@ -15,20 +17,24 @@
   "planned_at": "2026-11-20T12:00:00-03:00",
   "priority": 100,
   "publication": {
-    "asset_commit": null,
+    "asset_commit": "14d1500e6631a2f751ef63261f3e4855f2a54f17",
     "media_id": null,
     "published_at": null,
-    "workflow_run_id": null
+    "workflow_run_id": "44827178777"
   },
   "publication_key": "fisioclinex-alongamento-recuperacao:1396da3046c0961ad4ea6f8c8c2774ec4a2ac2da2f099da27cb57354fe7e2872",
+  "publication_run_id": "5f49d0c5-2e71-4e89-8aa8-5d0692367327",
+  "pushed": true,
   "queued_at": "2026-11-04T12:13:02.166064+00:00",
   "schema_version": 1,
   "short_slug": "alongamento-recuperacao",
+  "single_image_container_id": null,
   "slides_count": 5,
   "slot_id": "2026-11-20T12:00-scientific",
   "slot_type": "scientific",
   "slug": "fisioclinex-alongamento-recuperacao",
-  "status": "queued",
+  "started_at": "2026-11-20T22:14:07.908205+00:00",
+  "status": "publishing",
   "story": {
     "attempt_count": 0,
     "container_id": null,
@@ -40,5 +46,6 @@
     "published_at": null,
     "status": "pending"
   },
-  "story_plan_version": 1
+  "story_plan_version": 1,
+  "verified": true
 }
