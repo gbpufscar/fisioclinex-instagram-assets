@@ -18,8 +18,8 @@
   "priority": 100,
   "publication": {
     "asset_commit": "14d1500e6631a2f751ef63261f3e4855f2a54f17",
-    "media_id": null,
-    "published_at": null,
+    "media_id": "17982094028924929",
+    "published_at": "2026-11-20T22:15:08.640065+00:00",
     "workflow_run_id": "44827178777"
   },
   "publication_key": "fisioclinex-alongamento-recuperacao:1396da3046c0961ad4ea6f8c8c2774ec4a2ac2da2f099da27cb57354fe7e2872",
@@ -34,14 +34,14 @@
   "slot_type": "scientific",
   "slug": "fisioclinex-alongamento-recuperacao",
   "started_at": "2026-11-20T22:14:07.908205+00:00",
-  "status": "publishing",
+  "status": "published",
   "story": {
     "attempt_count": 0,
     "container_id": null,
     "last_attempt_at": null,
     "last_error": null,
     "media_id": null,
-    "not_before": "2026-11-20T18:00:00-03:00",
+    "not_before": "2026-11-21T01:15:08.640065-03:00",
     "publication_key": "fisioclinex-alongamento-recuperacao:add2cd5e1d8211ad4c5d57f16e04e0266eef04be6f5492963b711c7a3c8318da",
     "published_at": null,
     "status": "pending"
