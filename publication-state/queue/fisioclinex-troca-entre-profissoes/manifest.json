@@ -37,8 +37,8 @@
   "status": "published",
   "story": {
     "attempt_count": 1,
-    "attempt_stage": "started",
-    "container_id": null,
+    "attempt_stage": "container_created",
+    "container_id": "18141261136653586",
     "last_attempt_at": "2026-11-21T01:53:45.776368+00:00",
     "last_error": null,
     "media_id": null,
