@@ -37,15 +37,15 @@
   "status": "published",
   "story": {
     "attempt_count": 1,
-    "attempt_stage": "publish_requested",
+    "attempt_stage": "publish_confirmed",
     "container_id": "18141261136653586",
     "last_attempt_at": "2026-11-21T01:53:45.776368+00:00",
     "last_error": null,
-    "media_id": null,
+    "media_id": "18181160056390411",
     "not_before": "2026-11-20T01:39:09.975831-03:00",
     "publication_key": "fisioclinex-troca-entre-profissoes:1c5ef65add8b61e67e37ea97c1a85c69fa7e87f2ba00ddbc1c6b1348a1a95404",
-    "published_at": null,
-    "status": "publishing"
+    "published_at": "2026-11-21T01:54:00.478253+00:00",
+    "status": "published"
   },
   "story_plan_version": 1,
   "verified": true
