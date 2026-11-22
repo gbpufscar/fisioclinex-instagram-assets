@@ -37,15 +37,15 @@
   "status": "published",
   "story": {
     "attempt_count": 1,
-    "attempt_stage": "publish_requested",
+    "attempt_stage": "publish_confirmed",
     "container_id": "18141335158653586",
     "last_attempt_at": "2026-11-22T00:49:09.935348+00:00",
     "last_error": null,
-    "media_id": null,
+    "media_id": "17958617292273473",
     "not_before": "2026-11-21T01:15:08.640065-03:00",
     "publication_key": "fisioclinex-alongamento-recuperacao:add2cd5e1d8211ad4c5d57f16e04e0266eef04be6f5492963b711c7a3c8318da",
-    "published_at": null,
-    "status": "publishing"
+    "published_at": "2026-11-22T00:49:22.288254+00:00",
+    "status": "published"
   },
   "story_plan_version": 1,
   "verified": true
