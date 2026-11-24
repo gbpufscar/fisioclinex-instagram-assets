@@ -18,8 +18,8 @@
   "priority": 100,
   "publication": {
     "asset_commit": "a2813988d166c7b5c6b5c2893b69edefd3a45c93",
-    "media_id": null,
-    "published_at": null,
+    "media_id": "18170912494490275",
+    "published_at": "2026-11-24T02:10:31.504867+00:00",
     "workflow_run_id": "45310130652"
   },
   "publication_key": "fisioclinex-leitura-critica-valor-p:d0af5f386c8248a1705505fc96b41de98ef164c8ba4f8c1982d7a624c34e47b7",
@@ -34,14 +34,14 @@
   "slot_type": "scientific",
   "slug": "fisioclinex-leitura-critica-valor-p",
   "started_at": "2026-11-24T02:08:53.715512+00:00",
-  "status": "publishing",
+  "status": "published",
   "story": {
     "attempt_count": 0,
     "container_id": null,
     "last_attempt_at": null,
     "last_error": null,
     "media_id": null,
-    "not_before": "2026-11-23T18:00:00-03:00",
+    "not_before": "2026-11-24T05:10:31.504867-03:00",
     "publication_key": "fisioclinex-leitura-critica-valor-p:06c865f2d66ef475f7a3259214e435e1c2675a0887b0993f49d4c5204614bff2",
     "published_at": null,
     "status": "pending"
