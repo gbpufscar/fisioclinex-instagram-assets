@@ -1,7 +1,9 @@
 {
   "artifact_status": "active",
-  "attempts": 0,
+  "attempts": 1,
   "caption_file": "legenda.txt",
+  "carousel_container_id": null,
+  "child_container_ids": [],
   "content_policy_version": "editorial-v3-1-to-10",
   "explicit_override": false,
   "failure": {
@@ -15,20 +17,24 @@
   "planned_at": "2026-11-24T12:00:00-03:00",
   "priority": 100,
   "publication": {
-    "asset_commit": null,
+    "asset_commit": "7482b73a7a8c09a9850448da3029b920b7208777",
     "media_id": null,
     "published_at": null,
-    "workflow_run_id": null
+    "workflow_run_id": "45513404105"
   },
   "publication_key": "fisioclinex-pos-vale-a-pena:d3459f3446373ec9dcaaacc1be1245dec65b7c6fa50360803eebff38eba3e580",
+  "publication_run_id": "f9a4ba90-f2af-47ce-a7c6-4961cefeb9ef",
+  "pushed": true,
   "queued_at": "2026-11-03T18:12:15.031824+00:00",
   "schema_version": 1,
   "short_slug": "pos-vale-a-pena",
+  "single_image_container_id": null,
   "slides_count": 4,
   "slot_id": "2026-11-24T12:00-other",
   "slot_type": "other",
   "slug": "fisioclinex-pos-vale-a-pena",
-  "status": "queued",
+  "started_at": "2026-11-24T23:51:42.385798+00:00",
+  "status": "publishing",
   "story": {
     "attempt_count": 0,
     "container_id": null,
@@ -40,5 +46,6 @@
     "published_at": null,
     "status": "pending"
   },
-  "story_plan_version": 1
+  "story_plan_version": 1,
+  "verified": true
 }
