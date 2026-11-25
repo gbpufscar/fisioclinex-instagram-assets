@@ -37,15 +37,15 @@
   "status": "published",
   "story": {
     "attempt_count": 1,
-    "attempt_stage": "publish_requested",
+    "attempt_stage": "publish_confirmed",
     "container_id": "18141583744653586",
     "last_attempt_at": "2026-11-25T03:53:33.434007+00:00",
     "last_error": null,
-    "media_id": null,
+    "media_id": "18142256929730753",
     "not_before": "2026-11-24T05:10:31.504867-03:00",
     "publication_key": "fisioclinex-leitura-critica-valor-p:06c865f2d66ef475f7a3259214e435e1c2675a0887b0993f49d4c5204614bff2",
-    "published_at": null,
-    "status": "publishing"
+    "published_at": "2026-11-25T03:53:45.531653+00:00",
+    "status": "published"
   },
   "story_plan_version": 1,
   "verified": true
