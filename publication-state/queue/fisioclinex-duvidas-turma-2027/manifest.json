@@ -18,8 +18,8 @@
   "priority": 100,
   "publication": {
     "asset_commit": "3e5d79e86d85533c67192e6945e57823fa0b6fb8",
-    "media_id": null,
-    "published_at": null,
+    "media_id": "18004972356041783",
+    "published_at": "2026-11-26T23:45:24.917398+00:00",
     "workflow_run_id": "45912691992"
   },
   "publication_key": "fisioclinex-duvidas-turma-2027:83c35373250a25acd8c21466eaced134874a85858bc7afa700a5ad857c47c30b",
@@ -34,14 +34,14 @@
   "slot_type": "other",
   "slug": "fisioclinex-duvidas-turma-2027",
   "started_at": "2026-11-26T23:44:47.080361+00:00",
-  "status": "publishing",
+  "status": "published",
   "story": {
     "attempt_count": 0,
     "container_id": null,
     "last_attempt_at": null,
     "last_error": null,
     "media_id": null,
-    "not_before": "2026-11-26T18:00:00-03:00",
+    "not_before": "2026-11-27T02:45:24.917398-03:00",
     "publication_key": "fisioclinex-duvidas-turma-2027:042106433f9c543aa7099d3300842a0aed851799a014b30cb344cab089f3f09d",
     "published_at": null,
     "status": "pending"
