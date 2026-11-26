@@ -1,7 +1,9 @@
 {
   "artifact_status": "active",
-  "attempts": 0,
+  "attempts": 1,
   "caption_file": "legenda.txt",
+  "carousel_container_id": null,
+  "child_container_ids": [],
   "content_policy_version": "editorial-v3-1-to-10",
   "explicit_override": false,
   "failure": {
@@ -15,20 +17,24 @@
   "planned_at": "2026-11-26T12:00:00-03:00",
   "priority": 100,
   "publication": {
-    "asset_commit": null,
+    "asset_commit": "3e5d79e86d85533c67192e6945e57823fa0b6fb8",
     "media_id": null,
     "published_at": null,
-    "workflow_run_id": null
+    "workflow_run_id": "45912691992"
   },
   "publication_key": "fisioclinex-duvidas-turma-2027:83c35373250a25acd8c21466eaced134874a85858bc7afa700a5ad857c47c30b",
+  "publication_run_id": "3c22df5e-6f52-4eb3-a389-5bd8e25cdc9e",
+  "pushed": true,
   "queued_at": "2026-11-03T18:55:42.786992+00:00",
   "schema_version": 1,
   "short_slug": "duvidas-turma-2027",
+  "single_image_container_id": null,
   "slides_count": 3,
   "slot_id": "2026-11-26T12:00-other",
   "slot_type": "other",
   "slug": "fisioclinex-duvidas-turma-2027",
-  "status": "queued",
+  "started_at": "2026-11-26T23:44:47.080361+00:00",
+  "status": "publishing",
   "story": {
     "attempt_count": 0,
     "container_id": null,
@@ -40,5 +46,6 @@
     "published_at": null,
     "status": "pending"
   },
-  "story_plan_version": 1
+  "story_plan_version": 1,
+  "verified": true
 }
