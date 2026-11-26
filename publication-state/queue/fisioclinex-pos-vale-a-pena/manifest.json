@@ -37,15 +37,15 @@
   "status": "published",
   "story": {
     "attempt_count": 1,
-    "attempt_stage": "publish_requested",
+    "attempt_stage": "publish_confirmed",
     "container_id": "18141667900653586",
     "last_attempt_at": "2026-11-26T03:19:25.405500+00:00",
     "last_error": null,
-    "media_id": null,
+    "media_id": "18131096335860441",
     "not_before": "2026-11-25T02:52:21.437587-03:00",
     "publication_key": "fisioclinex-pos-vale-a-pena:f9392c456ba55ce951ce0eeb3f9ca609439a07d61ca49c211cb1272db803c32a",
-    "published_at": null,
-    "status": "publishing"
+    "published_at": "2026-11-26T03:19:39.038825+00:00",
+    "status": "published"
   },
   "story_plan_version": 1,
   "verified": true
