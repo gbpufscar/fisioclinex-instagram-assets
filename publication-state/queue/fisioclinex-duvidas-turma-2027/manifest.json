@@ -37,15 +37,15 @@
   "status": "published",
   "story": {
     "attempt_count": 1,
-    "attempt_stage": "publish_requested",
+    "attempt_stage": "publish_confirmed",
     "container_id": "18141829711653586",
     "last_attempt_at": "2026-11-28T03:00:25.551148+00:00",
     "last_error": null,
-    "media_id": null,
+    "media_id": "18016914134990507",
     "not_before": "2026-11-27T02:45:24.917398-03:00",
     "publication_key": "fisioclinex-duvidas-turma-2027:042106433f9c543aa7099d3300842a0aed851799a014b30cb344cab089f3f09d",
-    "published_at": null,
-    "status": "publishing"
+    "published_at": "2026-11-28T03:00:41.966198+00:00",
+    "status": "published"
   },
   "story_plan_version": 1,
   "verified": true
